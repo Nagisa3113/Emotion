@@ -9,13 +9,16 @@ a rouge-like card game
  - 基本卡牌属性,两种卡牌“怒气”、“治愈”
  - 基本卡牌效果,造成伤害和回血
  - 简单的敌人AI:随机打出一张牌
+ - 操作方式:AD选择牌,K打出,打出后当前手牌置空,需要再次选择,J结束自己的回合,AI随机出牌,然后又是自己的回合
  - 待完成
  	- 更多的卡牌
  	- Buff效果
  	- 道具效果
  	- UI 
  - UML
+ 
   ![](https://raw.githubusercontent.com/Nagisa3113/Emotion/master/Emotion.jpg)
  	
  - 效果图
+ 
  ![](https://raw.githubusercontent.com/Nagisa3113/Emotion/master/inspector.png) 
