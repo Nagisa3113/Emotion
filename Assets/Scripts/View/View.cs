@@ -20,11 +20,12 @@ public class View : MonoBehaviour
     public bool isPause=false;
 	public Sprite[] pauseSprite;
     
-    Player player = Player.GetInstance();
+    Player player ;
     Enemy enemy ;
     public void Start()
     {
-         enemy = GetComponent<BattleController>().GetEnemy();
+        enemy = GetComponent<BattleController>().GetEnemy();
+        player = Player.GetInstance();
     }
 
     public void Update()
@@ -34,7 +35,7 @@ public class View : MonoBehaviour
 
         expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
         expenseOfEnemy. text = enemy .GetCardManager.ExpenseCurrent.ToString();
-
+        print(enemy.GetHP);
         handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
         handcardsOfEnemy. text = enemy. GetCardManager.CardsNum.ToString();
 

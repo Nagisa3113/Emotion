@@ -55,7 +55,7 @@ public class BattleController : MonoBehaviour
     [Header("回合阶段")]
     public RoundStatus roundStatus;
 
-    public void Start()
+    public void Awake()
     {
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
@@ -108,6 +108,7 @@ public class BattleController : MonoBehaviour
             case RoundTurn.PlayerRound:
 
                 player.GetCard();
+                player.GetCardManager.ExpenseReset();
 
                 //player.BuffReduceLayer();
 
@@ -211,8 +212,7 @@ public class BattleController : MonoBehaviour
         ChangeRoundStatus(RoundStatus.RoundEnd);
     }
 
-    
-     public Enemy GetEnemy()
+    public Enemy GetEnemy()
     {
         return enemy;
     }
@@ -256,9 +256,5 @@ public class BattleController : MonoBehaviour
         }
     }
 }
-
-
-
-
 
 

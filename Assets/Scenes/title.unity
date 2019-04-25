@@ -1330,8 +1330,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1528461318}
-  - component: {fileID: 1528461317}
   - component: {fileID: 1528461319}
+  - component: {fileID: 1528461317}
   m_Layer: 0
   m_Name: viewAndController
   m_TagString: Untagged
