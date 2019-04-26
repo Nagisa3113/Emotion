@@ -81,7 +81,7 @@ public class Card
         {
             this.name = "Anger";
             this.color = CardColor.Red;
-            this.cost = 2;
+            this.cost = 0;
             this.effect = new DamageEffect(EffectType.Damage, 10);
         }
 

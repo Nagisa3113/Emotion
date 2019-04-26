@@ -60,6 +60,7 @@ public class BattleController : MonoBehaviour
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
+        RoundBegin();
     }
 
     public void Update()

@@ -100,7 +100,7 @@ public class CardManager
         if (dir == 1)
         {
             currentCardIndex = currentCardIndex + 1 >= cards.Count ?
-                cards.Count - 1 : currentCardIndex + 1;
+            cards.Count - 1 : currentCardIndex + 1;
         }
         else if (dir == -1)
         {
@@ -147,6 +147,10 @@ public class CardManager
 
         for (int i = 0; i < num; i++)
         {
+            if(CardsNum == numMax)
+            {
+                break;
+            }
 
             int j = Random.Range(0, 2);
             switch (j)
@@ -210,6 +214,28 @@ public class CardManager
             }
         }
         return num;
+    }
+   
+     //获取此时手中的所有牌用于显示
+    public List<Card> GetCards()
+    {
+        return cards;
+    }
+
+    public int CardIndex
+    {
+        get
+        {
+            return currentCardIndex;
+        }
+    }
+
+    public Card CurrentCard
+    {
+        get
+        {
+            return currentCard;
+        }
     }
 
 }
