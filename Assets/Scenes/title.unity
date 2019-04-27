@@ -223,6 +223,105 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &79827540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79827542}
+  - component: {fileID: 79827541}
+  m_Layer: 0
+  m_Name: Battle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &79827541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79827540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020fc3860a2da46a88aff7ee2434d3b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player:
+    hpCurrent: 200
+    hpMax: 200
+    cardManager:
+      currentCard:
+        name: Empty
+      currentCardIndex: 0
+      cards: []
+      expenseCurrent: 3
+  enemy:
+    hpCurrent: 0
+    hpMax: 0
+    cardManager:
+      currentCard:
+        name: Empty
+      currentCardIndex: 0
+      cards: []
+      expenseCurrent: 3
+  cardLibrary:
+    cards: []
+  cardDiscard:
+    cards: []
+  roundTurn: 0
+  roundNum: 0
+  battleStatus: 0
+  roundStatus: 0
+--- !u!4 &79827542
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79827540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4899309, y: -1.1727912, z: -0.4716797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &80895694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 80895695}
+  m_Layer: 0
+  m_Name: EnemyCards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &80895695
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80895694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4899309, y: -1.1727912, z: -0.4716797}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &102140894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,10 +1542,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1528461318}
-  - component: {fileID: 1528461319}
   - component: {fileID: 1528461317}
   m_Layer: 0
-  m_Name: viewAndController
+  m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1481,6 +1579,8 @@ MonoBehaviour:
   deskCards:
   - {fileID: 2140036030908945626, guid: fd1f331c1955274489600d214fbfe115, type: 3}
   - {fileID: 4509820740018954804, guid: 130b70da955da9a46b8ad27d0635f7a2, type: 3}
+  backCard: {fileID: 5124731335155706269, guid: be423ae880fc90849a3a06a92236ed67,
+    type: 3}
 --- !u!4 &1528461318
 Transform:
   m_ObjectHideFlags: 0
@@ -1495,44 +1595,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1528461319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1528461316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020fc3860a2da46a88aff7ee2434d3b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player:
-    hpCurrent: 200
-    hpMax: 200
-    cardManager:
-      currentCard:
-        name: Empty
-      currentCardIndex: 0
-      cards: []
-      expenseCurrent: 3
-  enemy:
-    hpCurrent: 0
-    hpMax: 0
-    cardManager:
-      currentCard:
-        name: Empty
-      currentCardIndex: 0
-      cards: []
-      expenseCurrent: 3
-  cardLibrary:
-    cards: []
-  cardDiscard:
-    cards: []
-  roundTurn: 0
-  roundNum: 0
-  battleStatus: 0
-  roundStatus: 0
 --- !u!1 &1606872475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,6 +2002,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793079021}
   m_CullTransparentMesh: 0
+--- !u!1 &1814300764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1814300765}
+  m_Layer: 0
+  m_Name: CardTombs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1814300765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814300764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.1000004, y: -3, z: -0.02999973}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1837419063
 GameObject:
   m_ObjectHideFlags: 0

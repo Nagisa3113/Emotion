@@ -25,14 +25,20 @@ a rouge-like card game
 
 
 4/26 lvskiller修改
-    在Cardmanager中加入了CurrentInde和CurrentCard方法，获得当前突出的卡牌和索引
-                   加入了GetCards方法，获得当前手牌。
-    在view中实现了ShowCard（不完整，tedbu'nen）不能发生变化，暂时未想到好的显示卡牌的方法），实现了select的显示，可以随着AD显示。
-    修复了敌人可以无限手牌的效果
-    修复了玩家第一回合开始不能抽牌
-    完成ShowCard的一个显示
-    显示血量（这个我觉得不适合view里视图来写，但是硬写也可以）
-    暂未实现卷轴效果
+     >*  在Cardmanager中加入了CurrentInde和CurrentCard方法，获得当前突出的卡牌和索引
+     -               加入了GetCards方法，获得当前手牌。
+    - 在view中实现了ShowCard（不完整，tedbu'nen）不能发生变化，暂时未想到好的显示卡牌的方法），实       - 现了select的显示，可以随着AD显示。
+    - 修复了敌人可以无限手牌的效果
+    - 修复了玩家第一回合开始不能抽牌
+    - 完成ShowCard的一个显示
+    - 显示血量（这个我觉得不适合view里视图来写，但是硬写也可以）
+    - 暂未实现卷轴效果
+
+4/27 lvskiller修改
+     >* 都是在view里修改，加入了一个卷牌的效果，然后打完牌将牌显示在中间
+     - 把敌人的牌显示了一下，不知道怎么去显示敌人出牌的情况，暂定
+     - 添加了暂停的效果 
+     - 修了一下selectCard的bug
     
     
                 

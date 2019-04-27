@@ -184,6 +184,7 @@ public class CardManager
             cards.Remove(currentCard);
 
             currentCard = emptyCard;
+            currentCardIndex = -1;
         }
     }
 

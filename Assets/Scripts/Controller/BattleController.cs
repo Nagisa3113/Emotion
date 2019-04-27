@@ -8,6 +8,7 @@ public enum BattleStatus
     Batttling,
     PlayerWin,
     PlayerLose,
+    PlayerPause,
 }
 
 public enum RoundStatus
@@ -65,7 +66,11 @@ public class BattleController : MonoBehaviour
 
     public void Update()
     {
-        if (battleStatus == BattleStatus.Batttling)
+        if (battleStatus == BattleStatus.PlayerPause)
+        {
+
+        }
+        else if (battleStatus == BattleStatus.Batttling)
         {
             Rounding();
         }
