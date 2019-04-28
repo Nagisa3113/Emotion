@@ -1,5 +1,5 @@
-﻿# Emotion
-a rouge-like card game
+# Emotion
+a rogue-like card game
 
 ## 4/26 修改
  - ardmanager中加入了CurrentInde和CurrentCard方法，获得当前突出的卡牌和索引
