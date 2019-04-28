@@ -253,16 +253,22 @@ public class View : MonoBehaviour
         Vector3 intervalClose = new Vector3(0.1f,0,-0.01f);
         Vector3 intervalFar = new Vector3(0.7f,0, -0.01f);
         Vector3 intervalLarge =new Vector3(1.2f,0,-0.01f);
+         Vector3 intervalVeryLarge =new Vector3(1.8f,0,-0.01f);
         Vector3 position = new Vector3(2f,-3f,0);
 		GameObject playerCards = GameObject.Find("PlayerCards");
         int childCount = playerCards.transform.childCount;
 		
         for (int i = 0; i < childCount; i++)
 		{
-            if (i == currentIndex-1 || i == currentIndex)
+            if (i == currentIndex-1 )
             {
                 playerCards.transform.GetChild(i).gameObject.transform.position = position;
                 position += intervalLarge;
+            }
+            else if (i == currentIndex) 
+            {
+                playerCards.transform.GetChild(i).gameObject.transform.position = position;
+                position += intervalVeryLarge; 
             }
             else if(i-currentIndex < 3 && i-currentIndex >-3)
             {
