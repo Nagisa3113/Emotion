@@ -25,6 +25,18 @@ public class Role
         }
     }
 
+    public int GetHPMax
+    {
+        get
+        {
+            return hpMax;
+        }
+        set
+        {
+            hpMax = value ;
+        }
+    }
+
     //护甲
     protected int armor;
     public int GetArmor
@@ -96,3 +108,6 @@ public class Role
 
 }
 
+
+
+ 
