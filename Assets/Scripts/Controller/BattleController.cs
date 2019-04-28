@@ -8,6 +8,7 @@ public enum BattleStatus
     Batttling,
     PlayerWin,
     PlayerLose,
+    PlayerPause,
 }
 
 public enum RoundStatus
@@ -55,16 +56,21 @@ public class BattleController : MonoBehaviour
     [Header("回合阶段")]
     public RoundStatus roundStatus;
 
-    public void Start()
+    public void Awake()
     {
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
+        RoundBegin();
     }
 
     public void Update()
     {
-        if (battleStatus == BattleStatus.Batttling)
+        if (battleStatus == BattleStatus.PlayerPause)
+        {
+
+        }
+        else if (battleStatus == BattleStatus.Batttling)
         {
             Rounding();
         }
@@ -108,6 +114,7 @@ public class BattleController : MonoBehaviour
             case RoundTurn.PlayerRound:
 
                 player.GetCard();
+                player.GetCardManager.ExpenseReset();
 
                 //player.BuffReduceLayer();
 
@@ -209,6 +216,11 @@ public class BattleController : MonoBehaviour
     {
         enemy.PutCard(player);
         ChangeRoundStatus(RoundStatus.RoundEnd);
+    }
+
+    public Enemy GetEnemy()
+    {
+        return enemy;
     }
 
 

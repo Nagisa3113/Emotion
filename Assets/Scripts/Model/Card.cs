@@ -12,6 +12,13 @@ public enum CardColor
     Yellow,
 }
 
+/*
+   存放牌的图片，建议写一个方法去获得gameobject的名字，然后直接赋予给card。 
+   由于可能要改成鼠标操作，所以也可以专门写一个牌的脚本。
+   以牌为核心来执行。 --lvkiller 4/25
+*/
+//public GameObject[] images;
+
 [System.Serializable]
 public class Card
 { 
@@ -70,7 +77,7 @@ public class Card
     public Card(string name)
     {
 
-        if(name.Equals("Anger"))
+        if (name.Equals("Anger"))
         {
             this.name = "Anger";
             this.color = CardColor.Red;
@@ -78,7 +85,7 @@ public class Card
             this.effect = new DamageEffect(EffectType.Damage, 10);
         }
 
-        else if(name.Equals("Heal"))
+        else if (name.Equals("Heal"))
         {
             this.name = "Heal";
             this.color = CardColor.Green;
