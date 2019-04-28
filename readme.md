@@ -1,5 +1,5 @@
-﻿# Emotion
-a rouge-like card game
+# Emotion
+a rogue-like card game
 
 
 ## 4.24
