@@ -29,7 +29,8 @@ public class Enemy : Role
 
     public override void PutCard(Role target)
     {
-        cardManager.PutCardRandom(this, target);
+        //cardManager.PutCardRandom(this, target);
+        cardManager.EnemyAI(this,target);
     }
 
 

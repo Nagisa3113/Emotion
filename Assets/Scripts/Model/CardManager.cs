@@ -43,6 +43,34 @@ public class CardManager
         }
     }
 
+    bool changeViewShow;           //是否改变view里牌的显示
+    public bool ChangeViewShow
+    {
+        get
+        {
+            return changeViewShow;
+        }
+        set
+        {
+            changeViewShow = value;
+        }
+
+    }
+
+    bool changeViewSelect;           //是否改变select的显示
+    public bool ChangeViewSelect
+    {
+        get
+        {
+            return changeViewSelect;
+        }
+        set
+        {
+            changeViewSelect = value;
+        }
+
+    }
+
     int bonus;
 
     int numMax;//牌组数量上限
@@ -75,6 +103,9 @@ public class CardManager
         numMax = 15;
         expenseMax = 3;
         expenseCurrent = expenseMax;
+
+        changeViewSelect = true ;
+        changeViewShow = true;
     }
 
     public void ExpenseReset()
@@ -97,10 +128,24 @@ public class CardManager
     {
         if (cards.Count == 0) return;
 
-        if (dir == 1)
+        if (dir == 1)                           //为实现卷轴效果改变手牌的顺序
         {
-            currentCardIndex = currentCardIndex + 1 >= cards.Count ?
-            cards.Count - 1 : currentCardIndex + 1;
+            if (currentCardIndex + 1 >= cards.Count)
+            {
+                currentCardIndex = cards.Count-1;
+                Card temp =cards[0];
+                for (int i=1;i<cards.Count;i++)
+                {
+                    cards[i-1] = cards[i];
+                }
+                cards[cards.Count-1] = temp;
+                changeViewShow = true;
+            }
+
+            else
+            {
+                currentCardIndex = currentCardIndex + 1;
+            }
         }
         else if (dir == -1)
         {
@@ -109,6 +154,8 @@ public class CardManager
         }
 
         currentCard = cards[currentCardIndex];
+
+        changeViewSelect = true;
 
     }
 
@@ -138,6 +185,7 @@ public class CardManager
             }
 
         }
+        changeViewShow = true;
     }
 
 
@@ -185,11 +233,12 @@ public class CardManager
 
             currentCard = emptyCard;
             currentCardIndex = -1;
+            changeViewShow = true;
         }
     }
 
 
-    //随机打出当前牌,暂用于敌人
+   /*  //随机打出当前牌,暂用于敌人
     public void PutCardRandom(Role self, Role target)
     {
         int i = Random.Range(0, cards.Count);
@@ -201,6 +250,33 @@ public class CardManager
         cards.Remove(currentCard);
 
         currentCard = emptyCard;
+    } */
+
+    public void EnemyAI(Role self, Role target)
+    {
+        if (cards.Count > 0)
+        {
+            int rankLeast = -10;
+            int index = -1;
+            for (int i =0;i<cards.Count;i++)
+            {
+                if (cards[i].GetRank > rankLeast && expenseCurrent >= cards[i].GetCost)
+                {
+                rankLeast=cards[i].GetRank;
+                index = i; 
+                }
+            }
+
+            if (index != -1)
+            {
+                currentCard = cards[index];
+
+                currentCard.GetEffect.Process(self, target);
+
+                cards.Remove(currentCard);
+            }
+        }
+    
     }
 
 

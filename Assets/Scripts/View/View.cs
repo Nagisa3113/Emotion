@@ -33,10 +33,9 @@ public class View : MonoBehaviour
     //此时选中牌在cardLibrary里的索引
     int currentIndex;
 
-    int lastPlayerCardsNum;
     int lastEnemyCardsNum;
     
-    Card lastCard;   //上一次选中牌在cardLibrary里的牌
+    Card lastCard;          //上一次选中牌在cardLibrary里的牌
 
     bool flagOfPutCard;    //是否显示出的牌，因为这是在
 
@@ -45,12 +44,11 @@ public class View : MonoBehaviour
     {
         enemy =  GameObject.Find("Battle").GetComponent<BattleController>().GetEnemy();
         player = Player.GetInstance();
-
+       
         lastIndex = -1;
         lastCard = new Card();
         currentIndex = player.GetCardManager.CardIndex;
 
-        lastPlayerCardsNum = player.GetCardManager.CardsNum;
         lastEnemyCardsNum  = enemy .GetCardManager.CardsNum;
 
         ShowPlayerCards();
@@ -61,8 +59,8 @@ public class View : MonoBehaviour
     public void Update()
     {   
         /*显示各种参数 */
-        healthOfPlayer.fillAmount =  player.GetHP/(float)player.GetHPMax-0.1f;
-        healthOfEnemy.fillAmount  =  enemy.GetHP/(float)enemy.GetHPMax-0.1f;
+        healthOfPlayer.fillAmount =  player.GetHP/(float)player.GetHPMax;
+        healthOfEnemy.fillAmount  =  enemy.GetHP/(float)enemy.GetHPMax;
 
         expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
         expenseOfEnemy. text = enemy .GetCardManager.ExpenseCurrent.ToString();
@@ -72,14 +70,17 @@ public class View : MonoBehaviour
        
 
         /*显示玩家和敌人的手牌和每次手牌数变化时更新手牌 */
-        if (player.GetCardManager.CardsNum != lastPlayerCardsNum)
+        if (player.GetCardManager.ChangeViewShow)
         {
             DestoryPlayerCards();
             ShowPlayerCards();
             lastIndex = -1;
-            lastPlayerCardsNum = player.GetCardManager.CardsNum;
             flagOfPutCard = true;
+            player.GetCardManager.ChangeViewShow = false;
+           
+
         }
+
         if(enemy.GetCardManager.CardsNum != lastEnemyCardsNum)
         {
             DestoryEnemyCards();
@@ -88,8 +89,7 @@ public class View : MonoBehaviour
         }
 
         
-        //当CardIndex发生改变时，调用SelectCard(),并更新上次选中的索引和牌
-        if (lastIndex != player.GetCardManager.CardIndex && player.GetCardManager.CardIndex != -1)
+        if (player.GetCardManager.ChangeViewSelect && player.GetCardManager.CardIndex != -1)
         {
             currentIndex = player.GetCardManager.CardIndex;
             SelectedPlayerCard();
@@ -129,11 +129,11 @@ public class View : MonoBehaviour
     //显示手牌里的牌
     void ShowPlayerCards()
 	{
+         
 
         int i = 0;
         Vector3 interval = new Vector3(0.3f,0,-0.01f);
-        Vector3 startPosition = new Vector3(4f,-3f,0);
-        startPosition -= player.GetCardManager.CardsNum/2*interval;
+        Vector3 startPosition = new Vector3(3f,-3f,0);
 		GameObject playerCard = GameObject.Find("PlayerCards");
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
 		foreach (var card in player.GetCardManager.GetCards())
@@ -148,7 +148,7 @@ public class View : MonoBehaviour
                 }
             }
 
-			GameObject itemGo = Instantiate(temp,startPosition+interval*i, Quaternion.identity);
+			GameObject itemGo = Instantiate(temp,startPosition + interval*i, Quaternion.identity);
 			itemGo.transform.SetParent(playerCard.transform);
             i++;
 		}    
@@ -169,8 +169,7 @@ public class View : MonoBehaviour
 
         int i = 0;
         Vector3 interval = new Vector3(0.4f,0,-0.01f);
-        Vector3 startPosition = new Vector3(-4f,3f,0);
-        startPosition -= player.GetCardManager.CardsNum/2*interval;
+        Vector3 startPosition = new Vector3(-5f,3f,0);
 		GameObject enemyCards = GameObject.Find("EnemyCards");
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
@@ -196,12 +195,12 @@ public class View : MonoBehaviour
     //实现上一次选中牌恢复原状，现在选中牌放大
     void SelectedPlayerCard()
     {
-        SrollPlayerShow();
+        //SrollPlayerShow();
         GameObject playerCard = GameObject.Find("PlayerCards");
         //现在选中在视图的牌
         GameObject selectedCard = null;
         //上次选中在视图的牌
-        GameObject laseSelectedCard = null;
+        GameObject lastSelectedCard = null;
         //手牌
         GameObject deskCard = null;
         //放大的桌面牌
@@ -212,11 +211,11 @@ public class View : MonoBehaviour
         Card currentCard = player.GetCardManager.CurrentCard;
 
 
-        if(lastIndex != -1)
+        if(lastIndex != -1 && lastIndex != currentIndex)
         {
                 
-            laseSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
-            lastSelectedPosition=new Vector3(0,0,laseSelectedCard.transform.position.z);
+            lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
+            lastSelectedPosition=new Vector3(0,0,lastSelectedCard.transform.position.z);
             foreach (var prefab in handCards)
             {
                 if (lastCard.GetName == prefab.name)
@@ -226,7 +225,7 @@ public class View : MonoBehaviour
                 }
             }
 
-            laseSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
+        lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
         }
 
         selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
@@ -247,42 +246,6 @@ public class View : MonoBehaviour
         
     }
 
-     //将牌卷起来
-    void SrollPlayerShow()
-    {
-        Vector3 intervalClose = new Vector3(0.1f,0,-0.01f);
-        Vector3 intervalFar = new Vector3(0.7f,0, -0.01f);
-        Vector3 intervalLarge =new Vector3(1.2f,0,-0.01f);
-         Vector3 intervalVeryLarge =new Vector3(1.8f,0,-0.01f);
-        Vector3 position = new Vector3(2f,-3f,0);
-		GameObject playerCards = GameObject.Find("PlayerCards");
-        int childCount = playerCards.transform.childCount;
-		
-        for (int i = 0; i < childCount; i++)
-		{
-            if (i == currentIndex-1 )
-            {
-                playerCards.transform.GetChild(i).gameObject.transform.position = position;
-                position += intervalLarge;
-            }
-            else if (i == currentIndex) 
-            {
-                playerCards.transform.GetChild(i).gameObject.transform.position = position;
-                position += intervalVeryLarge; 
-            }
-            else if(i-currentIndex < 3 && i-currentIndex >-3)
-            {
-                playerCards.transform.GetChild(i).gameObject.transform.position = position  ;
-                position += intervalFar;
-            }
-            else
-            {
-                playerCards.transform.GetChild(i).gameObject.transform.position = position  ;
-                position += intervalClose;
-            }
-			
-		}	 
-    }
 
     //显示出过的牌
     void ShowPlayerPutCard()

@@ -44,6 +44,14 @@ public class Card
             return cost;
         }
     }
+    int rank;               //出牌优先级
+    public int GetRank
+    {
+        get
+        {
+            return rank;
+        }
+    }
 
     public CardColor GetColor
     {
@@ -83,6 +91,7 @@ public class Card
             this.color = CardColor.Red;
             this.cost = 0;
             this.effect = new DamageEffect(EffectType.Damage, 10);
+            this.rank=8;
         }
 
         else if (name.Equals("Heal"))
@@ -91,6 +100,7 @@ public class Card
             this.color = CardColor.Green;
             this.cost = 1;
             this.effect = new HealEffect(EffectType.Heal, 40);
+            this.rank=7;
         }
     }
 
