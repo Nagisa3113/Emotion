@@ -59,10 +59,25 @@ public class CardLibrary
     }
 
 
-    public Card GetCard()
+    public Card PutAllCard(CardName cardName,Role self,Role target)
     {
+
+        foreach (Card card in cards)
+        {
+            if (card.GetName == cardName)
+            {
+                EffectProcess.TakeEffect(card.GetName, self, target);
+                CardDiscard.GetInstance().AddCard(card);
+                cards.Remove(card);
+            }
+        }
         return null;
     }
+
+
+
+
+
 
     public Card GetRandomCard()
     {

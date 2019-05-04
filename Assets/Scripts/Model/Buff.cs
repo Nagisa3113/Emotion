@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public enum BuffType
@@ -14,7 +15,12 @@ public enum BuffType
     Mainia,//躁动
 
     Vengeance,//报复
-    Comfort//安慰
+    Comfort,//安慰
+
+
+
+    PutCard,
+
 }
 
 
@@ -62,34 +68,38 @@ public class Buff
     }
 
 
-    public virtual void Process(Role role)
+    public virtual void Process(System.Object sender, BuffManager.BuffEventArgs e)
     {
 
     }
 
-    public virtual void ReProcess(Role role)
+    public virtual void ReProcess(System.Object sender, BuffManager.BuffEventArgs e)
     {
 
     }
 
 }
 
-
-
-public class BuffDizzy:Buff
+public class Buff1:Buff
 {
-    public BuffDizzy() : base(BuffType.Dizzy, 1)
+
+    public override void Process(System.Object sender, BuffManager.BuffEventArgs e)
     {
+        Role self = (Role)sender;
+        self.GetCardManager.GetCard(CardName.AngerFire);
 
     }
 
-    public override void Process(Role role)
+}
+
+public class Buff2:Buff
+{
+
+    public override void Process(System.Object sender, BuffManager.BuffEventArgs e)
     {
-        role.GetCardManager.CanAddCard = false;
+        Role self = (Role)sender;
+        self.GetHP += 10;
+
     }
 
-    public override void ReProcess(Role role)
-    {
-        role.GetCardManager.CanAddCard = true;
-    }
 }

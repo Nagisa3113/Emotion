@@ -117,7 +117,15 @@ public class CardManager
 
     public void AddCards(Card card)
     {
-        this.cards.Add(card);
+        if (CardsNum < numMax)
+        {
+            this.cards.Add(card);
+        }
+    }
+
+    public void GetCard(CardName cardName)
+    {
+        AddCards(new Card(cardName));
     }
 
 
@@ -167,6 +175,43 @@ public class CardManager
     }
 
 
+    public void PutCard(CardName cardName, Role self, Role target)
+    {
+        if (expenseCurrent >= currentCard.GetCost)
+        {
+            expenseCurrent -= currentCard.GetCost;
+            foreach(Card card in cards)
+            {
+                if (card.GetName == cardName)
+                {
+                    EffectProcess.TakeEffect(card.GetName, self, target);
+                    CardDiscard.GetInstance().AddCard(card);
+                    cards.Remove(card);
+                    break;
+                }
+            }
+
+        }
+    }
+
+    public void PutAllCard(CardName cardName, Role self, Role target)
+    {
+        if (expenseCurrent >= currentCard.GetCost)
+        {
+            expenseCurrent -= currentCard.GetCost;
+            foreach (Card card in cards)
+            {
+                if (card.GetName == cardName)
+                {
+                    EffectProcess.TakeEffect(card.GetName, self, target);
+                    CardDiscard.GetInstance().AddCard(card);
+                    cards.Remove(card);
+                }
+            }
+
+        }
+    }
+
     //打出当前牌
     public void PutCard(Role self, Role target)
     {
@@ -176,9 +221,9 @@ public class CardManager
         {
             expenseCurrent -= currentCard.GetCost;
            
-            currentCard.GetEffect.Process(self, target);
+            //currentCard.GetEffect.Process(self, target);
 
-            //EffectProcess.TakeEffect(currentCard.GetName, self, target);
+            EffectProcess.TakeEffect(currentCard.GetName, self, target);
       
             CardDiscard.GetInstance().AddCard(currentCard);
       

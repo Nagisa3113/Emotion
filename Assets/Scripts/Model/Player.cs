@@ -51,6 +51,7 @@ public class Player : Role
     public override void PutCard(Role target)
     {
         cardManager.PutCard(this, target);
+        buffManager.OnCheckPutCard();
     }
 
 

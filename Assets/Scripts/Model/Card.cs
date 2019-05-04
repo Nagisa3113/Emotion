@@ -14,10 +14,16 @@ public enum CardColor
 
 public enum CardName
 {
-    Empty,
+    Empty,//
     Anger,
     AngerFire,
     NoNameFire,
+
+    Vent,//
+    Incite,//
+    Revenge,
+
+
     Heal,
 }
 
@@ -100,7 +106,6 @@ public class Card
             case CardName.Anger:
                 this.color = CardColor.Red;
                 this.cost = 0;
-
                 break;
 
             case CardName.AngerFire:
@@ -112,6 +117,24 @@ public class Card
                 this.color = CardColor.Red;
                 this.cost = 0;
                 break;
+
+            case CardName.Vent:
+                this.color = CardColor.Red;
+                this.cost = 4;
+                break;
+
+            case CardName.Incite:
+                this.color = CardColor.Red;
+                this.cost = 1;
+                break;
+
+            case CardName.Revenge:
+                this.color = CardColor.Red;
+                this.cost = 2;
+                break;
+
+         
+
 
             case CardName.Heal:
                 this.color = CardColor.Green;

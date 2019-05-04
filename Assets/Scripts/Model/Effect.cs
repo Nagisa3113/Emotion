@@ -33,6 +33,19 @@ public class EffectProcess
                 break;
 
 
+            case CardName.Vent:
+                self.GetCardManager.PutAllCard(CardName.AngerFire, self, target);
+                CardLibrary.GetInstance().PutAllCard(CardName.AngerFire, self, target);
+                break;
+
+            case CardName.Incite:
+
+
+                break;
+
+
+
+
         }
 
 
