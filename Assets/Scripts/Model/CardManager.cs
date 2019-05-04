@@ -67,7 +67,7 @@ public class CardManager
 
     public CardManager()
     {
-        emptyCard = new Card();
+        emptyCard = new Card(CardName.Empty);
 
         currentCard = emptyCard;
 
@@ -156,10 +156,10 @@ public class CardManager
             switch (j)
             {
                 case 0:
-                    cards.Add(new Card("Anger"));
+                    cards.Add(new Card(CardName.Anger));
                     break;
                 case 1:
-                    cards.Add(new Card("Heal"));
+                    cards.Add(new Card(CardName.Heal));
                     break;
             }
 
@@ -177,6 +177,8 @@ public class CardManager
             expenseCurrent -= currentCard.GetCost;
            
             currentCard.GetEffect.Process(self, target);
+
+            //EffectProcess.TakeEffect(currentCard.GetName, self, target);
       
             CardDiscard.GetInstance().AddCard(currentCard);
       
@@ -204,12 +206,12 @@ public class CardManager
     }
 
 
-    public int CheckBonus(Card card)
+    public int GetBonus(CardName cardName)
     {
         int num = 0;
         foreach (Card c in cards)
         {
-            if (c.GetName.Equals(card.GetName))
+            if (c.GetName==cardName)
             {
                 num++;
             }

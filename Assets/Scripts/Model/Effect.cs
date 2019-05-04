@@ -9,6 +9,49 @@ public enum EffectType
 }
 
 
+
+public class EffectProcess
+{
+
+    public static void TakeEffect(CardName cardName, Role self, Role target)
+    {
+        int bonus = self.GetCardManager.GetBonus(cardName);
+
+
+
+        switch (cardName)
+        {
+            case CardName.Anger:
+                target.GetHP -= 10;
+                break;
+
+
+
+            case CardName.NoNameFire:
+                self.GetCardManager.AddCards(new Card(CardName.AngerFire));
+                target.GetHP -= 10 + 2 * bonus;
+                break;
+
+
+        }
+
+
+
+
+
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
 public class Effect
 {
     public EffectType effectType;
