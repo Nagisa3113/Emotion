@@ -135,7 +135,6 @@ public class Card
 
          
 
-
             case CardName.Heal:
                 this.color = CardColor.Green;
                 this.cost = 1;

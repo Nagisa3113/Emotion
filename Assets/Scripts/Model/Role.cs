@@ -21,7 +21,14 @@ public class Role
         }
         set
         {
+            int tmp = hpCurrent;
             hpCurrent = value > hpMax ? hpMax : value < 0 ? 0 : value;
+
+            if (tmp < hpCurrent && buffManager.CheckBuff(BuffType.GetHurt))
+            {
+                buffManager.BuffProcessGetHurt(this);
+            }
+
         }
     }
 
@@ -33,7 +40,7 @@ public class Role
         }
         set
         {
-            hpMax = value ;
+            hpMax = value;
         }
     }
 
@@ -98,6 +105,11 @@ public class Role
 
     }
 
+    //打出一张牌
+    public virtual void PutCurrentCard(Role target)
+    {
+
+    }
 
     //获得牌
     public virtual void GetCard()
@@ -110,4 +122,3 @@ public class Role
 
 
 
- 

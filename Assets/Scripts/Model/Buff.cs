@@ -18,10 +18,12 @@ public enum BuffType
     Comfort,//安慰
 
 
-
-    PutCard,
-
+    AfterPutCard,
+    GetHurt,
 }
+
+
+
 
 
 public class Buff
@@ -37,7 +39,7 @@ public class Buff
         }
     }
 
-    int layer;
+    protected int layer;
     public int Layer
     {
         get
@@ -67,39 +69,59 @@ public class Buff
         this.active = true;
     }
 
-
-    public virtual void Process(System.Object sender, BuffManager.BuffEventArgs e)
+    public virtual void Process()
     {
 
     }
 
-    public virtual void ReProcess(System.Object sender, BuffManager.BuffEventArgs e)
+    public virtual void Process(Role self)
+    {
+
+    }
+
+    public virtual void Process(Card card, Role self)
+    {
+
+    }
+
+    public virtual void ReProcess()
     {
 
     }
 
 }
 
-public class Buff1:Buff
+
+public class InciteBuff : Buff
 {
 
-    public override void Process(System.Object sender, BuffManager.BuffEventArgs e)
+    public InciteBuff() : base(BuffType.AfterPutCard, 2)
     {
-        Role self = (Role)sender;
-        self.GetCardManager.GetCard(CardName.AngerFire);
 
+    }
+
+    public override void Process(Card card, Role self)
+    {
+        if (card.GetColor != CardColor.Red)
+        {
+            self.GetCardManager.AddCard(CardName.AngerFire);
+        }
     }
 
 }
 
-public class Buff2:Buff
+public class RevengeBuff : Buff
 {
 
-    public override void Process(System.Object sender, BuffManager.BuffEventArgs e)
+    public RevengeBuff() : base(BuffType.GetHurt, 1)
     {
-        Role self = (Role)sender;
-        self.GetHP += 10;
 
     }
 
+    public override void Process(Role self)
+    {
+        self.GetCardManager.AddCard(CardName.AngerFire);
+    }
+
 }
+

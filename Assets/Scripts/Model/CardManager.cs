@@ -20,6 +20,12 @@ public class CardManager
     List<Card> cards;
 
     [SerializeField]
+    int num;
+
+    IEnumerator<Card> iter;
+
+
+    [SerializeField]
     public int CardsNum
     {
         get
@@ -73,8 +79,11 @@ public class CardManager
 
         cards = new List<Card>();
         numMax = 15;
-        expenseMax = 3;
+        expenseMax = 10;
         expenseCurrent = expenseMax;
+
+        IEnumerator<Card> iter = cards.GetEnumerator();
+        num = cards.Count;
     }
 
     public void ExpenseReset()
@@ -115,7 +124,7 @@ public class CardManager
 
 
 
-    public void AddCards(Card card)
+    public void AddCard(Card card)
     {
         if (CardsNum < numMax)
         {
@@ -123,9 +132,9 @@ public class CardManager
         }
     }
 
-    public void GetCard(CardName cardName)
+    public void AddCard(CardName cardName)
     {
-        AddCards(new Card(cardName));
+        AddCard(new Card(cardName));
     }
 
 
@@ -155,7 +164,7 @@ public class CardManager
 
         for (int i = 0; i < num; i++)
         {
-            if(CardsNum == numMax)
+            if (CardsNum == numMax)
             {
                 break;
             }
@@ -180,13 +189,22 @@ public class CardManager
         if (expenseCurrent >= currentCard.GetCost)
         {
             expenseCurrent -= currentCard.GetCost;
-            foreach(Card card in cards)
+            foreach (Card card in cards)
             {
                 if (card.GetName == cardName)
                 {
-                    EffectProcess.TakeEffect(card.GetName, self, target);
+                    EffectProcess.TakeEffect(currentCard.GetName, self, target);
+
+                    /* check buff */
+                    if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+                    {
+                        self.GetBuffManager.BuffProcessAfterPutCard(currentCard);
+                    }
+
                     CardDiscard.GetInstance().AddCard(card);
+
                     cards.Remove(card);
+
                     break;
                 }
             }
@@ -199,8 +217,9 @@ public class CardManager
         if (expenseCurrent >= currentCard.GetCost)
         {
             expenseCurrent -= currentCard.GetCost;
-            foreach (Card card in cards)
+            for (int i = cards.Count - 1; i >= 0; i--)
             {
+                Card card = cards[i];
                 if (card.GetName == cardName)
                 {
                     EffectProcess.TakeEffect(card.GetName, self, target);
@@ -210,23 +229,30 @@ public class CardManager
             }
 
         }
+
+
+
     }
 
     //打出当前牌
-    public void PutCard(Role self, Role target)
+    public void PutCurrentCard(Role self, Role target)
     {
 
         if (expenseCurrent >= currentCard.GetCost
             && !currentCard.Equals(emptyCard))
         {
             expenseCurrent -= currentCard.GetCost;
-           
-            //currentCard.GetEffect.Process(self, target);
 
             EffectProcess.TakeEffect(currentCard.GetName, self, target);
-      
+
+            /* check buff */
+            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+            {
+                self.GetBuffManager.BuffProcessAfterPutCard(currentCard);
+            }
+
             CardDiscard.GetInstance().AddCard(currentCard);
-      
+
 
             cards.Remove(currentCard);
 
@@ -256,15 +282,15 @@ public class CardManager
         int num = 0;
         foreach (Card c in cards)
         {
-            if (c.GetName==cardName)
+            if (c.GetName == cardName)
             {
                 num++;
             }
         }
         return num;
     }
-   
-     //获取此时手中的所有牌用于显示
+
+    //获取此时手中的所有牌用于显示
     public List<Card> GetCards()
     {
         return cards;

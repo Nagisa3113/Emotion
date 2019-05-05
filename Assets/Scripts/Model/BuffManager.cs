@@ -15,34 +15,42 @@ public class BuffManager
         this.self = role;
         buffs = new List<Buff>();
 
-
-
-        putCardBuffed += new Buff1().Process;
-        putCardBuffed += new Buff2().Process;
-
     }
 
 
-    public delegate void BuffEventHandle(System.Object sender, BuffEventArgs e);
-    public event BuffEventHandle putCardBuffed;
-
-    public class BuffEventArgs : EventArgs
+    public bool CheckBuff(BuffType buffType)
     {
-        public int layer;
-        public BuffEventArgs(int layer)
+        foreach (Buff buff in buffs)
         {
-            this.layer = layer;
+            if (buff.buffType == buffType)
+            {
+                return true;
+            }
         }
 
+        return false;
     }
 
-    public virtual void OnCheckPutCard()
+    public void BuffProcessAfterPutCard(Card card)
     {
-        if (putCardBuffed != null)
+        foreach (Buff buff in buffs)
         {
-            putCardBuffed(self, new BuffEventArgs(0));
+            if (buff.buffType == BuffType.AfterPutCard)
+            {
+                buff.Process(card, self);
+            }
         }
-        
+    }
+
+    public void BuffProcessGetHurt(Role self)
+    {
+        foreach (Buff buff in buffs)
+        {
+            if (buff.buffType == BuffType.GetHurt)
+            {
+                buff.Process(self);
+            }
+        }
     }
 
 
@@ -53,20 +61,22 @@ public class BuffManager
             buff.Layer--;
             if (buff.Active == false)
             {
-                putCardBuffed -= buff.ReProcess;
                 buffs.Remove(buff);
             }
         }
     }
 
-    public void AddBuff(BuffType buffType, Buff buff)
+    public void AddBuff(CardName cardName)
     {
-        buffs.Add(buff);
-
-        switch (buffType)
+        switch (cardName)
         {
-            case BuffType.PutCard:
-                putCardBuffed += buff.Process;
+            case CardName.Incite:
+                buffs.Add(new InciteBuff());
+                break;
+
+
+            case CardName.Revenge:
+                buffs.Add(new RevengeBuff());
                 break;
 
 
@@ -74,8 +84,7 @@ public class BuffManager
         }
 
 
-        
-        
+
     }
 
 

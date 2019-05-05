@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ public class CardLibrary
     [SerializeField]
     List<Card> cards;
 
-    //单例模式
+    /* 单例模式 */
     private static CardLibrary cardLibrary;
 
     private CardLibrary()
@@ -38,10 +39,32 @@ public class CardLibrary
 
     public void InitLibrary()
     {
-        for (int i = 0; i < 20; i++)
+        //for (int i = 0; i < 20; i++)
         {
-            cards.Add(new Card(CardName.Anger));
-            cards.Add(new Card(CardName.Heal));
+            //int ran = UnityEngine.Random.Range(1, 7);
+            //Array array = Enum.GetValues(typeof(CardName));
+            //Card card = new Card((CardName)array.GetValue(ran));
+
+            cards.Add(new Card(CardName.NoNameFire));
+            cards.Add(new Card(CardName.NoNameFire));
+            cards.Add(new Card(CardName.NoNameFire));
+            cards.Add(new Card(CardName.NoNameFire));
+            cards.Add(new Card(CardName.NoNameFire));
+            cards.Add(new Card(CardName.NoNameFire));
+
+
+            cards.Add(new Card(CardName.Vent));
+            cards.Add(new Card(CardName.Vent));
+            cards.Add(new Card(CardName.AngerFire));
+            cards.Add(new Card(CardName.AngerFire));
+            cards.Add(new Card(CardName.AngerFire));
+            cards.Add(new Card(CardName.AngerFire));
+            cards.Add(new Card(CardName.AngerFire));
+            //cards.Add(new Card(CardName.AngerFire));
+            //cards.Add(new Card(CardName.AngerFire));
+
+
+
         }
     }
 
@@ -59,11 +82,12 @@ public class CardLibrary
     }
 
 
-    public Card PutAllCard(CardName cardName,Role self,Role target)
+    public void PutAllCard(CardName cardName, Role self, Role target)
     {
 
-        foreach (Card card in cards)
+        for(int i = cards.Count - 1; i >= 0; i--)
         {
+            Card card = cards[i];
             if (card.GetName == cardName)
             {
                 EffectProcess.TakeEffect(card.GetName, self, target);
@@ -71,7 +95,7 @@ public class CardLibrary
                 cards.Remove(card);
             }
         }
-        return null;
+
     }
 
 
@@ -81,7 +105,7 @@ public class CardLibrary
 
     public Card GetRandomCard()
     {
-        int rand = Random.Range(0, cards.Count);
+        int rand = UnityEngine.Random.Range(0, cards.Count);
         Card tmp = cards[rand];
         cards.RemoveAt(rand);
 

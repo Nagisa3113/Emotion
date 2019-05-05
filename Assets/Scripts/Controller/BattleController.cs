@@ -113,7 +113,7 @@ public class BattleController : MonoBehaviour
         {
             case RoundTurn.PlayerRound:
 
-                player.GetCard();
+                player.GetCardFromLibrary(3);
                 player.GetCardManager.ExpenseReset();
 
                 //player.BuffReduceLayer();
@@ -239,7 +239,7 @@ public class BattleController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
 
-            player.PutCard(enemy);
+            player.PutCurrentCard(enemy);
 
             if (!player.Alive)
             {
