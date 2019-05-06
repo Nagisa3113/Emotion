@@ -310,28 +310,6 @@ public class CardManager
         }
     }
 
-    //获取此时手中的所有牌用于显示
-    public List<Card> GetCards()
-    {
-        return cards;
-    }
-
-
-    public int CardIndex
-    {
-        get
-        {
-            return currentCardIndex;
-        }
-    }
-
-    public Card CurrentCard
-    {
-        get
-        {
-            return currentCard;
-        }
-    }
 
 }
 

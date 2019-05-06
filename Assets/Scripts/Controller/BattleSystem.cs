@@ -25,7 +25,7 @@ public enum RoundTurn
 }
 
 
-public class BattleController : MonoBehaviour
+public class BattleSystem : MonoBehaviour
 {
     [Header("玩家")]
     [SerializeField]
@@ -228,11 +228,6 @@ public class BattleController : MonoBehaviour
         return enemy;
     }
 
-
-    public Enemy GetEnemy()
-    {
-        return enemy;
-    }
 
 
     void InputHandle()
