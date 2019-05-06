@@ -2,6 +2,14 @@
 a rogue-like card game
 
 
+## 5.6
+ - 完成指定的一套卡牌
+ - 完成Buff效果
+ - 更新了UML图等,在最后
+ - 待完成:
+ 	- 敌人AI
+ 	- Buff UI
+
 ## 4.27
  -  都是在view里修改，加入了一个卷牌的效果，然后打完牌将牌显示在中间
  - 把敌人的牌显示了一下，不知道怎么去显示敌人出牌的情况，暂定
@@ -35,6 +43,7 @@ a rogue-like card game
  	- Buff效果
  	- 道具效果
  	- UI 
+ 	- 
  - UML
  
   ![](https://raw.githubusercontent.com/Nagisa3113/Emotion/master/Emotion.jpg)
