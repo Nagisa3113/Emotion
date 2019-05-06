@@ -14,17 +14,27 @@ public enum CardColor
 
 public enum CardName
 {
-    Empty,//
-    Anger,
-    AngerFire,
-    NoNameFire,
+    Empty,//空,未选择时
+        
 
-    Vent,//
-    Incite,//
-    Revenge,
+    Anger,//怒气
+    AngerFire,//怒火
+    NoNameFire,//无名火
+
+    Vent,//发泄
+    Incite,//躁动
+    Revenge,//报复
+
+    Complain,//抱怨
+
+    DullAtmosphere,//沉闷氛围
+    Confess,//倾诉
+    WeiYuChouMou,//未雨绸缪
+    OuDuanSiLian,//藕断丝连
 
 
-    Heal,
+    Heal,//治疗
+    Comfort,//安慰
 }
 
 
@@ -38,7 +48,7 @@ public enum CardName
 
 [System.Serializable]
 public class Card
-{ 
+{
     CardColor color;
 
     GameObject image;
@@ -53,12 +63,17 @@ public class Card
         }
     }
 
+    [SerializeField]
     int cost;
     public int GetCost
     {
         get
         {
             return cost;
+        }
+        set
+        {
+            cost = value >= 0 ? value : 0;
         }
     }
 
@@ -70,19 +85,6 @@ public class Card
         }
     }
 
-    Effect effect;
-    public Effect GetEffect
-    {
-        get
-        {
-            return effect;
-        }
-
-        set
-        {
-            effect = value;
-        }
-    }
 
 
     public Card()
@@ -101,6 +103,7 @@ public class Card
 
             case CardName.Empty:
                 break;
+
 
 
             case CardName.Anger:
@@ -133,35 +136,53 @@ public class Card
                 this.cost = 2;
                 break;
 
-         
+
+            
+
+            case CardName.Complain:
+                this.color = CardColor.Purple;
+                this.cost = 1;
+                break;
+
+            case CardName.DullAtmosphere:
+                this.color = CardColor.Purple;
+                this.cost = 2;
+                break;
+
+
+            case CardName.WeiYuChouMou:
+                this.color = CardColor.Purple;
+                this.cost = 1;
+                break;
+
+            case CardName.OuDuanSiLian:
+                this.color = CardColor.Purple;
+                this.cost = 1;
+                break;
+
+
+            case CardName.Confess:
+                this.color = CardColor.Purple;
+                this.cost = 4;
+                break;
+
+
+
+
+
 
             case CardName.Heal:
                 this.color = CardColor.Green;
                 this.cost = 1;
                 break;
 
+            case CardName.Comfort:
+                this.color = CardColor.Green;
+                this.cost = 1;
+                break;
 
 
         }
-
-
-
-        //if (name==CardName.Anger)
-        //{
-
-        //    this.effect = new DamageEffect(EffectType.Damage, 10);
-        //}
-
-        //else if (name.Equals("Heal"))
-        //{
-
-        //    this.effect = new HealEffect(EffectType.Heal, 40);
-        //}
-
-
-
-
-
 
 
     }

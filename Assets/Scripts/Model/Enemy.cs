@@ -27,14 +27,5 @@ public class Enemy : Role
         this.enemyType = enemyType;
     }
 
-    public override void PutCard(Role target)
-    {
-        cardManager.PutCardRandom(this, target);
-    }
 
-
-    public override void GetCard()
-    {
-        cardManager.GetCardsRandom(3);
-    }
 }

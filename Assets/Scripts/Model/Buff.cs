@@ -14,12 +14,13 @@ public enum BuffType
     Provoke,//挑衅
     Mainia,//躁动
 
+
     Vengeance,//报复
     Comfort,//安慰
 
 
-    AfterPutCard,
-    GetHurt,
+    AfterPutCard,//出牌后生效
+    GetHurt,//收到伤害后生效
 }
 
 
@@ -79,7 +80,7 @@ public class Buff
 
     }
 
-    public virtual void Process(Card card, Role self)
+    public virtual void Process(Role self, Role target)
     {
 
     }
@@ -100,9 +101,9 @@ public class InciteBuff : Buff
 
     }
 
-    public override void Process(Card card, Role self)
+    public override void Process(Role self)
     {
-        if (card.GetColor != CardColor.Red)
+        if (self.GetCardManager.CurrentCard.GetColor != CardColor.Red)
         {
             self.GetCardManager.AddCard(CardName.AngerFire);
         }
@@ -125,3 +126,32 @@ public class RevengeBuff : Buff
 
 }
 
+
+public class DullAtmosphereBuff : Buff
+{
+    public DullAtmosphereBuff() : base(BuffType.AfterPutCard, 2)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        self.GetDespondent++;
+    }
+
+}
+
+
+public class ComfortBuff : Buff
+{
+    public ComfortBuff() : base(BuffType.AfterPutCard, 2)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        self.GetHP += 15;
+    }
+
+}

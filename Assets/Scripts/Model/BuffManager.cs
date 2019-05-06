@@ -31,22 +31,11 @@ public class BuffManager
         return false;
     }
 
-    public void BuffProcessAfterPutCard(Card card)
+    public void BuffProcess(BuffType buffType, Role self)
     {
         foreach (Buff buff in buffs)
         {
-            if (buff.buffType == BuffType.AfterPutCard)
-            {
-                buff.Process(card, self);
-            }
-        }
-    }
-
-    public void BuffProcessGetHurt(Role self)
-    {
-        foreach (Buff buff in buffs)
-        {
-            if (buff.buffType == BuffType.GetHurt)
+            if (buff.buffType == buffType)
             {
                 buff.Process(self);
             }
@@ -66,6 +55,9 @@ public class BuffManager
         }
     }
 
+
+
+
     public void AddBuff(CardName cardName)
     {
         switch (cardName)
@@ -80,7 +72,14 @@ public class BuffManager
                 break;
 
 
+            case CardName.DullAtmosphere:
+                buffs.Add(new DullAtmosphereBuff());
+                break;
 
+
+            case CardName.Comfort:
+                buffs.Add(new ComfortBuff());
+                break;
         }
 
 

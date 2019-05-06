@@ -39,29 +39,30 @@ public class CardLibrary
 
     public void InitLibrary()
     {
-        //for (int i = 0; i < 20; i++)
+        foreach(CardName cardName in Enum.GetValues(typeof(CardName)))
         {
-            //int ran = UnityEngine.Random.Range(1, 7);
-            //Array array = Enum.GetValues(typeof(CardName));
-            //Card card = new Card((CardName)array.GetValue(ran));
 
-            cards.Add(new Card(CardName.NoNameFire));
-            cards.Add(new Card(CardName.NoNameFire));
-            cards.Add(new Card(CardName.NoNameFire));
-            cards.Add(new Card(CardName.NoNameFire));
-            cards.Add(new Card(CardName.NoNameFire));
-            cards.Add(new Card(CardName.NoNameFire));
+            //cards.Add(new Card(CardName.NoNameFire));
 
 
-            cards.Add(new Card(CardName.Vent));
-            cards.Add(new Card(CardName.Vent));
-            cards.Add(new Card(CardName.AngerFire));
-            cards.Add(new Card(CardName.AngerFire));
-            cards.Add(new Card(CardName.AngerFire));
-            cards.Add(new Card(CardName.AngerFire));
-            cards.Add(new Card(CardName.AngerFire));
+            //cards.Add(new Card(CardName.Vent));
             //cards.Add(new Card(CardName.AngerFire));
-            //cards.Add(new Card(CardName.AngerFire));
+
+            //cards.Add(new Card(CardName.Complain));
+
+
+            //cards.Add(new Card(CardName.Comfort));
+
+            //cards.Add(new Card(CardName.Confess));
+            //cards.Add(new Card(CardName.DullAtmosphere));
+
+            //cards.Add(new Card(CardName.WeiYuChouMou));
+
+            cards.Add(new Card(cardName));
+
+
+
+
 
 
 
@@ -97,10 +98,6 @@ public class CardLibrary
         }
 
     }
-
-
-
-
 
 
     public Card GetRandomCard()
