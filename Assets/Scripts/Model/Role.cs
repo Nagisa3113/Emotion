@@ -5,6 +5,22 @@ using UnityEngine;
 
 public class Role
 {
+    [SerializeField]
+    int despondent;//消沉层数
+    public int GetDespondent
+    {
+        get
+        {
+            return despondent;
+        }
+        set
+        {
+            despondent = value;
+        }
+
+    }
+
+
     //当前血量
     [SerializeField]
     protected int hpCurrent;
@@ -21,7 +37,26 @@ public class Role
         }
         set
         {
+            int tmp = hpCurrent;
             hpCurrent = value > hpMax ? hpMax : value < 0 ? 0 : value;
+
+            if (tmp < hpCurrent && buffManager.CheckBuff(BuffType.GetHurt))
+            {
+                buffManager.BuffProcess(BuffType.GetHurt, this);
+            }
+
+        }
+    }
+
+    public int GetHPMax
+    {
+        get
+        {
+            return hpMax;
+        }
+        set
+        {
+            hpMax = value;
         }
     }
 
@@ -87,6 +122,7 @@ public class Role
     {
         hpCurrent = hpMax = hp;
         this.armor = armor;
+        this.despondent = 0;
         this.cardManager = new CardManager();
         this.buffManager = new BuffManager(this);
     }
@@ -99,6 +135,18 @@ public class Role
     }
 
 
+    //buff结算
+    public virtual void BuffReduce()
+    {
+        buffManager.BuffReduceLayer();
+    }
+
+    //打出一张牌
+    public virtual void PutCurrentCard(Role target)
+    {
+
+    }
+
     //获得牌
     public virtual void GetCard()
     {
@@ -108,6 +156,3 @@ public class Role
 
 }
 
-
-
- 

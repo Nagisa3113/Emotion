@@ -92,7 +92,8 @@ public class BattleController : MonoBehaviour
         CardLibrary.GetInstance().InitLibrary();
 
         player.GetCardManager.GetCardsFromLibrary(6);
-        enemy.GetCardManager.GetCardsFromLibrary(6);
+
+        //enemy.GetCardManager.GetCardsFromLibrary(6);
 
         //player.PropReduceCD();
 
@@ -113,17 +114,17 @@ public class BattleController : MonoBehaviour
         {
             case RoundTurn.PlayerRound:
 
-                player.GetCard();
+
+                player.GetCardFromLibrary(3);
                 player.GetCardManager.ExpenseReset();
 
-                //player.BuffReduceLayer();
 
-                //player.BuffProcess();
 
                 break;
 
             case RoundTurn.EnemyRound:
-                enemy.GetCard();
+
+                //enemy.GetCard();
 
                 //enemy.BuffReduceLayer();
 
@@ -140,20 +141,20 @@ public class BattleController : MonoBehaviour
     {
 
 
+        switch (roundTurn)
         {
-            switch (roundTurn)
-            {
-                case RoundTurn.PlayerRound:
-                    InputHandle();
-                    break;
+            case RoundTurn.PlayerRound:
+                InputHandle();
+                break;
 
 
-                case RoundTurn.EnemyRound:
-                    EnemyAI();
-                    break;
+            case RoundTurn.EnemyRound:
+                //EnemyAI();
+                break;
 
-            }
         }
+
+
 
     }
 
@@ -183,20 +184,24 @@ public class BattleController : MonoBehaviour
         {
             case RoundStatus.RoundEnd:
 
+
                 roundStatus = RoundStatus.RoundEnd;
 
                 if (roundTurn == RoundTurn.EnemyRound)
                 {
+                    enemy.BuffReduce();
                     roundTurn = RoundTurn.PlayerRound;
                     roundNum++;
                 }
                 else
                 {
+                    player.BuffReduce();
                     roundTurn = RoundTurn.EnemyRound;
                 }
 
                 ChangeRoundStatus(RoundStatus.RoundBegin);
                 break;
+
 
             case RoundStatus.RoundBegin:
                 roundStatus = RoundStatus.RoundBegin;
@@ -214,8 +219,8 @@ public class BattleController : MonoBehaviour
 
     void EnemyAI()
     {
-        enemy.PutCard(player);
-        ChangeRoundStatus(RoundStatus.RoundEnd);
+        //enemy.PutCard(player);
+        //ChangeRoundStatus(RoundStatus.RoundEnd);
     }
 
     public Enemy GetEnemy()
@@ -223,6 +228,11 @@ public class BattleController : MonoBehaviour
         return enemy;
     }
 
+
+    public Enemy GetEnemy()
+    {
+        return enemy;
+    }
 
 
     void InputHandle()
@@ -240,7 +250,7 @@ public class BattleController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
 
-            player.PutCard(enemy);
+            player.PutCurrentCard(enemy);
 
             if (!player.Alive)
             {

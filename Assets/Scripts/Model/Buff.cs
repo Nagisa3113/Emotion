@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public enum BuffType
@@ -13,9 +14,17 @@ public enum BuffType
     Provoke,//挑衅
     Mainia,//躁动
 
+
     Vengeance,//报复
-    Comfort//安慰
+    Comfort,//安慰
+
+
+    AfterPutCard,//出牌后生效
+    GetHurt,//收到伤害后生效
 }
+
+
+
 
 
 public class Buff
@@ -31,7 +40,7 @@ public class Buff
         }
     }
 
-    int layer;
+    protected int layer;
     public int Layer
     {
         get
@@ -61,13 +70,22 @@ public class Buff
         this.active = true;
     }
 
-
-    public virtual void Process(Role role)
+    public virtual void Process()
     {
 
     }
 
-    public virtual void ReProcess(Role role)
+    public virtual void Process(Role self)
+    {
+
+    }
+
+    public virtual void Process(Role self, Role target)
+    {
+
+    }
+
+    public virtual void ReProcess()
     {
 
     }
@@ -75,21 +93,65 @@ public class Buff
 }
 
 
-
-public class BuffDizzy:Buff
+public class InciteBuff : Buff
 {
-    public BuffDizzy() : base(BuffType.Dizzy, 1)
+
+    public InciteBuff() : base(BuffType.AfterPutCard, 2)
     {
 
     }
 
-    public override void Process(Role role)
+    public override void Process(Role self)
     {
-        role.GetCardManager.CanAddCard = false;
+        if (self.GetCardManager.CurrentCard.GetColor != CardColor.Red)
+        {
+            self.GetCardManager.AddCard(CardName.AngerFire);
+        }
     }
 
-    public override void ReProcess(Role role)
+}
+
+public class RevengeBuff : Buff
+{
+
+    public RevengeBuff() : base(BuffType.GetHurt, 1)
     {
-        role.GetCardManager.CanAddCard = true;
+
     }
+
+    public override void Process(Role self)
+    {
+        self.GetCardManager.AddCard(CardName.AngerFire);
+    }
+
+}
+
+
+public class DullAtmosphereBuff : Buff
+{
+    public DullAtmosphereBuff() : base(BuffType.AfterPutCard, 2)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        self.GetDespondent++;
+    }
+
+}
+
+
+public class ComfortBuff : Buff
+{
+    public ComfortBuff() : base(BuffType.AfterPutCard, 2)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        self.GetHP += 15;
+    }
+
 }

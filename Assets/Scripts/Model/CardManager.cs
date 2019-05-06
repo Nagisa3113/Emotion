@@ -28,6 +28,18 @@ public class CardManager
         }
     }
 
+    public Card GetRandomCard()
+    {
+        if (cards.Count > 0)
+        {
+            int rand = Random.Range(0, cards.Count - 1);
+            return cards[rand];
+        }
+        return null;
+
+    }
+
+
     //是否能抽牌
     bool canAddCard;
     public bool CanAddCard
@@ -67,14 +79,16 @@ public class CardManager
 
     public CardManager()
     {
-        emptyCard = new Card();
+        emptyCard = new Card(CardName.Empty);
 
         currentCard = emptyCard;
 
         cards = new List<Card>();
         numMax = 15;
-        expenseMax = 3;
+        expenseMax = 20;
         expenseCurrent = expenseMax;
+
+        IEnumerator<Card> iter = cards.GetEnumerator();
     }
 
     public void ExpenseReset()
@@ -115,9 +129,17 @@ public class CardManager
 
 
 
-    public void AddCards(Card card)
+    public void AddCard(Card card)
     {
-        this.cards.Add(card);
+        if (CardsNum < numMax)
+        {
+            this.cards.Add(card);
+        }
+    }
+
+    public void AddCard(CardName cardName)
+    {
+        AddCard(new Card(cardName));
     }
 
 
@@ -141,13 +163,16 @@ public class CardManager
     }
 
 
+
     //随机获得牌,暂用于敌人
     public void GetCardsRandom(int num)
     {
 
         for (int i = 0; i < num; i++)
         {
-            if(CardsNum == numMax)
+
+            if (CardsNum == numMax)
+
             {
                 break;
             }
@@ -156,10 +181,10 @@ public class CardManager
             switch (j)
             {
                 case 0:
-                    cards.Add(new Card("Anger"));
+                    cards.Add(new Card(CardName.Anger));
                     break;
                 case 1:
-                    cards.Add(new Card("Heal"));
+                    cards.Add(new Card(CardName.Heal));
                     break;
             }
 
@@ -167,21 +192,81 @@ public class CardManager
     }
 
 
+    public void PutCard(CardName cardName, Role self, Role target)
+    {
+        if (expenseCurrent >= currentCard.GetCost)
+        {
+            expenseCurrent -= currentCard.GetCost;
+
+            foreach (Card card in cards)
+            {
+                if (card.GetName == cardName)
+                {
+                    cards.Remove(card);
+
+                    /* check buff */
+                    if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+                    {
+                        self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
+                    }
+
+                    EffectProcess.TakeEffect(currentCard.GetName, self, target);
+
+                    CardDiscard.GetInstance().AddCard(card);
+
+
+
+
+                    break;
+                }
+            }
+
+        }
+    }
+
+    public void PutAllCard(CardName cardName, Role self, Role target)
+    {
+
+        for (int i = cards.Count - 1; i >= 0; i--)
+        {
+            Card card = cards[i];
+            if (card.GetName == cardName)
+            {
+                cards.Remove(card);
+                EffectProcess.TakeEffect(card.GetName, self, target);
+                CardDiscard.GetInstance().AddCard(card);
+
+            }
+        }
+
+
+
+
+
+    }
+
     //打出当前牌
-    public void PutCard(Role self, Role target)
+    public void PutCurrentCard(Role self, Role target)
     {
 
         if (expenseCurrent >= currentCard.GetCost
             && !currentCard.Equals(emptyCard))
         {
             expenseCurrent -= currentCard.GetCost;
-           
-            currentCard.GetEffect.Process(self, target);
-      
-            CardDiscard.GetInstance().AddCard(currentCard);
-      
+
 
             cards.Remove(currentCard);
+
+            /* check buff */
+            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+            {
+                self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
+            }
+
+            EffectProcess.TakeEffect(currentCard.GetName, self, target);
+
+            CardDiscard.GetInstance().AddCard(currentCard);
+
 
             currentCard = emptyCard;
             currentCardIndex = -1;
@@ -189,27 +274,13 @@ public class CardManager
     }
 
 
-    //随机打出当前牌,暂用于敌人
-    public void PutCardRandom(Role self, Role target)
-    {
-        int i = Random.Range(0, cards.Count);
 
-        currentCard = cards[i];
-
-        currentCard.GetEffect.Process(self, target);
-
-        cards.Remove(currentCard);
-
-        currentCard = emptyCard;
-    }
-
-
-    public int CheckBonus(Card card)
+    public int GetBonus(CardName cardName)
     {
         int num = 0;
         foreach (Card c in cards)
         {
-            if (c.GetName.Equals(card.GetName))
+            if (c.GetName == cardName)
             {
                 num++;
             }
@@ -222,6 +293,29 @@ public class CardManager
     {
         return cards;
     }
+
+    public int CardIndex
+    {
+        get
+        {
+            return currentCardIndex;
+        }
+    }
+
+    public Card CurrentCard
+    {
+        get
+        {
+            return currentCard;
+        }
+    }
+
+    //获取此时手中的所有牌用于显示
+    public List<Card> GetCards()
+    {
+        return cards;
+    }
+
 
     public int CardIndex
     {
