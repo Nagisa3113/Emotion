@@ -5,7 +5,8 @@ a rogue-like card game
 ## 5.6
  - 完成指定的一套卡牌
  - 完成Buff效果
- - 更新了UML图等,在最后
+ - 更新了UML图等,在此页面最后
+ - 部分卡牌效果需要等待敌人AI完成后
  - 待完成:
  	- 敌人AI
  	- Buff UI
@@ -44,13 +45,13 @@ a rogue-like card game
  	- 道具效果
  	- UI 
  	- 
- - UML
  
-  ![](https://raw.githubusercontent.com/Nagisa3113/Emotion/master/Emotion.jpg)
+ 
+ ## 图 
+  ![](https://github.com/Nagisa3113/Emotion/blob/Liu/Emotion.jpg)
  	
- - 效果图
  
- ![](https://raw.githubusercontent.com/Nagisa3113/Emotion/master/inspector.png) 
+ ![](https://github.com/Nagisa3113/Emotion/blob/Liu/Card.jpg) 
 
 
 
