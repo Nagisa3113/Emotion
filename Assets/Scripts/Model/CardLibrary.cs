@@ -41,30 +41,7 @@ public class CardLibrary
     {
         foreach(CardName cardName in Enum.GetValues(typeof(CardName)))
         {
-
-            //cards.Add(new Card(CardName.NoNameFire));
-
-
-            //cards.Add(new Card(CardName.Vent));
-            //cards.Add(new Card(CardName.AngerFire));
-
-            //cards.Add(new Card(CardName.Complain));
-
-
-            //cards.Add(new Card(CardName.Comfort));
-
-            //cards.Add(new Card(CardName.Confess));
-            //cards.Add(new Card(CardName.DullAtmosphere));
-
-            //cards.Add(new Card(CardName.WeiYuChouMou));
-
             cards.Add(new Card(cardName));
-
-
-
-
-
-
 
         }
     }
