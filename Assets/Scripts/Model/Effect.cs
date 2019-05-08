@@ -3,25 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+public enum EffectType
+{
+    HPEffect,
+    ArmorEffect,
+    BuffEffect,
+    CardEffect,
+    ActionEffect,
+    Else,
+}
+
+
 
 public static class EffectProcess
 {
 
-    public static void TakeEffect(CardName cardName, Role self, Role target)
+    public static void TakeEffect(Card card, Role self, Role target)
     {
+        CardName cardName = card.GetName;
         int bonus = self.GetCardManager.GetBonus(cardName);
+        bool upgrade = bonus > card.GetUpgrade;
+        bool upgradeTwice = bonus > card.GetUpgradeTwice;
 
 
         switch (cardName)
         {
-
 
             case CardName.Anger:
 
                 break;
 
             case CardName.AngerFire:
-                target.GetHP -= 10;
+                self.GetHP -= 10;
                 break;
 
 
@@ -80,8 +93,6 @@ public static class EffectProcess
                 break;
 
 
-
-
             case CardName.Heal:
                 self.GetHP += 40 + 2 * bonus;
                 break;
@@ -96,14 +107,56 @@ public static class EffectProcess
         }
 
 
-
-
-
     }
 
 
 
+    public static void Effect(EffectType effectType, HPEffectType hPEffectType, Role self, Role target, int value)
+    {
+        switch (hPEffectType)
+        {
+            case HPEffectType.Damage:
+                target.GetHP -= value;
+                break;
+        }
+    }
 
 }
 
 
+public enum HPEffectType
+{
+    Damage,
+    SelfDamage,
+    RealDamage,
+    PercentDamage,
+    Heal,
+}
+
+public enum ArmorEffect
+{
+    IncreaseArmor,
+    DecreaseArmor,
+}
+
+
+public enum BuffEffect
+{
+    SelfBuff,
+    TargetBuff,
+    RemoveBuff,
+    MarkBuff,
+}
+
+public enum CardBuff
+{
+    PutCard,
+    GetCard,
+    AddCard,
+
+}
+
+public enum ActionBuff
+{
+    DestroyTarget,
+}

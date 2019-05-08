@@ -210,7 +210,7 @@ public class CardManager
                         self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
                     }
 
-                    EffectProcess.TakeEffect(currentCard.GetName, self, target);
+                    EffectProcess.TakeEffect(currentCard, self, target);
 
                     CardDiscard.GetInstance().AddCard(card);
 
@@ -233,7 +233,7 @@ public class CardManager
             if (card.GetName == cardName)
             {
                 cards.Remove(card);
-                EffectProcess.TakeEffect(card.GetName, self, target);
+                EffectProcess.TakeEffect(card, self, target);
                 CardDiscard.GetInstance().AddCard(card);
 
             }
@@ -263,7 +263,7 @@ public class CardManager
                 self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
             }
 
-            EffectProcess.TakeEffect(currentCard.GetName, self, target);
+            EffectProcess.TakeEffect(currentCard, self, target);
 
             CardDiscard.GetInstance().AddCard(currentCard);
 
@@ -287,6 +287,8 @@ public class CardManager
         }
         return num;
     }
+
+
    
      //获取此时手中的所有牌用于显示
     public List<Card> GetCards()

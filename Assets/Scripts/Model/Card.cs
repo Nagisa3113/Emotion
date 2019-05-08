@@ -16,7 +16,7 @@ public enum CardColor
 public enum CardName
 {
     Empty,//空,未选择时
-        
+
 
     Anger,//怒气
     AngerFire,//怒火
@@ -60,6 +60,26 @@ public class Card
     [SerializeField]
 
     CardName name;
+
+
+    int upgrade;
+    public int GetUpgrade
+    {
+        get
+        {
+            return upgrade;
+        }
+    }
+    int upgradeTwice;
+    public int GetUpgradeTwice
+    {
+        get
+        {
+            return upgradeTwice;
+        }
+    }
+
+
     public CardName GetName
 
     {
@@ -119,64 +139,79 @@ public class Card
 
             case CardName.Anger:
                 this.color = CardColor.Red;
+                this.upgrade = 5;
                 this.cost = 0;
                 break;
 
             case CardName.AngerFire:
                 this.color = CardColor.Red;
+                this.upgrade = 5;
                 this.cost = 0;
+
                 break;
 
             case CardName.NoNameFire:
                 this.color = CardColor.Red;
+                this.upgrade = 3;
                 this.cost = 0;
                 break;
 
             case CardName.Vent:
                 this.color = CardColor.Red;
+                this.upgrade = 5;
                 this.cost = 4;
                 break;
 
             case CardName.Incite:
                 this.color = CardColor.Red;
+                this.upgrade = 5;
+                this.upgradeTwice = 10;
                 this.cost = 1;
                 break;
 
             case CardName.Revenge:
                 this.color = CardColor.Red;
+                this.upgrade = 3;
+                this.upgradeTwice = 6;
                 this.cost = 2;
                 break;
 
 
-            
+
 
             case CardName.Complain:
                 this.color = CardColor.Purple;
+                this.upgrade = 4;
                 this.cost = 1;
                 break;
 
             case CardName.DullAtmosphere:
                 this.color = CardColor.Purple;
+                this.upgrade = 4;
+                this.upgradeTwice = 10;
                 this.cost = 2;
                 break;
 
 
             case CardName.WeiYuChouMou:
                 this.color = CardColor.Purple;
+                this.upgrade = 3;
+                this.upgradeTwice = 8;
                 this.cost = 1;
                 break;
 
             case CardName.OuDuanSiLian:
                 this.color = CardColor.Purple;
+                this.upgrade = 4;
                 this.cost = 1;
                 break;
 
 
             case CardName.Confess:
                 this.color = CardColor.Purple;
+                this.upgrade = 10;
                 this.cost = 4;
                 break;
-
 
 
 
@@ -184,11 +219,14 @@ public class Card
 
             case CardName.Heal:
                 this.color = CardColor.Green;
+                this.upgrade = 6;
                 this.cost = 1;
                 break;
 
             case CardName.Comfort:
                 this.color = CardColor.Green;
+                this.upgrade = 4;
+                this.upgradeTwice = 8;
                 this.cost = 1;
                 break;
 
@@ -197,5 +235,11 @@ public class Card
 
 
     }
+
+
+
+
+
+
 
 }

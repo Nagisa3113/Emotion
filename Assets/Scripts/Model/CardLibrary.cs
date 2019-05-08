@@ -70,7 +70,7 @@ public class CardLibrary
             Card card = cards[i];
             if (card.GetName == cardName)
             {
-                EffectProcess.TakeEffect(card.GetName, self, target);
+                EffectProcess.TakeEffect(card, self, target);
                 CardDiscard.GetInstance().AddCard(card);
                 cards.Remove(card);
             }
