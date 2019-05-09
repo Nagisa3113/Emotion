@@ -80,7 +80,7 @@ public class Card
     }
 
 
-    public CardName GetName
+    public CardName GetName      //返回联合值
 
     {
         get
@@ -88,6 +88,17 @@ public class Card
             return name;
         }
     }
+
+   int rank;               //出牌优先级
+    public int GetRank
+    {
+        get
+        {
+            return rank;
+        }
+    }
+
+
 
 
     [SerializeField]

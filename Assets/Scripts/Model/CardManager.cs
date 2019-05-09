@@ -77,6 +77,34 @@ public class CardManager
         }
     }
 
+    bool changeViewShow;           //是否改变view里牌的显示
+    public bool ChangeViewShow
+    {
+        get
+        {
+            return changeViewShow;
+        }
+        set
+        {
+            changeViewShow = value;
+        }
+
+    }
+
+    bool changeViewSelect;           //是否改变select的显示
+    public bool ChangeViewSelect
+    {
+        get
+        {
+            return changeViewSelect;
+        }
+        set
+        {
+            changeViewSelect = value;
+        }
+
+    }
+
     public CardManager()
     {
         emptyCard = new Card(CardName.Empty);
@@ -89,6 +117,8 @@ public class CardManager
         expenseCurrent = expenseMax;
 
         IEnumerator<Card> iter = cards.GetEnumerator();
+        changeViewSelect = true ;
+        changeViewShow = true;
     }
 
     public void ExpenseReset()
@@ -111,10 +141,24 @@ public class CardManager
     {
         if (cards.Count == 0) return;
 
-        if (dir == 1)
+        if (dir == 1)                           //为实现卷轴效果改变手牌的顺序
         {
-            currentCardIndex = currentCardIndex + 1 >= cards.Count ?
-            cards.Count - 1 : currentCardIndex + 1;
+            if (currentCardIndex + 1 >= cards.Count)
+            {
+                currentCardIndex = cards.Count-1;
+                Card temp =cards[0];
+                for (int i=1;i<cards.Count;i++)
+                {
+                    cards[i-1] = cards[i];
+                }
+                cards[cards.Count-1] = temp;
+                changeViewShow = true;
+            }
+
+            else
+            {
+                currentCardIndex = currentCardIndex + 1;
+            }
         }
         else if (dir == -1)
         {
@@ -124,9 +168,9 @@ public class CardManager
 
         currentCard = cards[currentCardIndex];
 
+        changeViewSelect = true;
+
     }
-
-
 
 
     public void AddCard(Card card)
@@ -160,6 +204,7 @@ public class CardManager
             }
 
         }
+        changeViewShow = true;
     }
 
 
@@ -220,6 +265,7 @@ public class CardManager
                     break;
                 }
             }
+            changeViewShow = true;
 
         }
     }
@@ -238,12 +284,10 @@ public class CardManager
 
             }
         }
-
-
-
-
-
     }
+    
+
+
 
     //打出当前牌
     public void PutCurrentCard(Role self, Role target)

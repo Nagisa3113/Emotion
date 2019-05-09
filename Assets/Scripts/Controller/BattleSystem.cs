@@ -62,6 +62,7 @@ public class BattleSystem : MonoBehaviour
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
         RoundBegin();
+
     }
 
     public void Update()

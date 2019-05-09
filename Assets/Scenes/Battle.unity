@@ -758,7 +758,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353106526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1553,7 +1553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1528461317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1566,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a1f04a11b9c4fe298d9b4c31a1509c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthOfPlayer: {fileID: 0}
+  healthOfEnemy: {fileID: 0}
+  expenseOfPlayer: {fileID: 0}
+  expenseOfEnemy: {fileID: 0}
+  handcardsOfPlayer: {fileID: 0}
+  handcardsOfEnemy: {fileID: 0}
+  pauseButton: {fileID: 0}
+  isPause: 0
+  pauseSprite:
+  - {fileID: 6984001492611120053, guid: 723cc6e3fe695eb49887be00a7e618ad, type: 3}
+  - {fileID: 6618849512087150325, guid: e1867776c656a0c4a86cdfcd752c35f2, type: 3}
+  handCards:
+  - {fileID: 7588439304500172504, guid: 40077fad4e79e0549960ede6c6a9d7ca, type: 3}
+  - {fileID: 8060085189281926513, guid: 8cc885be48e5c35428a61c70077eb0fc, type: 3}
+  deskCards:
+  - {fileID: 7710111507491915571, guid: 55b24d4a78829324eb3dbb44ca47aadb, type: 3}
+  - {fileID: 4509820740018954804, guid: 130b70da955da9a46b8ad27d0635f7a2, type: 3}
+  backCard: {fileID: 4683671153965007874, guid: e6328f4f29a3d974784f4347dd001a88,
+    type: 3}
 --- !u!4 &1528461318
 Transform:
   m_ObjectHideFlags: 0
