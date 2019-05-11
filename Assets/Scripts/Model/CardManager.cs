@@ -79,7 +79,8 @@ public class CardManager
 
     public CardManager()
     {
-        emptyCard = new Card(CardName.Empty);
+
+        emptyCard = new Empty();
 
         currentCard = emptyCard;
 
@@ -88,7 +89,7 @@ public class CardManager
         expenseMax = 20;
         expenseCurrent = expenseMax;
 
-        IEnumerator<Card> iter = cards.GetEnumerator();
+        //IEnumerator<Card> iter = cards.GetEnumerator();
     }
 
     public void ExpenseReset()
@@ -139,7 +140,7 @@ public class CardManager
 
     public void AddCard(CardName cardName)
     {
-        AddCard(new Card(cardName));
+        AddCard(GetNewCard(cardName));
     }
 
 
@@ -164,34 +165,6 @@ public class CardManager
 
 
 
-    //随机获得牌,暂用于敌人
-    public void GetCardsRandom(int num)
-    {
-
-        for (int i = 0; i < num; i++)
-        {
-
-            if (CardsNum == numMax)
-
-            {
-                break;
-            }
-
-            int j = Random.Range(0, 2);
-            switch (j)
-            {
-                case 0:
-                    cards.Add(new Card(CardName.Anger));
-                    break;
-                case 1:
-                    cards.Add(new Card(CardName.Heal));
-                    break;
-            }
-
-        }
-    }
-
-
     public void PutCard(CardName cardName, Role self, Role target)
     {
         if (expenseCurrent >= currentCard.GetCost)
@@ -210,10 +183,9 @@ public class CardManager
                         self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
                     }
 
-                    EffectProcess.TakeEffect(currentCard, self, target);
+                    currentCard.TakeEffect(self, target);
 
                     CardDiscard.GetInstance().AddCard(card);
-
 
 
 
@@ -233,7 +205,7 @@ public class CardManager
             if (card.GetName == cardName)
             {
                 cards.Remove(card);
-                EffectProcess.TakeEffect(card, self, target);
+                currentCard.TakeEffect(self, target);
                 CardDiscard.GetInstance().AddCard(card);
 
             }
@@ -263,7 +235,7 @@ public class CardManager
                 self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
             }
 
-            EffectProcess.TakeEffect(currentCard, self, target);
+            currentCard.TakeEffect(self, target);
 
             CardDiscard.GetInstance().AddCard(currentCard);
 
@@ -289,8 +261,8 @@ public class CardManager
     }
 
 
-   
-     //获取此时手中的所有牌用于显示
+
+    //获取此时手中的所有牌用于显示
     public List<Card> GetCards()
     {
         return cards;
@@ -312,6 +284,69 @@ public class CardManager
         }
     }
 
+
+
+
+
+
+    public static Card GetNewCard(CardName cardName)
+    {
+        switch (cardName)
+        {
+
+            case CardName.Empty:
+                break;
+
+            case CardName.NoNameFire:
+                return new NoNameFire();
+
+            case CardName.Vent:
+                return new NoNameFire();
+
+            case CardName.Incite:
+                return new Incite();
+
+            case CardName.Revenge:
+                return new Revenge();
+
+            case CardName.Anger:
+                return new Anger();
+
+            case CardName.AngerFire:
+                return new AngerFire();
+
+
+
+            case CardName.Complain:
+                return new Complain();
+
+            case CardName.DullAtmosphere:
+                return new DullAtmosphere();
+
+
+            case CardName.WeiYuChouMou:
+                return new WeiYuChouMou();
+
+            case CardName.OuDuanSiLian:
+                return new OuDuanSiLian();
+
+
+            case CardName.Confess:
+                return new Confess();
+
+
+            case CardName.Heal:
+                return new Heal();
+
+            case CardName.Comfort:
+                return new Comfort();
+
+            default:
+                return null;
+
+        }
+        return null;
+    }
 
 }
 

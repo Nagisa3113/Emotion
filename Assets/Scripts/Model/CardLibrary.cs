@@ -40,10 +40,9 @@ public class CardLibrary
     public void InitLibrary()
     {
 
-        foreach(CardName cardName in Enum.GetValues(typeof(CardName)))
-
+        foreach (CardName cardName in Enum.GetValues(typeof(CardName)))
         {
-            cards.Add(new Card(cardName));
+            cards.Add(CardManager.GetNewCard(cardName));
 
         }
     }
@@ -65,12 +64,12 @@ public class CardLibrary
     public void PutAllCard(CardName cardName, Role self, Role target)
     {
 
-        for(int i = cards.Count - 1; i >= 0; i--)
+        for (int i = cards.Count - 1; i >= 0; i--)
         {
             Card card = cards[i];
             if (card.GetName == cardName)
             {
-                EffectProcess.TakeEffect(card, self, target);
+                card.TakeEffect(self, target);
                 CardDiscard.GetInstance().AddCard(card);
                 cards.Remove(card);
             }
