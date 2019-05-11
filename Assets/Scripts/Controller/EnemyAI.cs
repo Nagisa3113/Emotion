@@ -4,43 +4,43 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    Player player ;
-    Enemy enemy ;
+    Player player;
+    Enemy enemy;
     List<Card> cards;
     List<Card> handCards;
     int ExpenseLeast;
 
     void Start()
     {
-        enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
+        enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
         cards = new List<Card>();
         handCards = new List<Card>();
-        
+
     }
 
     void InitLibrary()
     {
         int i = 0;
-        for (i=0 ;i<16;i++)
+        for (i = 0; i < 16; i++)
         {
-            cards.Add(new Card(CardName.Complain));
+            cards.Add(CardManager.GetNewCard(CardName.Complain));
         }
-        for (i=0;i<6;i++)
+        for (i = 0; i < 6; i++)
         {
-            cards.Add(new Card(CardName.DullAtmosphere));   
+            cards.Add(CardManager.GetNewCard(CardName.DullAtmosphere));
         }
-        for (i=0;i<3;i++)
+        for (i = 0; i < 3; i++)
         {
-            cards.Add(new Card(CardName.WeiYuChouMou));   
+            cards.Add(CardManager.GetNewCard(CardName.WeiYuChouMou));
         }
-        for (i=0;i<5;i++)
+        for (i = 0; i < 5; i++)
         {
-            cards.Add(new Card(CardName.OuDuanSiLian));   
+            cards.Add(CardManager.GetNewCard(CardName.OuDuanSiLian));
         }
-         for (i=0;i<1;i++)
+        for (i = 0; i < 1; i++)
         {
-            cards.Add(new Card(CardName.Confess));   
+            cards.Add(CardManager.GetNewCard(CardName.Confess));
         }
     }
 
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour
                         break;
 
                     case CardName.NoNameFire:
-                    
+
                         break;
 
                     case CardName.Vent:
@@ -101,11 +101,11 @@ public class EnemyAI : MonoBehaviour
                                 rankLeast = 10;
                                 temp = card;
                             }
-                        } 
+                        }
                         else
                         {
-                           if (rankLeast < 3)
-                           {
+                            if (rankLeast < 3)
+                            {
                                 rankLeast = 3;
                                 temp = card;
                             }
@@ -117,122 +117,122 @@ public class EnemyAI : MonoBehaviour
                         {
                             rankLeast = 4;
                             temp = card;
-                        } 
+                        }
                         break;
 
 
                     case CardName.WeiYuChouMou:
-                    if (flag && handCards.Count < 4)
-                    {
-                        if (rankLeast < 6)
+                        if (flag && handCards.Count < 4)
                         {
-                            rankLeast = 6;
-                            temp = card;
+                            if (rankLeast < 6)
+                            {
+                                rankLeast = 6;
+                                temp = card;
+                            }
                         }
-                    }
-                    else if (flag && enemy.GetCardManager.ExpenseCurrent == 1)
-                    {
-                        if (rankLeast < 5)
+                        else if (flag && enemy.GetCardManager.ExpenseCurrent == 1)
                         {
-                            rankLeast = 5;
-                            temp = card;
+                            if (rankLeast < 5)
+                            {
+                                rankLeast = 5;
+                                temp = card;
+                            }
                         }
-                    }
-                    else 
-                    {
-                        if (rankLeast < 1)
+                        else
                         {
-                            rankLeast = 1;
-                            temp = card;
+                            if (rankLeast < 1)
+                            {
+                                rankLeast = 1;
+                                temp = card;
+                            }
                         }
-                    }
-                    break;
+                        break;
 
-                case CardName.OuDuanSiLian:   
-                    if (flag && handCards.Count < 10)
-                    {
-                        if (rankLeast < 5)
+                    case CardName.OuDuanSiLian:
+                        if (flag && handCards.Count < 10)
                         {
-                            rankLeast = 5;
-                            temp = card;
+                            if (rankLeast < 5)
+                            {
+                                rankLeast = 5;
+                                temp = card;
+                            }
                         }
-                    }
-                    else if ((!flag) && handCards.Count < 12)
-                    {
-                        if (rankLeast < 5)
+                        else if ((!flag) && handCards.Count < 12)
                         {
-                            rankLeast = 5;
-                            temp = card;
+                            if (rankLeast < 5)
+                            {
+                                rankLeast = 5;
+                                temp = card;
+                            }
                         }
-                    }
-                    else if (handCards.Count < 5)
-                    {
-                        if (rankLeast < 5)
+                        else if (handCards.Count < 5)
                         {
-                            rankLeast = 5;
-                            temp = card;
+                            if (rankLeast < 5)
+                            {
+                                rankLeast = 5;
+                                temp = card;
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (rankLeast < 2 )
+                        else
                         {
-                            rankLeast = 2;
-                            temp = card;  
-                        }
-                    }
-
-                    break;
-
-
-                case CardName.Confess:
-                    if (player.GetDespondent > 80 || (player.GetDespondent > 40 && player.GetCardManager.CardsNum> 10))
-                    {
-                        if (rankLeast < 5)
-                        {
-                           rankLeast = 5;
-                            temp = card; 
+                            if (rankLeast < 2)
+                            {
+                                rankLeast = 2;
+                                temp = card;
+                            }
                         }
 
-                    }
-                    else 
-                    {
-                        if (rankLeast < 0 )
+                        break;
+
+
+                    case CardName.Confess:
+                        if (player.GetDespondent > 80 || (player.GetDespondent > 40 && player.GetCardManager.CardsNum > 10))
                         {
-                            rankLeast = 0;
-                            temp = card;
+                            if (rankLeast < 5)
+                            {
+                                rankLeast = 5;
+                                temp = card;
+                            }
+
                         }
-                    }
-                    break;
+                        else
+                        {
+                            if (rankLeast < 0)
+                            {
+                                rankLeast = 0;
+                                temp = card;
+                            }
+                        }
+                        break;
 
-                case CardName.Heal:
+                    case CardName.Heal:
 
-                    break;
+                        break;
 
-                case CardName.Comfort:
-      
-                    break;
+                    case CardName.Comfort:
+
+                        break;
 
 
                 }
 
             }
 
-        if (temp.GetName != CardName.Empty )
-        {
-            EffectProcess.TakeEffect(temp, self, target);
-            handCards.Remove(temp);
-            enemy.GetCardManager.ExpenseCurrent -= temp.GetCost;
-        }
-        foreach (Card cardTemp in handCards)
-        {
-            if (ExpenseLeast < cardTemp.GetCost)
+            if (temp.GetName != CardName.Empty)
             {
-                ExpenseLeast = cardTemp.GetCost;   
+                temp.TakeEffect(self, target);
+                handCards.Remove(temp);
+                enemy.GetCardManager.ExpenseCurrent -= temp.GetCost;
             }
-        }
+            foreach (Card cardTemp in handCards)
+            {
+                if (ExpenseLeast < cardTemp.GetCost)
+                {
+                    ExpenseLeast = cardTemp.GetCost;
+                }
+            }
 
         }
-    
+
     }
 }

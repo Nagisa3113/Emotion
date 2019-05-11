@@ -1,24 +1,28 @@
 # Emotion
 
-# 
-
 a rogue-like card game
+
+
+
+## 5.12
+
+* 重写了卡牌的管理方式,现在每张卡牌都从基类Card派生
+* eg: 添加卡牌方式从 Add(new Card(CardName)) 改为 Add(CardManager.GetNewCard(CardName))
+* 删除Effect类,直接在Card类中写卡牌效果
+* eg: 从 Effect.TakeEffect(CardName) 改为 card.TakeEffect()
+* 修改了UML图等
 
 ## 5.11
 
-> * 完成紫色卡牌的ai
-> 
-> * 有些疑问，待交流后进一步实施
-> 
-> * 暂未改动view上的问题
-
+* 完成紫色卡牌的ai
+* 有些疑问，待交流后进一步实施
+* 暂未改动view上的问题
 
 
 # 5.9
 
-> * 对接代码，将view与代码对接
-> 
-> * 完成enemyAI的大致思路
+* 对接代码，将view与代码对接
+* 完成enemyAI的大致思路
 
 ## 5.6
 

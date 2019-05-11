@@ -45,14 +45,16 @@ public class BuffManager
 
     public void BuffReduceLayer()
     {
-        foreach (Buff buff in buffs)
+        int tmp = buffs.Count;
+        for(int i = tmp - 1; i >= 0; i--)
         {
-            buff.Layer--;
-            if (buff.Active == false)
+            buffs[i].Layer--;
+            if (buffs[i].Active == false)
             {
-                buffs.Remove(buff);
+                buffs.Remove(buffs[i]);
             }
         }
+
     }
 
 
