@@ -89,16 +89,6 @@ public class Card
         }
     }
 
-   int rank;               //出牌优先级
-    public int GetRank
-    {
-        get
-        {
-            return rank;
-        }
-    }
-
-
 
 
     [SerializeField]

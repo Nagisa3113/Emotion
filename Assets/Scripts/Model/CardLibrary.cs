@@ -40,19 +40,20 @@ public class CardLibrary
     public void InitLibrary()
     {
 
-        // foreach(CardName cardName in Enum.GetValues(typeof(CardName)))
+        foreach(CardName cardName in Enum.GetValues(typeof(CardName)))
 
-        // {
-        //     cards.Add(new Card(cardName));
-
-        // }
-
-         for (int i = 0; i < 20; i++)
         {
-            cards.Add(new Card(CardName.Anger));
-            cards.Add(new Card(CardName.Heal));
-           
+            if ( cardName != CardName.Empty)
+            cards.Add(new Card(cardName));
+
         }
+
+        //  for (int i = 0; i < 20; i++)
+        // {
+        //     cards.Add(new Card(CardName.Anger));
+        //     cards.Add(new Card(CardName.Heal));
+           
+        // }
     }
 
 
