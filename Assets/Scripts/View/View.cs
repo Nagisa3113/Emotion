@@ -38,18 +38,19 @@ public class View : MonoBehaviour
     Card lastCard;          //上一次选中牌在cardLibrary里的牌
 
     bool flagOfPutCard;    //是否显示出的牌，因为这是在
-
+    EnemyAI AI; 
 
     public void Start()
     {
         enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
+        AI = GameObject.Find("Battle").GetComponent<BattleSystem>().GetAI();
        
         lastIndex = -1;
         lastCard = new Card();
         currentIndex = player.GetCardManager.CardIndex;
 
-        lastEnemyCardsNum  = enemy .GetCardManager.CardsNum;
+        lastEnemyCardsNum  = AI.CardsNum;
 
         ShowPlayerCards();
         ShowEnemyCards ();
@@ -81,11 +82,11 @@ public class View : MonoBehaviour
 
         }
 
-        if(enemy.GetCardManager.CardsNum != lastEnemyCardsNum)
+        if(AI.CardsNum != lastEnemyCardsNum)
         {
             DestoryEnemyCards();
             ShowEnemyCards();
-            lastEnemyCardsNum = enemy.GetCardManager.CardsNum;
+            lastEnemyCardsNum = AI.CardsNum;
         }
 
         
@@ -173,7 +174,7 @@ public class View : MonoBehaviour
 		GameObject enemyCards = GameObject.Find("EnemyCards");
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-		for (int temp = 0;temp < enemy.GetCardManager.CardsNum;temp ++)
+		for (int temp = 0;temp < AI.CardsNum;temp ++)
 		{
 			GameObject itemGo = Instantiate(backCard,startPosition+interval*i, Quaternion.identity);
 			itemGo.transform.SetParent(enemyCards.transform);

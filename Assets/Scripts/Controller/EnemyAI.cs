@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAI
 {
     Player player;
     Enemy enemy;
@@ -10,13 +10,13 @@ public class EnemyAI : MonoBehaviour
     List<Card> handCards;
     int ExpenseLeast;
 
-    void Start()
+  public EnemyAI()
     {
-        enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
+        enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
         cards = new List<Card>();
         handCards = new List<Card>();
-
+        InitLibrary();   
     }
 
     void InitLibrary()
@@ -41,6 +41,26 @@ public class EnemyAI : MonoBehaviour
         for (i = 0; i < 1; i++)
         {
             cards.Add(CardManager.GetNewCard(CardName.Confess));
+        }
+    }
+
+    public void GetCardsFromLibrary(int num)
+    {
+        int i;
+        for (i = 0;i  < num;i++)
+        {
+            int rand = UnityEngine.Random.Range(0, cards.Count);
+            Card tmp = cards[rand];
+            cards.RemoveAt(rand);
+            handCards.Add(tmp);
+        }
+    }
+    
+    public int CardsNum
+    {
+        get
+        {
+            return handCards.Count;
         }
     }
 
