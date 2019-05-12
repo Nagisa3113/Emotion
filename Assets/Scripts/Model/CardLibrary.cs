@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ public class CardLibrary
     [SerializeField]
     List<Card> cards;
 
-    //单例模式
+    /* 单例模式 */
     private static CardLibrary cardLibrary;
 
     private CardLibrary()
@@ -38,11 +39,23 @@ public class CardLibrary
 
     public void InitLibrary()
     {
-        for (int i = 0; i < 20; i++)
+
+        foreach (CardName cardName in Enum.GetValues(typeof(CardName)))
         {
-            cards.Add(new Card("Anger"));
-            cards.Add(new Card("Heal"));
+
+            if ( cardName != CardName.Empty)
+            
+            cards.Add(CardManager.GetNewCard(cardName));
+
+
         }
+
+        //  for (int i = 0; i < 20; i++)
+        // {
+        //     cards.Add(new Card(CardName.Anger));
+        //     cards.Add(new Card(CardName.Heal));
+           
+        // }
     }
 
 
@@ -59,14 +72,26 @@ public class CardLibrary
     }
 
 
-    public Card GetCard()
+    public void PutAllCard(CardName cardName, Role self, Role target)
     {
-        return null;
+
+        for (int i = cards.Count - 1; i >= 0; i--)
+        {
+            Card card = cards[i];
+            if (card.GetName == cardName)
+            {
+                card.TakeEffect(self, target);
+                CardDiscard.GetInstance().AddCard(card);
+                cards.Remove(card);
+            }
+        }
+
     }
+
 
     public Card GetRandomCard()
     {
-        int rand = Random.Range(0, cards.Count);
+        int rand = UnityEngine.Random.Range(0, cards.Count);
         Card tmp = cards[rand];
         cards.RemoveAt(rand);
 

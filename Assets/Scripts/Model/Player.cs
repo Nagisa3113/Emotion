@@ -48,15 +48,15 @@ public class Player : Role
         }
     }
 
-    public override void PutCard(Role target)
+    public override void PutCurrentCard(Role target)
     {
-        cardManager.PutCard(this, target);
+        cardManager.PutCurrentCard(this, target);
     }
 
 
-    public override void GetCard()
+    public void GetCardFromLibrary(int num)
     {
-        cardManager.GetCardsFromLibrary(3);
+        cardManager.GetCardsFromLibrary(num);
     }
 
 }

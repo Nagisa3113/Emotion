@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,18 +38,19 @@ public class View : MonoBehaviour
     Card lastCard;          //上一次选中牌在cardLibrary里的牌
 
     bool flagOfPutCard;    //是否显示出的牌，因为这是在
-
+    EnemyAI AI; 
 
     public void Start()
     {
-        enemy =  GameObject.Find("Battle").GetComponent<BattleController>().GetEnemy();
+        enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
+        AI = GameObject.Find("Battle").GetComponent<BattleSystem>().GetAI();
        
         lastIndex = -1;
         lastCard = new Card();
         currentIndex = player.GetCardManager.CardIndex;
 
-        lastEnemyCardsNum  = enemy .GetCardManager.CardsNum;
+        lastEnemyCardsNum  = AI.CardsNum;
 
         ShowPlayerCards();
         ShowEnemyCards ();
@@ -59,14 +60,14 @@ public class View : MonoBehaviour
     public void Update()
     {   
         /*显示各种参数 */
-        healthOfPlayer.fillAmount =  player.GetHP/(float)player.GetHPMax;
-        healthOfEnemy.fillAmount  =  enemy.GetHP/(float)enemy.GetHPMax;
+        // healthOfPlayer.fillAmount =  player.GetHP/(float)player.GetHPMax;
+        // healthOfEnemy.fillAmount  =  enemy.GetHP/(float)enemy.GetHPMax;
 
-        expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
-        expenseOfEnemy. text = enemy .GetCardManager.ExpenseCurrent.ToString();
+        // expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
+        // expenseOfEnemy. text = enemy .GetCardManager.ExpenseCurrent.ToString();
 
-        handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
-        handcardsOfEnemy. text = enemy. GetCardManager.CardsNum.ToString();
+        // handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
+        // handcardsOfEnemy. text = enemy. GetCardManager.CardsNum.ToString();
        
 
         /*显示玩家和敌人的手牌和每次手牌数变化时更新手牌 */
@@ -81,11 +82,11 @@ public class View : MonoBehaviour
 
         }
 
-        if(enemy.GetCardManager.CardsNum != lastEnemyCardsNum)
+        if(AI.CardsNum != lastEnemyCardsNum)
         {
             DestoryEnemyCards();
             ShowEnemyCards();
-            lastEnemyCardsNum = enemy.GetCardManager.CardsNum;
+            lastEnemyCardsNum = AI.CardsNum;
         }
 
         
@@ -115,13 +116,13 @@ public class View : MonoBehaviour
         {
             isPause = true;
             pauseButton.image.sprite = pauseSprite[0];
-            GameObject.Find("Battle").GetComponent<BattleController>().battleStatus = BattleStatus.PlayerPause;
+            GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.PlayerPause;
         }
         else
         {
             isPause = false;
             pauseButton.image.sprite = pauseSprite[1];
-            GameObject.Find("Battle").GetComponent<BattleController>().battleStatus = BattleStatus.Batttling;
+            GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.Batttling;
         }
         
     }
@@ -141,7 +142,7 @@ public class View : MonoBehaviour
             GameObject temp = null;
             foreach (var prefab in handCards)
             {
-                if (card.GetName == prefab.name)
+                if (card.GetName.ToString() == prefab.name)
                 {
                     temp = prefab;
                     break;
@@ -173,7 +174,7 @@ public class View : MonoBehaviour
 		GameObject enemyCards = GameObject.Find("EnemyCards");
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-		for (int temp = 0;temp < enemy.GetCardManager.CardsNum;temp ++)
+		for (int temp = 0;temp < AI.CardsNum;temp ++)
 		{
 			GameObject itemGo = Instantiate(backCard,startPosition+interval*i, Quaternion.identity);
 			itemGo.transform.SetParent(enemyCards.transform);
@@ -212,18 +213,20 @@ public class View : MonoBehaviour
 
 
         if(lastIndex != -1 && lastIndex != currentIndex)
-        {
-                
+        {  
             lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
             lastSelectedPosition=new Vector3(0,0,lastSelectedCard.transform.position.z);
+            //GameObject temp = playerCard.transform.GetChild(lastIndex).gameObject;             
             foreach (var prefab in handCards)
             {
-                if (lastCard.GetName == prefab.name)
+                if (lastCard.GetName.ToString() == prefab.name)
                 {
                     handCard = prefab;
                     break;
                 }
             }
+            lastSelectedCard.transform.position = lastSelectedCard.transform.position
+                                          -lastSelectedPosition  + new Vector3(0,0,2f);
 
         lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
         }
@@ -233,7 +236,7 @@ public class View : MonoBehaviour
 
         foreach (var prefab in deskCards)
         {
-            if (currentCard.GetName == prefab.name)
+            if (currentCard.GetName.ToString() == prefab.name)
             {
                 deskCard = prefab;
                 break;
@@ -258,7 +261,7 @@ public class View : MonoBehaviour
 
         foreach (var prefab in handCards)
         {
-            if (lastCard.GetName == prefab.name)
+            if (lastCard.GetName.ToString() == prefab.name)
             {
                 GameObject itemGo = Instantiate(prefab,startPosition+interval*i, Quaternion.identity);
 			    itemGo.transform.SetParent(cardTombs.transform);
