@@ -20,6 +20,5 @@ public class PlayerCardManager : CardManager
             }
 
         }
-        ChangeViewShow = true;
     }
 }

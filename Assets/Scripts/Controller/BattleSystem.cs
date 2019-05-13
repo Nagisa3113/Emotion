@@ -55,11 +55,10 @@ public class BattleSystem : MonoBehaviour
 
     [Header("回合阶段")]
     public RoundStatus roundStatus;
-    EnemyAI AI;
 
     public void Awake()
     {
-        AI =new EnemyAI();
+        
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
@@ -95,7 +94,7 @@ public class BattleSystem : MonoBehaviour
 
         player.GetCardManager.GetCardsFromLibrary(6);
 
-        AI.GetCardsFromLibrary(6);
+        enemy.GetCardManager.GetCardsFromLibrary(6);
 
         //player.PropReduceCD();
 
@@ -126,8 +125,7 @@ public class BattleSystem : MonoBehaviour
 
             case RoundTurn.EnemyRound:
                 enemy.GetCardManager.ExpenseReset();
-                AI.GetCardsFromLibrary(3);
-                //enemy.GetCard();
+                enemy.GetCardManager.GetCardsFromLibrary(3);
 
                 //enemy.BuffReduceLayer();
 
@@ -152,7 +150,7 @@ public class BattleSystem : MonoBehaviour
 
 
             case RoundTurn.EnemyRound:
-                AI.AI(player,enemy);
+                enemy.GetCardManager.AI(enemy,player);
                 break;
 
         }
@@ -226,12 +224,6 @@ public class BattleSystem : MonoBehaviour
     {
         return enemy;
     }
-    public EnemyAI GetAI()
-    {
-        return AI;
-    }
-
-
 
     void InputHandle()
     {

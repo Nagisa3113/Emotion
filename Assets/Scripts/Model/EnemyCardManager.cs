@@ -57,14 +57,14 @@ public class EnemyCardManager : CardManager
     }
     
 
-    public void AI(Role self, Role target)
+    public override void AI(Role self, Role target)
     {
         if (cards.Count > 0)
         {
             ExpenseLeast = cards[0].GetCost;
         }
 
-        while (cards.Count > 0 && enemy.GetCardManager.ExpenseCurrent > ExpenseLeast)
+        while (cards.Count > 0 && ExpenseCurrent > ExpenseLeast)
         {
 
             int rankLeast = -10;
@@ -81,8 +81,14 @@ public class EnemyCardManager : CardManager
             foreach (Card card in cards)
             {
                 CardName name = card.GetName;
-                switch (name)
+                if (card.GetCost > ExpenseCurrent )
                 {
+                    break;
+                }
+                else
+                {
+                    switch (name)
+                    {
                     case CardName.Empty:
                         break;
 
@@ -224,17 +230,15 @@ public class EnemyCardManager : CardManager
                     case CardName.Comfort:
 
                         break;
-
-
+                    }
                 }
-
             }
 
             if (temp.GetName != CardName.Empty)
             {
                 temp.TakeEffect(self, target);
                 cards.Remove(temp);
-                enemy.GetCardManager.ExpenseCurrent -= temp.GetCost;
+                ExpenseCurrent -= temp.GetCost;
             }
             foreach (Card cardTemp in cards)
             {

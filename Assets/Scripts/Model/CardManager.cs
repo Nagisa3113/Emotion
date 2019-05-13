@@ -6,6 +6,8 @@ using UnityEngine;
 public class CardManager
 {
 
+    
+    View view;
     //当前选中牌
     [SerializeField]
     Card currentCard;
@@ -77,37 +79,11 @@ public class CardManager
         }
     }
 
-    bool changeViewShow;           //是否改变view里牌的显示
-    public bool ChangeViewShow
-    {
-        get
-        {
-            return changeViewShow;
-        }
-        set
-        {
-            changeViewShow = value;
-        }
 
-    }
-
-    bool changeViewSelect;           //是否改变select的显示
-    public bool ChangeViewSelect
-    {
-        get
-        {
-            return changeViewSelect;
-        }
-        set
-        {
-            changeViewSelect = value;
-        }
-
-    }
 
     public CardManager()
     {
-
+        view = View.GetInstance();
         emptyCard = new Empty();
 
         currentCard = emptyCard;
@@ -117,8 +93,6 @@ public class CardManager
         expenseMax = 20;
         expenseCurrent = expenseMax;
 
-        changeViewSelect = true ;
-        changeViewShow = true;
         //IEnumerator<Card> iter = cards.GetEnumerator();
 
     }
@@ -154,7 +128,6 @@ public class CardManager
                     cards[i-1] = cards[i];
                 }
                 cards[cards.Count-1] = temp;
-                changeViewShow = true;
             }
 
             else
@@ -170,7 +143,6 @@ public class CardManager
 
         currentCard = cards[currentCardIndex];
 
-        changeViewSelect = true;
 
     }
 
@@ -194,6 +166,11 @@ public class CardManager
     {
 
     }
+
+    public virtual void AI(Role self, Role target)
+    {
+
+    }
     public void PutCard(CardName cardName, Role self, Role target)
     {
         if (expenseCurrent >= currentCard.GetCost)
@@ -214,6 +191,7 @@ public class CardManager
 
                     currentCard.TakeEffect(self, target);
 
+
                     CardDiscard.GetInstance().AddCard(card);
 
 
@@ -221,7 +199,6 @@ public class CardManager
                     break;
                 }
             }
-            changeViewShow = true;
         }
     }
 
@@ -263,10 +240,10 @@ public class CardManager
             }
 
             currentCard.TakeEffect(self, target);
-
             CardDiscard.GetInstance().AddCard(currentCard);
-
-
+            //Debug.Log(currentCard.GetName);
+            view.ShowPlayerPutCard(currentCard.GetName);
+           
             currentCard = emptyCard;
             currentCardIndex = -1;
         }

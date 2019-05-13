@@ -28,33 +28,27 @@ public class View : MonoBehaviour
     Player player ;
     Enemy enemy ;
 
-   //上一次选中牌在cardLibrary里的索引
-    int lastIndex;
-    //此时选中牌在cardLibrary里的索引
-    int currentIndex;
-
-    int lastEnemyCardsNum;
+    private static View view;
     
-    Card lastCard;          //上一次选中牌在cardLibrary里的牌
+    private View()
+    {
+        view =this;
+    }
 
-    bool flagOfPutCard;    //是否显示出的牌，因为这是在
-    EnemyAI AI; 
+
+    public static View GetInstance()
+    {
+
+        return view;
+    }
+
 
     public void Start()
     {
         enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
-        AI = GameObject.Find("Battle").GetComponent<BattleSystem>().GetAI();
-       
-        lastIndex = -1;
-        lastCard = new Card();
-        currentIndex = player.GetCardManager.CardIndex;
-
-        lastEnemyCardsNum  = AI.CardsNum;
-
         ShowPlayerCards();
         ShowEnemyCards ();
-        flagOfPutCard = false ;
     }
 
     public void Update()
@@ -71,40 +65,40 @@ public class View : MonoBehaviour
        
 
         /*显示玩家和敌人的手牌和每次手牌数变化时更新手牌 */
-        if (player.GetCardManager.ChangeViewShow)
-        {
-            DestoryPlayerCards();
-            ShowPlayerCards();
-            lastIndex = -1;
-            flagOfPutCard = true;
-            player.GetCardManager.ChangeViewShow = false;
+        // if (player.GetCardManager.ChangeViewShow)
+        // {
+        //     DestoryPlayerCards();
+        //     ShowPlayerCards();
+        //     lastIndex = -1;
+        //     flagOfPutCard = true;
+        //     player.GetCardManager.ChangeViewShow = false;
            
 
-        }
+        // }
 
-        if(AI.CardsNum != lastEnemyCardsNum)
-        {
-            DestoryEnemyCards();
-            ShowEnemyCards();
-            lastEnemyCardsNum = AI.CardsNum;
-        }
+        // // if(AI.CardsNum != lastEnemyCardsNum)
+        // // {
+        // //     DestoryEnemyCards();
+        // //     ShowEnemyCards();
+        // //     lastEnemyCardsNum = AI.CardsNum;
+        // // }
 
         
-        if (player.GetCardManager.ChangeViewSelect && player.GetCardManager.CardIndex != -1)
-        {
-            currentIndex = player.GetCardManager.CardIndex;
-            SelectedPlayerCard();
+        // if (player.GetCardManager.ChangeViewSelect && player.GetCardManager.CardIndex != -1)
+        // {
+        //     currentIndex = player.GetCardManager.CardIndex;
+        //     SelectedPlayerCard();
 
-            lastIndex = player.GetCardManager.CardIndex;
-            lastCard = player.GetCardManager.CurrentCard;
-        }
+        //     lastIndex = player.GetCardManager.CardIndex;
+        //     lastCard = player.GetCardManager.CurrentCard;
+        // }
         
-        //显示用出来的牌
-        if (player.GetCardManager.CardIndex == -1 && flagOfPutCard)
-        {
-            ShowPlayerPutCard();
-            flagOfPutCard = false ;
-        }
+        // //显示用出来的牌
+        // if (player.GetCardManager.CardIndex == -1 && flagOfPutCard)
+        // {
+        //     ShowPlayerPutCard();
+        //     flagOfPutCard = false ;
+        // }
 
         
     }
@@ -130,12 +124,18 @@ public class View : MonoBehaviour
     //显示手牌里的牌
     void ShowPlayerCards()
 	{
-         
-
         int i = 0;
         Vector3 interval = new Vector3(0.3f,0,-0.01f);
         Vector3 startPosition = new Vector3(3f,-3f,0);
-		GameObject playerCard = GameObject.Find("PlayerCards");
+		GameObject playerCards = GameObject.Find("PlayerCards");
+        
+        //摧毁原有牌
+        int childCount = playerCards.transform.childCount;
+		for (i = 0; i < childCount; i++)
+		{
+			Destroy(playerCards.transform.GetChild(i).gameObject);
+		}
+
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
 		foreach (var card in player.GetCardManager.GetCards())
 		{
@@ -148,22 +148,12 @@ public class View : MonoBehaviour
                     break;
                 }
             }
-
 			GameObject itemGo = Instantiate(temp,startPosition + interval*i, Quaternion.identity);
-			itemGo.transform.SetParent(playerCard.transform);
+			itemGo.transform.SetParent(playerCards.transform);
             i++;
 		}    
     }
 
-    void DestoryPlayerCards()
-    {
-        GameObject playerCards = GameObject.Find("PlayerCards");
-        int childCount = playerCards.transform.childCount;
-		for (int i = 0; i < childCount; i++)
-		{
-			Destroy(playerCards.transform.GetChild(i).gameObject);
-		}
-    }
 
      void ShowEnemyCards()
 	{
@@ -173,8 +163,15 @@ public class View : MonoBehaviour
         Vector3 startPosition = new Vector3(-5f,3f,0);
 		GameObject enemyCards = GameObject.Find("EnemyCards");
 
+        //摧毁原有牌
+        int childCount = enemyCards.transform.childCount;
+		for (i = 0; i < childCount; i++)
+		{
+			Destroy(enemyCards.transform.GetChild(i).gameObject);
+		}
+
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-		for (int temp = 0;temp < AI.CardsNum;temp ++)
+		for (int temp = 0;temp < enemy.GetCardManager.CardsNum;temp ++)
 		{
 			GameObject itemGo = Instantiate(backCard,startPosition+interval*i, Quaternion.identity);
 			itemGo.transform.SetParent(enemyCards.transform);
@@ -182,76 +179,68 @@ public class View : MonoBehaviour
 		}    
     }
 
-    void DestoryEnemyCards()
-    {
-        GameObject enemyCards = GameObject.Find("EnemyCards");
-        int childCount = enemyCards.transform.childCount;
-		for (int i = 0; i < childCount; i++)
-		{
-			Destroy(enemyCards.transform.GetChild(i).gameObject);
-		}
-    }
+
 
 
     //实现上一次选中牌恢复原状，现在选中牌放大
-    void SelectedPlayerCard()
-    {
-        //SrollPlayerShow();
-        GameObject playerCard = GameObject.Find("PlayerCards");
-        //现在选中在视图的牌
-        GameObject selectedCard = null;
-        //上次选中在视图的牌
-        GameObject lastSelectedCard = null;
-        //手牌
-        GameObject deskCard = null;
-        //放大的桌面牌
-        GameObject handCard = null;
+    // void SelectedPlayerCard()
+    // {
+    //     //SrollPlayerShow();
+    //     GameObject playerCard = GameObject.Find("PlayerCards");
+    //     //现在选中在视图的牌
+    //     GameObject selectedCard = null;
+    //     //上次选中在视图的牌
+    //     GameObject lastSelectedCard = null;
+    //     //手牌
+    //     GameObject deskCard = null;
+    //     //放大的桌面牌
+    //     GameObject handCard = null;
 
-        Vector3 selectedPosition;
-        Vector3 lastSelectedPosition;
-        Card currentCard = player.GetCardManager.CurrentCard;
+    //     Vector3 selectedPosition;
+    //     Vector3 lastSelectedPosition;
+    //     Card currentCard = player.GetCardManager.CurrentCard;
 
 
-        if(lastIndex != -1 && lastIndex != currentIndex)
-        {  
-            lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
-            lastSelectedPosition=new Vector3(0,0,lastSelectedCard.transform.position.z);
-            //GameObject temp = playerCard.transform.GetChild(lastIndex).gameObject;             
-            foreach (var prefab in handCards)
-            {
-                if (lastCard.GetName.ToString() == prefab.name)
-                {
-                    handCard = prefab;
-                    break;
-                }
-            }
-            lastSelectedCard.transform.position = lastSelectedCard.transform.position
-                                          -lastSelectedPosition  + new Vector3(0,0,2f);
+    //     if(lastIndex != -1 && lastIndex != currentIndex)
+    //     {  
+    //         lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
+    //         lastSelectedPosition=new Vector3(0,0,lastSelectedCard.transform.position.z);
+    //         //GameObject temp = playerCard.transform.GetChild(lastIndex).gameObject;             
+    //         foreach (var prefab in handCards)
+    //         {
+    //             if (lastCard.GetName.ToString() == prefab.name)
+    //             {
+    //                 handCard = prefab;
+    //                 break;
+    //             }
+    //         }
+    //         lastSelectedCard.transform.position = lastSelectedCard.transform.position
+    //                                       -lastSelectedPosition  + new Vector3(0,0,2f);
 
-        lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
-        }
+    //     lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
+    //     }
 
-        selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
-        selectedPosition=new Vector3(0,0,selectedCard.transform.position.z);
+    //     selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
+    //     selectedPosition=new Vector3(0,0,selectedCard.transform.position.z);
 
-        foreach (var prefab in deskCards)
-        {
-            if (currentCard.GetName.ToString() == prefab.name)
-            {
-                deskCard = prefab;
-                break;
-            }
-        }
-        selectedCard.GetComponent<SpriteRenderer>().sprite = deskCard.GetComponent<SpriteRenderer>().sprite;
-        selectedCard.transform.position = selectedCard.transform.position
-                                          -selectedPosition + new Vector3(0,0,-2f);
+    //     foreach (var prefab in deskCards)
+    //     {
+    //         if (currentCard.GetName.ToString() == prefab.name)
+    //         {
+    //             deskCard = prefab;
+    //             break;
+    //         }
+    //     }
+    //     selectedCard.GetComponent<SpriteRenderer>().sprite = deskCard.GetComponent<SpriteRenderer>().sprite;
+    //     selectedCard.transform.position = selectedCard.transform.position
+    //                                       -selectedPosition + new Vector3(0,0,-2f);
 
         
-    }
+    // }
 
 
     //显示出过的牌
-    void ShowPlayerPutCard()
+    public void ShowPlayerPutCard(CardName name)
     {
         
         Vector3 interval = new Vector3(0.3f,0,-0.01f);
@@ -261,14 +250,13 @@ public class View : MonoBehaviour
 
         foreach (var prefab in handCards)
         {
-            if (lastCard.GetName.ToString() == prefab.name)
+            if (name.ToString() == prefab.name)
             {
                 GameObject itemGo = Instantiate(prefab,startPosition+interval*i, Quaternion.identity);
 			    itemGo.transform.SetParent(cardTombs.transform);
                 break;
             }
-        }	
-		   
+        }	 
     }
 }
 
