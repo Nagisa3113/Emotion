@@ -50,12 +50,7 @@ public class CardLibrary
 
         }
 
-        //  for (int i = 0; i < 20; i++)
-        // {
-        //     cards.Add(new Card(CardName.Anger));
-        //     cards.Add(new Card(CardName.Heal));
-           
-        // }
+
     }
 
 

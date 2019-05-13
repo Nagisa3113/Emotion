@@ -13,6 +13,7 @@ public enum EnemyType
 public class Enemy : Role
 {
     EnemyType enemyType;
+    EnemyAI AI;
 
     public EnemyType GetEnemyType
     {
@@ -25,6 +26,15 @@ public class Enemy : Role
     public Enemy(EnemyType enemyType) : base(200, 10)
     {
         this.enemyType = enemyType;
+        GetCardManager = new EnemyCardManager();
+        AI = new EnemyAI();
+    }
+    public EnemyAI GetAI
+    {
+        get
+        {
+            return AI;
+        }
     }
 
 

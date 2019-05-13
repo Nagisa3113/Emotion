@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAI
+public class EnemyCardManager : CardManager
 {
+
     Player player;
     Enemy enemy;
-    List<Card> cards;
-    List<Card> handCards;
+    List<Card> library;
     int ExpenseLeast;
 
-  public EnemyAI()
+
+    public EnemyCardManager()
     {
         enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
-        cards = new List<Card>();
-        handCards = new List<Card>();
-        InitLibrary();   
+        library = new List<Card>();
+        InitLibrary(); 
     }
 
     void InitLibrary()
@@ -24,61 +24,53 @@ public class EnemyAI
         int i = 0;
         for (i = 0; i < 16; i++)
         {
-            cards.Add(CardManager.GetNewCard(CardName.Complain));
+            library.Add(CardManager.GetNewCard(CardName.Complain));
         }
         for (i = 0; i < 6; i++)
         {
-            cards.Add(CardManager.GetNewCard(CardName.DullAtmosphere));
+            library.Add(CardManager.GetNewCard(CardName.DullAtmosphere));
         }
         for (i = 0; i < 3; i++)
         {
-            cards.Add(CardManager.GetNewCard(CardName.WeiYuChouMou));
+            library.Add(CardManager.GetNewCard(CardName.WeiYuChouMou));
         }
         for (i = 0; i < 5; i++)
         {
-            cards.Add(CardManager.GetNewCard(CardName.OuDuanSiLian));
+            library.Add(CardManager.GetNewCard(CardName.OuDuanSiLian));
         }
         for (i = 0; i < 1; i++)
         {
-            cards.Add(CardManager.GetNewCard(CardName.Confess));
+            library.Add(CardManager.GetNewCard(CardName.Confess));
         }
     }
 
-    public void GetCardsFromLibrary(int num)
+    public override void GetCardsFromLibrary(int num)
     {
         int i;
         for (i = 0;i  < num;i++)
         {
-            int rand = UnityEngine.Random.Range(0, cards.Count);
-            Card tmp = cards[rand];
-            cards.RemoveAt(rand);
-            handCards.Add(tmp);
+            int rand = UnityEngine.Random.Range(0, library.Count);
+            Card tmp = library[rand];
+            library.RemoveAt(rand);
+            cards.Add(tmp);
         }
     }
     
-    public int CardsNum
-    {
-        get
-        {
-            return handCards.Count;
-        }
-    }
-
 
     public void AI(Role self, Role target)
     {
-        if (handCards.Count > 0)
+        if (cards.Count > 0)
         {
-            ExpenseLeast = handCards[0].GetCost;
+            ExpenseLeast = cards[0].GetCost;
         }
 
-        while (handCards.Count > 0 && enemy.GetCardManager.ExpenseCurrent > ExpenseLeast)
+        while (cards.Count > 0 && enemy.GetCardManager.ExpenseCurrent > ExpenseLeast)
         {
 
             int rankLeast = -10;
             Card temp = new Card();
             bool flag = false; //判断牌内是否有倾诉
-            foreach (Card cardTemp in handCards)
+            foreach (Card cardTemp in cards)
             {
                 if (cardTemp.GetName == CardName.Confess)
                 {
@@ -86,7 +78,7 @@ public class EnemyAI
                     break;
                 }
             }
-            foreach (Card card in handCards)
+            foreach (Card card in cards)
             {
                 CardName name = card.GetName;
                 switch (name)
@@ -142,7 +134,7 @@ public class EnemyAI
 
 
                     case CardName.WeiYuChouMou:
-                        if (flag && handCards.Count < 4)
+                        if (flag && cards.Count < 4)
                         {
                             if (rankLeast < 6)
                             {
@@ -169,7 +161,7 @@ public class EnemyAI
                         break;
 
                     case CardName.OuDuanSiLian:
-                        if (flag && handCards.Count < 10)
+                        if (flag && cards.Count < 10)
                         {
                             if (rankLeast < 5)
                             {
@@ -177,7 +169,7 @@ public class EnemyAI
                                 temp = card;
                             }
                         }
-                        else if ((!flag) && handCards.Count < 12)
+                        else if ((!flag) && cards.Count < 12)
                         {
                             if (rankLeast < 5)
                             {
@@ -185,7 +177,7 @@ public class EnemyAI
                                 temp = card;
                             }
                         }
-                        else if (handCards.Count < 5)
+                        else if (cards.Count < 5)
                         {
                             if (rankLeast < 5)
                             {
@@ -241,10 +233,10 @@ public class EnemyAI
             if (temp.GetName != CardName.Empty)
             {
                 temp.TakeEffect(self, target);
-                handCards.Remove(temp);
+                cards.Remove(temp);
                 enemy.GetCardManager.ExpenseCurrent -= temp.GetCost;
             }
-            foreach (Card cardTemp in handCards)
+            foreach (Card cardTemp in cards)
             {
                 if (ExpenseLeast < cardTemp.GetCost)
                 {
@@ -255,4 +247,5 @@ public class EnemyAI
         }
 
     }
+
 }

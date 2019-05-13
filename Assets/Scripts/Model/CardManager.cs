@@ -17,7 +17,7 @@ public class CardManager
     int currentCardIndex;
 
     [SerializeField]
-    List<Card> cards;
+    public List<Card> cards;
 
     [SerializeField]
     public int CardsNum
@@ -57,7 +57,7 @@ public class CardManager
 
     int bonus;
 
-    int numMax;//牌组数量上限
+    public int numMax;//牌组数量上限
 
     [SerializeField]
     int expenseCurrent;//当前费用
@@ -117,10 +117,8 @@ public class CardManager
         expenseMax = 20;
         expenseCurrent = expenseMax;
 
-
         changeViewSelect = true ;
         changeViewShow = true;
-
         //IEnumerator<Card> iter = cards.GetEnumerator();
 
     }
@@ -192,27 +190,10 @@ public class CardManager
 
 
     //从牌库中获得牌
-    public void GetCardsFromLibrary(int num)
+    public virtual void GetCardsFromLibrary(int num)
     {
 
-        for (int i = 0; i < num; i++)
-        {
-
-            if (CardLibrary.GetInstance().GetNum == 0 || CardsNum == numMax)
-            {
-                break;
-            }
-            else
-            {
-                cards.Add(CardLibrary.GetInstance().GetRandomCard());
-            }
-
-        }
-        changeViewShow = true;
     }
-
-
-
     public void PutCard(CardName cardName, Role self, Role target)
     {
         if (expenseCurrent >= currentCard.GetCost)
@@ -241,7 +222,6 @@ public class CardManager
                 }
             }
             changeViewShow = true;
-
         }
     }
 

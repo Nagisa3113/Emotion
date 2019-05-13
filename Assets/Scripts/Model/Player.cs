@@ -20,6 +20,7 @@ public class Player : Role
     {
         propLibrary = new List<Prop>();
         props = new List<Prop>();
+        GetCardManager = new PlayerCardManager();
     }
 
     public static Player GetInstance()

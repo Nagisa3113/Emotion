@@ -2,7 +2,13 @@
 
 a rogue-like card game
 
+## 5.13
 
+1. 考虑现有架构不适合单独写一个敌人的ai，我将cardManager分为了PlayerCardManager和EnemyCardManager，在enemyCardManger中写敌人AI
+
+2. 暂未修改view视图
+
+3. AI仍然是原来的结构
 
 ## 5.12
 
@@ -17,7 +23,6 @@ a rogue-like card game
 * 完成紫色卡牌的ai
 * 有些疑问，待交流后进一步实施
 * 暂未改动view上的问题
-
 
 # 5.9
 

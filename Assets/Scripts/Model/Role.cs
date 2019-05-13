@@ -93,6 +93,10 @@ public class Role
         {
             return cardManager;
         }
+        set
+        {
+            cardManager = value;
+        }
     }
 
 
@@ -103,6 +107,7 @@ public class Role
         {
             return buffManager;
         }
+        
     }
 
 
