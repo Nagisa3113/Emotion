@@ -237,6 +237,7 @@ public class EnemyCardManager : CardManager
             if (temp.GetName != CardName.Empty)
             {
                 temp.TakeEffect(self, target);
+                view.ShowPlayerPutCard(temp.GetName);
                 cards.Remove(temp);
                 ExpenseCurrent -= temp.GetCost;
             }

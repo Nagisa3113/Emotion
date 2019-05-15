@@ -28,6 +28,9 @@ public class View : MonoBehaviour
     Player player ;
     Enemy enemy ;
 
+    int lastIndex;
+    Card lastCard;
+
     private static View view;
     
     private View()
@@ -49,57 +52,23 @@ public class View : MonoBehaviour
         player = Player.GetInstance();
         ShowPlayerCards();
         ShowEnemyCards ();
+        
+        lastIndex = -1;
+        SelectedPlayerCard(0,enemy.GetCardManager.GetCards()[0]);
     }
 
     public void Update()
     {   
         /*显示各种参数 */
-        // healthOfPlayer.fillAmount =  player.GetHP/(float)player.GetHPMax;
-        // healthOfEnemy.fillAmount  =  enemy.GetHP/(float)enemy.GetHPMax;
+        healthOfPlayer.fillAmount =  player.GetHP/(float)player.GetHPMax;
+        healthOfEnemy.fillAmount  =  enemy.GetHP/(float)enemy.GetHPMax;
 
-        // expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
-        // expenseOfEnemy. text = enemy .GetCardManager.ExpenseCurrent.ToString();
+        expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
+        expenseOfEnemy. text = enemy .GetCardManager.ExpenseCurrent.ToString();
 
-        // handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
-        // handcardsOfEnemy. text = enemy. GetCardManager.CardsNum.ToString();
+        handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
+        handcardsOfEnemy. text = enemy. GetCardManager.CardsNum.ToString();
        
-
-        /*显示玩家和敌人的手牌和每次手牌数变化时更新手牌 */
-        // if (player.GetCardManager.ChangeViewShow)
-        // {
-        //     DestoryPlayerCards();
-        //     ShowPlayerCards();
-        //     lastIndex = -1;
-        //     flagOfPutCard = true;
-        //     player.GetCardManager.ChangeViewShow = false;
-           
-
-        // }
-
-        // // if(AI.CardsNum != lastEnemyCardsNum)
-        // // {
-        // //     DestoryEnemyCards();
-        // //     ShowEnemyCards();
-        // //     lastEnemyCardsNum = AI.CardsNum;
-        // // }
-
-        
-        // if (player.GetCardManager.ChangeViewSelect && player.GetCardManager.CardIndex != -1)
-        // {
-        //     currentIndex = player.GetCardManager.CardIndex;
-        //     SelectedPlayerCard();
-
-        //     lastIndex = player.GetCardManager.CardIndex;
-        //     lastCard = player.GetCardManager.CurrentCard;
-        // }
-        
-        // //显示用出来的牌
-        // if (player.GetCardManager.CardIndex == -1 && flagOfPutCard)
-        // {
-        //     ShowPlayerPutCard();
-        //     flagOfPutCard = false ;
-        // }
-
         
     }
 
@@ -122,9 +91,11 @@ public class View : MonoBehaviour
     }
 
     //显示手牌里的牌
-    void ShowPlayerCards()
+    public void ShowPlayerCards()
 	{
         int i = 0;
+        lastIndex = -1;
+
         Vector3 interval = new Vector3(0.3f,0,-0.01f);
         Vector3 startPosition = new Vector3(3f,-3f,0);
 		GameObject playerCards = GameObject.Find("PlayerCards");
@@ -133,8 +104,9 @@ public class View : MonoBehaviour
         int childCount = playerCards.transform.childCount;
 		for (i = 0; i < childCount; i++)
 		{
-			Destroy(playerCards.transform.GetChild(i).gameObject);
+			DestroyImmediate(playerCards.transform.GetChild(0).gameObject);
 		}
+        i = 0;
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
 		foreach (var card in player.GetCardManager.GetCards())
@@ -182,61 +154,47 @@ public class View : MonoBehaviour
 
 
 
-    //实现上一次选中牌恢复原状，现在选中牌放大
-    // void SelectedPlayerCard()
-    // {
-    //     //SrollPlayerShow();
-    //     GameObject playerCard = GameObject.Find("PlayerCards");
-    //     //现在选中在视图的牌
-    //     GameObject selectedCard = null;
-    //     //上次选中在视图的牌
-    //     GameObject lastSelectedCard = null;
-    //     //手牌
-    //     GameObject deskCard = null;
-    //     //放大的桌面牌
-    //     GameObject handCard = null;
-
-    //     Vector3 selectedPosition;
-    //     Vector3 lastSelectedPosition;
-    //     Card currentCard = player.GetCardManager.CurrentCard;
-
-
-    //     if(lastIndex != -1 && lastIndex != currentIndex)
-    //     {  
-    //         lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
-    //         lastSelectedPosition=new Vector3(0,0,lastSelectedCard.transform.position.z);
-    //         //GameObject temp = playerCard.transform.GetChild(lastIndex).gameObject;             
-    //         foreach (var prefab in handCards)
-    //         {
-    //             if (lastCard.GetName.ToString() == prefab.name)
-    //             {
-    //                 handCard = prefab;
-    //                 break;
-    //             }
-    //         }
-    //         lastSelectedCard.transform.position = lastSelectedCard.transform.position
-    //                                       -lastSelectedPosition  + new Vector3(0,0,2f);
-
-    //     lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
-    //     }
-
-    //     selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
-    //     selectedPosition=new Vector3(0,0,selectedCard.transform.position.z);
-
-    //     foreach (var prefab in deskCards)
-    //     {
-    //         if (currentCard.GetName.ToString() == prefab.name)
-    //         {
-    //             deskCard = prefab;
-    //             break;
-    //         }
-    //     }
-    //     selectedCard.GetComponent<SpriteRenderer>().sprite = deskCard.GetComponent<SpriteRenderer>().sprite;
-    //     selectedCard.transform.position = selectedCard.transform.position
-    //                                       -selectedPosition + new Vector3(0,0,-2f);
-
-        
-    // }
+   // 实现上一次选中牌恢复原状，现在选中牌放大
+   public void SelectedPlayerCard(int currentIndex,Card currentCard)
+    {
+        GameObject playerCard = GameObject.Find("PlayerCards");
+        //现在选中在视图的牌
+        GameObject selectedCard = null;
+        //上次选中在视图的牌
+        GameObject lastSelectedCard = null;
+        //手牌
+        GameObject deskCard = null;
+        //放大的桌面牌
+        GameObject handCard = null;
+        if(lastIndex != -1)
+        {  
+            lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;        
+            foreach (var prefab in handCards)
+            {
+                if (lastCard.GetName.ToString() == prefab.name)
+                {
+                    handCard = prefab;
+                    break;
+                }
+            }
+            lastSelectedCard.transform.position = lastSelectedCard.transform.position+ new Vector3(0,0,2f);
+            lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
+            
+        }
+        selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
+        foreach (var prefab in deskCards)
+        {
+            if (currentCard.GetName.ToString() == prefab.name)
+            {
+                deskCard = prefab;
+                break;
+            }
+        }
+        selectedCard.GetComponent<SpriteRenderer>().sprite = deskCard.GetComponent<SpriteRenderer>().sprite;
+        selectedCard.transform.position = selectedCard.transform.position + new Vector3(0,0,-2f);
+        lastIndex = currentIndex ;
+        lastCard = currentCard ;   
+    }
 
 
     //显示出过的牌

@@ -257,22 +257,26 @@ MonoBehaviour:
     hpCurrent: 200
     hpMax: 200
     cardManager:
+      view: {fileID: 1528461317}
       currentCard:
         name: 0
         cost: 0
       currentCardIndex: 0
       cards: []
+      numMax: 15
       expenseCurrent: 3
   enemy:
     despondent: 0
     hpCurrent: 0
     hpMax: 0
     cardManager:
+      view: {fileID: 1528461317}
       currentCard:
         name: 0
         cost: 0
       currentCardIndex: 0
       cards: []
+      numMax: 15
       expenseCurrent: 3
   cardLibrary:
     cards: []
@@ -1566,13 +1570,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a1f04a11b9c4fe298d9b4c31a1509c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthOfPlayer: {fileID: 0}
-  healthOfEnemy: {fileID: 0}
-  expenseOfPlayer: {fileID: 0}
-  expenseOfEnemy: {fileID: 0}
-  handcardsOfPlayer: {fileID: 0}
-  handcardsOfEnemy: {fileID: 0}
-  pauseButton: {fileID: 0}
+  healthOfPlayer: {fileID: 1034887758}
+  healthOfEnemy: {fileID: 1937243641}
+  expenseOfPlayer: {fileID: 199914534}
+  expenseOfEnemy: {fileID: 1638568445}
+  handcardsOfPlayer: {fileID: 1701701608}
+  handcardsOfEnemy: {fileID: 1734638966}
+  pauseButton: {fileID: 1793079023}
   isPause: 0
   pauseSprite:
   - {fileID: 6984001492611120053, guid: 723cc6e3fe695eb49887be00a7e618ad, type: 3}

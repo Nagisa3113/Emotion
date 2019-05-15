@@ -2,6 +2,14 @@
 
 a rogue-like card game
 
+## 5.15
+
+1. 修改view的架构
+
+2. 修改第一张牌和最后一张牌不能选中 的bug
+
+
+
 ## 5.13
 
 1. 考虑现有架构不适合单独写一个敌人的ai，我将cardManager分为了PlayerCardManager和EnemyCardManager，在enemyCardManger中写敌人AI

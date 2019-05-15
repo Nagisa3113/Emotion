@@ -7,7 +7,7 @@ public class CardManager
 {
 
     
-    View view;
+    public View view;
     //当前选中牌
     [SerializeField]
     Card currentCard;
@@ -85,12 +85,9 @@ public class CardManager
     {
         view = View.GetInstance();
         emptyCard = new Empty();
-
-        currentCard = emptyCard;
-
         cards = new List<Card>();
         numMax = 15;
-        expenseMax = 20;
+        expenseMax = 3;
         expenseCurrent = expenseMax;
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
@@ -105,11 +102,9 @@ public class CardManager
     //开始选择牌
     public void SelectCard()
     {
-        if (cards[0] != null)
-        {
-            currentCard = cards[0];
-            currentCardIndex = 0;
-        }
+     
+        currentCard = cards[0];
+        currentCardIndex = 0;
     }
 
     //选择不同牌
@@ -128,8 +123,8 @@ public class CardManager
                     cards[i-1] = cards[i];
                 }
                 cards[cards.Count-1] = temp;
+                view.ShowPlayerCards();    
             }
-
             else
             {
                 currentCardIndex = currentCardIndex + 1;
@@ -142,6 +137,7 @@ public class CardManager
         }
 
         currentCard = cards[currentCardIndex];
+        view.SelectedPlayerCard(currentCardIndex,currentCard);
 
 
     }
