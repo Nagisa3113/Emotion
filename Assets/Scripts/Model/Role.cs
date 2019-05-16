@@ -99,7 +99,7 @@ public class Role
         }
     }
 
-
+    [SerializeField]
     protected BuffManager buffManager;
     public BuffManager GetBuffManager
     {

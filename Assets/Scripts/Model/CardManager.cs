@@ -237,12 +237,13 @@ public class CardManager
 
             currentCard.TakeEffect(self, target);
             CardDiscard.GetInstance().AddCard(currentCard);
-            //Debug.Log(currentCard.GetName);
             view.ShowPlayerPutCard(currentCard.GetName);
-           
+            view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
         }
+
+       
     }
 
 

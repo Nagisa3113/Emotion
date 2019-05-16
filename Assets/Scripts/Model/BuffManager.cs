@@ -10,10 +10,13 @@ public class BuffManager
 
     Role self;
 
+    public View view;
+
     public BuffManager(Role role)
     {
         this.self = role;
         buffs = new List<Buff>();
+        view = View.GetInstance();
 
     }
 
@@ -68,24 +71,25 @@ public class BuffManager
                 buffs.Add(new InciteBuff());
                 break;
 
-
             case CardName.Revenge:
                 buffs.Add(new RevengeBuff());
                 break;
-
 
             case CardName.DullAtmosphere:
                 buffs.Add(new DullAtmosphereBuff());
                 break;
 
-
             case CardName.Comfort:
                 buffs.Add(new ComfortBuff());
                 break;
         }
+        view.ShowBuff(self);
+        
 
-
-
+    }
+    public List<Buff> GetBuffs()
+    {
+        return buffs;
     }
 
 

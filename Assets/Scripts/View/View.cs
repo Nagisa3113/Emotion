@@ -24,7 +24,9 @@ public class View : MonoBehaviour
 
     public GameObject[] deskCards;
 
-    public GameObject backCard ;   //牌背     
+    public GameObject backCard ;   //牌背    
+
+    public GameObject[] buffs; 
     Player player ;
     Enemy enemy ;
 
@@ -216,6 +218,72 @@ public class View : MonoBehaviour
             }
         }	 
     }
+
+    public void ShowBuff(Role self)
+    {
+        if(self == player)
+        {
+            Vector3 interval = new Vector3(0.3f,0,-0.01f);
+            Vector3 startPosition = new Vector3(-3f,-2f,0);
+            GameObject playerBuffs = GameObject.Find("PlayerBuffs");
+            int childCount = playerBuffs.transform.childCount;
+            int i;
+		    for (i = 0; i < childCount; i++)
+		    {
+			    DestroyImmediate(playerBuffs.transform.GetChild(0).gameObject);
+		    }
+            i = 0;
+
+		     foreach (var buff in player.GetBuffManager.GetBuffs())
+		    {
+                GameObject temp = null;
+                foreach (var prefab in buffs)
+                {
+                    if (buff.ToString() == prefab.name)
+                    {
+                        temp = prefab;
+                        break;
+                    }
+                }
+			    GameObject itemGo = Instantiate(temp,startPosition + interval*i, Quaternion.identity);
+			    itemGo.transform.SetParent(playerBuffs.transform);
+                i++;
+		    }
+        }
+
+        else
+        {
+            Vector3 interval = new Vector3(0.3f,0,-0.01f);
+            Vector3 startPosition = new Vector3(3f,2f,0);
+            GameObject enemyBuffs = GameObject.Find("EnemyBuffs");
+            int childCount = enemyBuffs.transform.childCount;
+            int i;
+		    for (i = 0; i < childCount; i++)
+		    {
+			    DestroyImmediate(enemyBuffs.transform.GetChild(0).gameObject);
+		    }
+            i = 0;
+
+		    foreach (var buff in enemy.GetBuffManager.GetBuffs())
+		    {
+                GameObject temp = null;
+                foreach (var prefab in buffs)
+                {
+                    if (buff.ToString() == prefab.name)
+                    {
+                        temp = prefab;
+                        break;
+                    }
+                }
+			    GameObject itemGo = Instantiate(temp,startPosition + interval*i, Quaternion.identity);
+			    itemGo.transform.SetParent(enemyBuffs.transform);
+                i++;
+		    }
+        }
+        
+    }
+
+
 }
 
 
