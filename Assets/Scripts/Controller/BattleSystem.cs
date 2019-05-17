@@ -62,7 +62,6 @@ public class BattleSystem : MonoBehaviour
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
-        RoundBegin();
     }
 
     public void Update()
@@ -92,7 +91,7 @@ public class BattleSystem : MonoBehaviour
 
         CardLibrary.GetInstance().InitLibrary();
 
-        player.GetCardManager.GetCardsFromLibrary(6);
+        player.GetCardManager.GetCardsFromLibrary(9);
 
         enemy.GetCardManager.GetCardsFromLibrary(6);
 
@@ -107,6 +106,8 @@ public class BattleSystem : MonoBehaviour
         roundTurn = RoundTurn.PlayerRound;
 
         battleStatus = BattleStatus.Batttling;
+        
+        player.GetCardManager.ExpenseReset();
     }
 
     void RoundBegin()
@@ -151,6 +152,7 @@ public class BattleSystem : MonoBehaviour
 
             case RoundTurn.EnemyRound:
                 enemy.GetCardManager.AI(enemy,player);
+                ChangeRoundStatus(RoundStatus.RoundEnd);
                 break;
 
         }

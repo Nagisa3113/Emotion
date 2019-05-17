@@ -257,7 +257,7 @@ MonoBehaviour:
     hpCurrent: 200
     hpMax: 200
     cardManager:
-      view: {fileID: 1528461317}
+      view: {fileID: 0}
       currentCard:
         name: 0
         cost: 0
@@ -270,7 +270,7 @@ MonoBehaviour:
     hpCurrent: 0
     hpMax: 0
     cardManager:
-      view: {fileID: 1528461317}
+      view: {fileID: 0}
       currentCard:
         name: 0
         cost: 0
@@ -1673,6 +1673,9 @@ MonoBehaviour:
     type: 3}
   buffs:
   - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
+  - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
+  - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
+  - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
 --- !u!4 &1528461318
 Transform:
   m_ObjectHideFlags: 0
@@ -2073,7 +2076,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1528461317}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickPause
         m_Mode: 1
         m_Arguments:

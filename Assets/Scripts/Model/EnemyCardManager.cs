@@ -54,6 +54,9 @@ public class EnemyCardManager : CardManager
             library.RemoveAt(rand);
             cards.Add(tmp);
         }
+
+        if( num != 6)
+            view.ShowEnemyCards();
     }
     
 

@@ -116,7 +116,7 @@ public class Role
         hpCurrent = hpMax = hp;
         this.armor = armor;
         this.despondent = 0;
-        this.cardManager = new CardManager();
+        //this.cardManager = new CardManager();
         this.buffManager = new BuffManager(this);
     }
 

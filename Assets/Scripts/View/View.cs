@@ -129,7 +129,7 @@ public class View : MonoBehaviour
     }
 
 
-     void ShowEnemyCards()
+    public void ShowEnemyCards()
 	{
 
         int i = 0;
@@ -143,6 +143,7 @@ public class View : MonoBehaviour
 		{
 			Destroy(enemyCards.transform.GetChild(i).gameObject);
 		}
+        i=0;
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
 		for (int temp = 0;temp < enemy.GetCardManager.CardsNum;temp ++)
