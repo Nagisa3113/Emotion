@@ -6,6 +6,8 @@ using UnityEngine;
 public class CardManager
 {
 
+    
+    public View view;
     //当前选中牌
     [SerializeField]
     Card currentCard;
@@ -17,7 +19,7 @@ public class CardManager
     int currentCardIndex;
 
     [SerializeField]
-    List<Card> cards;
+    public List<Card> cards;
 
     [SerializeField]
     public int CardsNum
@@ -57,7 +59,7 @@ public class CardManager
 
     int bonus;
 
-    int numMax;//牌组数量上限
+    public int numMax;//牌组数量上限
 
     [SerializeField]
     int expenseCurrent;//当前费用
@@ -77,49 +79,16 @@ public class CardManager
         }
     }
 
-    bool changeViewShow;           //是否改变view里牌的显示
-    public bool ChangeViewShow
-    {
-        get
-        {
-            return changeViewShow;
-        }
-        set
-        {
-            changeViewShow = value;
-        }
 
-    }
-
-    bool changeViewSelect;           //是否改变select的显示
-    public bool ChangeViewSelect
-    {
-        get
-        {
-            return changeViewSelect;
-        }
-        set
-        {
-            changeViewSelect = value;
-        }
-
-    }
 
     public CardManager()
     {
-
+        view = View.GetInstance();
         emptyCard = new Empty();
-
-        currentCard = emptyCard;
-
         cards = new List<Card>();
         numMax = 15;
-        expenseMax = 20;
+        expenseMax = 3;
         expenseCurrent = expenseMax;
-
-
-        changeViewSelect = true ;
-        changeViewShow = true;
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
 
@@ -133,11 +102,9 @@ public class CardManager
     //开始选择牌
     public void SelectCard()
     {
-        if (cards[0] != null)
-        {
-            currentCard = cards[0];
-            currentCardIndex = 0;
-        }
+     
+        currentCard = cards[0];
+        currentCardIndex = 0;
     }
 
     //选择不同牌
@@ -156,9 +123,8 @@ public class CardManager
                     cards[i-1] = cards[i];
                 }
                 cards[cards.Count-1] = temp;
-                changeViewShow = true;
+                view.ShowPlayerCards();    
             }
-
             else
             {
                 currentCardIndex = currentCardIndex + 1;
@@ -171,8 +137,8 @@ public class CardManager
         }
 
         currentCard = cards[currentCardIndex];
+        view.SelectedPlayerCard(currentCardIndex,currentCard);
 
-        changeViewSelect = true;
 
     }
 
@@ -192,27 +158,15 @@ public class CardManager
 
 
     //从牌库中获得牌
-    public void GetCardsFromLibrary(int num)
+    public virtual void GetCardsFromLibrary(int num)
     {
 
-        for (int i = 0; i < num; i++)
-        {
-
-            if (CardLibrary.GetInstance().GetNum == 0 || CardsNum == numMax)
-            {
-                break;
-            }
-            else
-            {
-                cards.Add(CardLibrary.GetInstance().GetRandomCard());
-            }
-
-        }
-        changeViewShow = true;
     }
 
+    public virtual void AI(Role self, Role target)
+    {
 
-
+    }
     public void PutCard(CardName cardName, Role self, Role target)
     {
         if (expenseCurrent >= currentCard.GetCost)
@@ -233,6 +187,7 @@ public class CardManager
 
                     currentCard.TakeEffect(self, target);
 
+
                     CardDiscard.GetInstance().AddCard(card);
 
 
@@ -240,8 +195,6 @@ public class CardManager
                     break;
                 }
             }
-            changeViewShow = true;
-
         }
     }
 
@@ -283,13 +236,14 @@ public class CardManager
             }
 
             currentCard.TakeEffect(self, target);
-
             CardDiscard.GetInstance().AddCard(currentCard);
-
-
+            view.ShowPlayerPutCard(currentCard.GetName);
+            view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
         }
+
+       
     }
 
 

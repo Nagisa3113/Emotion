@@ -93,9 +93,13 @@ public class Role
         {
             return cardManager;
         }
+        set
+        {
+            cardManager = value;
+        }
     }
 
-
+    [SerializeField]
     protected BuffManager buffManager;
     public BuffManager GetBuffManager
     {
@@ -103,6 +107,7 @@ public class Role
         {
             return buffManager;
         }
+        
     }
 
 

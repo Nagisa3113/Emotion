@@ -58,11 +58,11 @@ public class BattleSystem : MonoBehaviour
 
     public void Awake()
     {
+        
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
         RoundBegin();
-
     }
 
     public void Update()
@@ -94,7 +94,7 @@ public class BattleSystem : MonoBehaviour
 
         player.GetCardManager.GetCardsFromLibrary(6);
 
-        //enemy.GetCardManager.GetCardsFromLibrary(6);
+        enemy.GetCardManager.GetCardsFromLibrary(6);
 
         //player.PropReduceCD();
 
@@ -124,8 +124,8 @@ public class BattleSystem : MonoBehaviour
                 break;
 
             case RoundTurn.EnemyRound:
-
-                //enemy.GetCard();
+                enemy.GetCardManager.ExpenseReset();
+                enemy.GetCardManager.GetCardsFromLibrary(3);
 
                 //enemy.BuffReduceLayer();
 
@@ -150,7 +150,7 @@ public class BattleSystem : MonoBehaviour
 
 
             case RoundTurn.EnemyRound:
-                //EnemyAI();
+                enemy.GetCardManager.AI(enemy,player);
                 break;
 
         }
@@ -218,18 +218,12 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    void EnemyAI()
-    {
-        //enemy.PutCard(player);
-        //ChangeRoundStatus(RoundStatus.RoundEnd);
-    }
+ 
 
     public Enemy GetEnemy()
     {
         return enemy;
     }
-
-
 
     void InputHandle()
     {

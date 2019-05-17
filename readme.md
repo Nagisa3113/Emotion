@@ -2,7 +2,23 @@
 
 a rogue-like card game
 
+## 5.15
 
+1. 修改view的架构
+
+2. 修改第一张牌和最后一张牌不能选中 的bug
+
+
+
+## 5.13
+
+1. 考虑现有架构不适合单独写一个敌人的ai，我将cardManager分为了PlayerCardManager和EnemyCardManager，在enemyCardManger中写敌人AI
+
+2. 暂未修改view视图
+
+3. AI仍然是原来的结构
+
+4. 理论上可行了，但是不知道为啥只能进行第一回合，可能有些问题，玩家按键有问题
 
 ## 5.12
 
@@ -17,7 +33,6 @@ a rogue-like card game
 * 完成紫色卡牌的ai
 * 有些疑问，待交流后进一步实施
 * 暂未改动view上的问题
-
 
 # 5.9
 

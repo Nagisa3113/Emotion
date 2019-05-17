@@ -14,6 +14,7 @@ public class Enemy : Role
 {
     EnemyType enemyType;
 
+
     public EnemyType GetEnemyType
     {
         get
@@ -25,6 +26,7 @@ public class Enemy : Role
     public Enemy(EnemyType enemyType) : base(200, 10)
     {
         this.enemyType = enemyType;
+        GetCardManager = new EnemyCardManager();
     }
 
 
