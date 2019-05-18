@@ -246,11 +246,12 @@ public class EnemyCardManager : CardManager
             }
             foreach (Card cardTemp in cards)
             {
-                if (ExpenseLeast < cardTemp.GetCost)
+                if (ExpenseLeast > cardTemp.GetCost)
                 {
                     ExpenseLeast = cardTemp.GetCost;
                 }
             }
+        //rankLeast = -10;
 
         }
 
