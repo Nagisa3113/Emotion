@@ -26,7 +26,7 @@ public enum BuffType
 
 
 
-
+[System.Serializable]
 public class Buff
 {
     public BuffType buffType;

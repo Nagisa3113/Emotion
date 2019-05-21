@@ -35,6 +35,13 @@ public class BattleSystem : MonoBehaviour
     [SerializeField]
     Enemy enemy;
 
+
+    public Enemy GetEnemy()
+    {
+        return enemy;
+    }
+
+
     [Header("牌库")]
     [SerializeField]
     CardLibrary cardLibrary;
@@ -62,23 +69,26 @@ public class BattleSystem : MonoBehaviour
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
-        RoundBegin();
+
     }
 
     public void Update()
     {
-        if (battleStatus == BattleStatus.PlayerPause)
-        {
+        //if (battleStatus == BattleStatus.PlayerPause)
+        //{
 
-        }
-        else if (battleStatus == BattleStatus.Batttling)
+        //}
+        if (battleStatus == BattleStatus.Batttling)
         {
-            Rounding();
+            if(roundStatus==RoundStatus.Rounding)
+            {
+                Rounding();
+            }
         }
-        else
-        {
-            BattleEnd();
-        }
+        //else
+        //{
+        //    BattleEnd();
+        //}
     }
 
     public void BattleStart()
@@ -107,6 +117,8 @@ public class BattleSystem : MonoBehaviour
         roundTurn = RoundTurn.PlayerRound;
 
         battleStatus = BattleStatus.Batttling;
+
+        RoundBegin();
     }
 
     void RoundBegin()
@@ -151,6 +163,7 @@ public class BattleSystem : MonoBehaviour
 
             case RoundTurn.EnemyRound:
                 enemy.GetCardManager.AI(enemy,player);
+                ChangeRoundStatus(RoundStatus.RoundEnd);
                 break;
 
         }
@@ -179,9 +192,9 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    void ChangeRoundStatus(RoundStatus roundStatus)
+    void ChangeRoundStatus(RoundStatus nextRoundStatus)
     {
-        switch (roundStatus)
+        switch (nextRoundStatus)
         {
             case RoundStatus.RoundEnd:
 
@@ -220,10 +233,7 @@ public class BattleSystem : MonoBehaviour
 
  
 
-    public Enemy GetEnemy()
-    {
-        return enemy;
-    }
+
 
     void InputHandle()
     {
@@ -261,6 +271,9 @@ public class BattleSystem : MonoBehaviour
             return;
         }
     }
+
+
+
 }
 
 

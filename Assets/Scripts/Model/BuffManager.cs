@@ -3,10 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
+[System.Serializable]
 public class BuffManager
 {
-    List<Buff> buffs;
+    [SerializeField]
+    public List<Buff> buffs;
 
     Role self;
 
