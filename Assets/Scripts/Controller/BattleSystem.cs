@@ -146,6 +146,7 @@ public class BattleSystem : MonoBehaviour
         switch (roundTurn)
         {
             case RoundTurn.PlayerRound:
+                //InputMouse();
                 InputHandle();
                 break;
 
@@ -262,6 +263,12 @@ public class BattleSystem : MonoBehaviour
             ChangeRoundStatus(RoundStatus.RoundEnd);
             return;
         }
+    }
+
+    void InputMouse()
+    {
+        // 按鼠标左
+         
     }
 }
 

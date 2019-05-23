@@ -67,6 +67,11 @@ public class EnemyCardManager : CardManager
             ExpenseLeast = cards[0].GetCost;
         }
 
+        if(cards.Count ==0)
+        {
+            InitLibrary();
+        }
+
         while (cards.Count > 0 && ExpenseCurrent > ExpenseLeast)
         {
 
@@ -251,7 +256,7 @@ public class EnemyCardManager : CardManager
                     ExpenseLeast = cardTemp.GetCost;
                 }
             }
-        //rankLeast = -10;
+       
 
         }
 

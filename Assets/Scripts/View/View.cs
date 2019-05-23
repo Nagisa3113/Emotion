@@ -24,7 +24,9 @@ public class View : MonoBehaviour
 
     public GameObject[] deskCards;
 
-    public GameObject backCard ;   //牌背    
+    public GameObject backCard ;   //牌背   
+    public GameObject motherHandCard;
+    public GameObject motherPutCard;
 
     public GameObject[] buffs; 
     Player player ;
@@ -56,7 +58,7 @@ public class View : MonoBehaviour
         ShowEnemyCards ();
         
         lastIndex = -1;
-        SelectedPlayerCard(0,enemy.GetCardManager.GetCards()[0]);
+        //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);
     }
 
     public void Update()
@@ -122,7 +124,9 @@ public class View : MonoBehaviour
                     break;
                 }
             }
-			GameObject itemGo = Instantiate(temp,startPosition + interval*i, Quaternion.identity);
+			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
+            itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
+            itemGo.name = temp.name;
 			itemGo.transform.SetParent(playerCards.transform);
             i++;
 		}    
@@ -213,7 +217,8 @@ public class View : MonoBehaviour
         {
             if (name.ToString() == prefab.name)
             {
-                GameObject itemGo = Instantiate(prefab,startPosition+interval*i, Quaternion.identity);
+                GameObject itemGo = Instantiate(motherPutCard,startPosition+interval*i, Quaternion.identity);
+                itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
 			    itemGo.transform.SetParent(cardTombs.transform);
                 break;
             }
