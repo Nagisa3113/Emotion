@@ -17,15 +17,28 @@ public enum CardName
 {
     Empty,//空,未选择时
 
-    Anger,//怒气
-    AngerFire,//怒火
-    NoNameFire,//无名火
 
+    NoNameFire,//无名火
+    Enrange,//激怒
+    Execute,//处决
+    Provoke,//挑衅
+    Furious,//狂暴
+    ReasonVanish,//理性蒸发
     Vent,//发泄
     Incite,//躁动
+    RadicalAction,//过激反应
     Revenge,//报复
+    Anger,//怒气
+    AngerFire,//怒火
+
+
+
+
 
     Complain,//抱怨
+
+
+
 
     DullAtmosphere,//沉闷氛围
     Confess,//倾诉
@@ -35,6 +48,17 @@ public enum CardName
 
     Heal,//治疗
     Comfort,//安慰
+    XingZaiLeHuo,//幸灾乐祸
+    SelfControl,//克己
+    Plot,//暗算
+    Encumber,//拖累
+    Sneer,//嘲讽
+    OverHeated,//怒火中烧
+    RePastEvent,//往事重提
+    Obstruct,//阻挠
+
+
+
 }
 
 
@@ -100,7 +124,7 @@ public class Card
 
 
 
-    public Card(CardName cardName, CardColor color, int upgrade, int upgradeTwice, int cost)
+    public Card(CardName cardName, CardColor color, int cost, int upgrade, int upgradeTwice)
     {
         this.name = cardName;
         this.color = color;
@@ -108,7 +132,7 @@ public class Card
         this.upgradeTwice = upgradeTwice;
         this.cost = cost;
     }
-    public Card(CardName cardName, CardColor color, int upgrade, int cost)
+    public Card(CardName cardName, CardColor color, int cost, int upgrade)
     {
         this.name = cardName;
         this.color = color;
@@ -134,6 +158,69 @@ public class Card
     {
 
     }
+
+
+
+    public static Card NewCard(CardName cardName)
+    {
+        switch (cardName)
+        {
+
+            case CardName.Empty:
+                break;
+
+            case CardName.NoNameFire:
+                return new NoNameFire();
+
+            case CardName.Vent:
+                return new NoNameFire();
+
+            case CardName.Incite:
+                return new Incite();
+
+            case CardName.Revenge:
+                return new Revenge();
+
+            case CardName.Anger:
+                return new Anger();
+
+            case CardName.AngerFire:
+                return new AngerFire();
+
+
+
+            case CardName.Complain:
+                return new Complain();
+
+            case CardName.DullAtmosphere:
+                return new DullAtmosphere();
+
+
+            case CardName.WeiYuChouMou:
+                return new WeiYuChouMou();
+
+            case CardName.OuDuanSiLian:
+                return new OuDuanSiLian();
+
+
+            case CardName.Confess:
+                return new Confess();
+
+
+            case CardName.Heal:
+                return new Heal();
+
+            case CardName.Comfort:
+                return new Comfort();
+
+            default:
+                return null;
+
+        }
+        return null;
+    }
+
+
 
 }
 

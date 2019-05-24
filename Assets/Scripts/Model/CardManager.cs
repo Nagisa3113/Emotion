@@ -6,7 +6,7 @@ using UnityEngine;
 public class CardManager
 {
 
-    
+
     public View view;
     //当前选中牌
     [SerializeField]
@@ -102,7 +102,7 @@ public class CardManager
     //开始选择牌
     public void SelectCard()
     {
-     
+
         currentCard = cards[0];
         currentCardIndex = 0;
     }
@@ -116,14 +116,14 @@ public class CardManager
         {
             if (currentCardIndex + 1 >= cards.Count)
             {
-                currentCardIndex = cards.Count-1;
-                Card temp =cards[0];
-                for (int i=1;i<cards.Count;i++)
+                currentCardIndex = cards.Count - 1;
+                Card temp = cards[0];
+                for (int i = 1; i < cards.Count; i++)
                 {
-                    cards[i-1] = cards[i];
+                    cards[i - 1] = cards[i];
                 }
-                cards[cards.Count-1] = temp;
-                view.ShowPlayerCards();    
+                cards[cards.Count - 1] = temp;
+                view.ShowPlayerCards();
             }
             else
             {
@@ -137,7 +137,7 @@ public class CardManager
         }
 
         currentCard = cards[currentCardIndex];
-        view.SelectedPlayerCard(currentCardIndex,currentCard);
+        view.SelectedPlayerCard(currentCardIndex, currentCard);
 
 
     }
@@ -153,7 +153,7 @@ public class CardManager
 
     public void AddCard(CardName cardName)
     {
-        AddCard(GetNewCard(cardName));
+        AddCard(Card.NewCard(cardName));
     }
 
 
@@ -213,7 +213,7 @@ public class CardManager
             }
         }
     }
-    
+
 
 
 
@@ -243,8 +243,32 @@ public class CardManager
             currentCardIndex = -1;
         }
 
-       
+
     }
+
+
+
+
+    //弃牌
+    public void DicardCard(int num,CardColor cardColor)
+    {
+        while (cards.Count > 0 && num > 0)
+        {
+
+            foreach(Card card in cards)
+            {
+                if (card.GetColor == cardColor)
+                {
+                    cards.Remove(card);
+
+                }
+            }
+            num--;
+
+        }
+    }
+
+
 
 
 
@@ -283,70 +307,6 @@ public class CardManager
         {
             return currentCard;
         }
-    }
-
-
-
-
-
-
-    public static Card GetNewCard(CardName cardName)
-    {
-        switch (cardName)
-        {
-
-            case CardName.Empty:
-                break;
-
-            case CardName.NoNameFire:
-                return new NoNameFire();
-
-            case CardName.Vent:
-                return new NoNameFire();
-
-            case CardName.Incite:
-                return new Incite();
-
-            case CardName.Revenge:
-                return new Revenge();
-
-            case CardName.Anger:
-                return new Anger();
-
-            case CardName.AngerFire:
-                return new AngerFire();
-
-
-
-            case CardName.Complain:
-                return new Complain();
-
-            case CardName.DullAtmosphere:
-                return new DullAtmosphere();
-
-
-            case CardName.WeiYuChouMou:
-                return new WeiYuChouMou();
-
-            case CardName.OuDuanSiLian:
-                return new OuDuanSiLian();
-
-
-            case CardName.Confess:
-                return new Confess();
-
-
-            case CardName.Heal:
-                return new Heal();
-
-            case CardName.Comfort:
-                return new Comfort();
-
-            default:
-                return null;
-
-        }
-        return null;
     }
 
 }

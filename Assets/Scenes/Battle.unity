@@ -264,7 +264,10 @@ MonoBehaviour:
       currentCardIndex: 0
       cards: []
       numMax: 15
-      expenseCurrent: 3
+      expenseCurrent: 10
+    buffManager:
+      buffs: []
+      view: {fileID: 0}
   enemy:
     despondent: 0
     hpCurrent: 0
@@ -278,6 +281,9 @@ MonoBehaviour:
       cards: []
       numMax: 15
       expenseCurrent: 3
+    buffManager:
+      buffs: []
+      view: {fileID: 0}
   cardLibrary:
     cards: []
   cardDiscard:

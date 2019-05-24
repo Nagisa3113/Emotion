@@ -40,17 +40,47 @@ public class CardLibrary
     public void InitLibrary()
     {
 
-        foreach (CardName cardName in Enum.GetValues(typeof(CardName)))
-        {
+        //foreach (CardName cardName in Enum.GetValues(typeof(CardName)))
+        //{
 
-            if ( cardName != CardName.Empty)
+        //    if ( cardName != CardName.Empty)
             
-            cards.Add(CardManager.GetNewCard(cardName));
+        //    cards.Add(Card.NewCard(cardName));
+
+        //}
 
 
+
+        for(int i = 0; i < 10; i++)
+        {
+            cards.Add(Card.NewCard(CardName.Heal));
         }
+        for (int i = 0; i < 5; i++)
+        {
+            cards.Add(Card.NewCard(CardName.Comfort));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cards.Add(Card.NewCard(CardName.Incite));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cards.Add(Card.NewCard(CardName.Vent));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cards.Add(Card.NewCard(CardName.Revenge));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cards.Add(Card.NewCard(CardName.NoNameFire));
+        }
+    }
 
 
+    public void AddCard(CardName cardName)
+    {
+        cards.Add(Card.NewCard(CardName.NoNameFire));
     }
 
 

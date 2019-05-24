@@ -16,7 +16,7 @@ public class Player : Role
     //单例模式
     private static Player player;
 
-    private Player() : base(200, 10)
+    private Player() : base(300, 10)
     {
         propLibrary = new List<Prop>();
         props = new List<Prop>();

@@ -28,8 +28,11 @@ public enum BuffType
 
 [System.Serializable]
 public class Buff
-{
+{ 
     public BuffType buffType;
+
+
+    public string name;
 
     bool active;
     public bool Active
@@ -63,8 +66,9 @@ public class Buff
     }
 
 
-    public Buff(BuffType buffType, int layer)
+    public Buff(string  name,BuffType buffType, int layer)
     {
+        this.name = name;
         this.buffType = buffType;
         this.layer = layer;
         this.active = true;
@@ -96,7 +100,7 @@ public class Buff
 public class InciteBuff : Buff
 {
 
-    public InciteBuff() : base(BuffType.AfterPutCard, 2)
+    public InciteBuff() : base("每打出一张非红，将一张怒火加入手牌",BuffType.AfterPutCard, 2)
     {
 
     }
@@ -114,7 +118,7 @@ public class InciteBuff : Buff
 public class RevengeBuff : Buff
 {
 
-    public RevengeBuff() : base(BuffType.GetHurt, 1)
+    public RevengeBuff() : base("每收到一次伤害，将一张怒火加入手牌",BuffType.GetHurt, 1)
     {
 
     }
@@ -129,7 +133,7 @@ public class RevengeBuff : Buff
 
 public class DullAtmosphereBuff : Buff
 {
-    public DullAtmosphereBuff() : base(BuffType.AfterPutCard, 2)
+    public DullAtmosphereBuff() : base("每打出一张卡牌，获得一层消沉",BuffType.AfterPutCard, 2)
     {
 
     }
@@ -144,7 +148,7 @@ public class DullAtmosphereBuff : Buff
 
 public class ComfortBuff : Buff
 {
-    public ComfortBuff() : base(BuffType.AfterPutCard, 2)
+    public ComfortBuff() : base( "每使用一张卡牌，回复15点",BuffType.AfterPutCard, 2)
     {
 
     }

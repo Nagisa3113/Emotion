@@ -10,7 +10,6 @@ public class EnemyCardManager : CardManager
     List<Card> library;
     int ExpenseLeast;
 
-
     public EnemyCardManager()
     {
         enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
@@ -24,23 +23,23 @@ public class EnemyCardManager : CardManager
         int i = 0;
         for (i = 0; i < 16; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.Complain));
+            library.Add(Card.NewCard(CardName.Complain));
         }
         for (i = 0; i < 6; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.DullAtmosphere));
+            library.Add(Card.NewCard(CardName.DullAtmosphere));
         }
         for (i = 0; i < 3; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.WeiYuChouMou));
+            library.Add(Card.NewCard(CardName.WeiYuChouMou));
         }
         for (i = 0; i < 5; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.OuDuanSiLian));
+            library.Add(Card.NewCard(CardName.OuDuanSiLian));
         }
         for (i = 0; i < 1; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.Confess));
+            library.Add(Card.NewCard(CardName.Confess));
         }
     }
 

@@ -62,6 +62,19 @@ public class BuffManager
     }
 
 
+    //判断是否已经有重复Buff
+    private void AddBuff(Buff buff)
+    {
+        foreach(Buff b in buffs)
+        {
+            if (b.name.Equals(buff.name))
+            {
+                b.Layer += buff.Layer;
+                return;
+            }
+        }
+        buffs.Add(buff);
+    }
 
 
     public void AddBuff(CardName cardName)
@@ -69,22 +82,22 @@ public class BuffManager
         switch (cardName)
         {
             case CardName.Incite:
-                buffs.Add(new InciteBuff());
+                AddBuff(new InciteBuff());
                 break;
 
             case CardName.Revenge:
-                buffs.Add(new RevengeBuff());
+                AddBuff(new RevengeBuff());
                 break;
 
             case CardName.DullAtmosphere:
-                buffs.Add(new DullAtmosphereBuff());
+                AddBuff(new DullAtmosphereBuff());
                 break;
 
             case CardName.Comfort:
-                buffs.Add(new ComfortBuff());
+                AddBuff(new ComfortBuff());
                 break;
         }
-        view.ShowBuff(self);
+        //view.ShowBuff(self);
         
 
     }

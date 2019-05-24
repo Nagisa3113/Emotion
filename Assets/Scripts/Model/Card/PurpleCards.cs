@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Complain : Card
 {
-    public Complain() : base(CardName.Complain, CardColor.Purple, 4, 1)
+    public Complain() : base(CardName.Complain, CardColor.Purple, 1, 4)
     {
 
     }
@@ -23,7 +23,7 @@ public class Complain : Card
 
 public class DullAtmosphere : Card
 {
-    public DullAtmosphere() : base(CardName.DullAtmosphere, CardColor.Purple, 4, 10, 2)
+    public DullAtmosphere() : base(CardName.DullAtmosphere, CardColor.Purple, 2, 4, 10)
     {
 
     }
@@ -38,7 +38,7 @@ public class DullAtmosphere : Card
 
 public class WeiYuChouMou : Card
 {
-    public WeiYuChouMou() : base(CardName.WeiYuChouMou, CardColor.Purple, 3, 8, 1)
+    public WeiYuChouMou() : base(CardName.WeiYuChouMou, CardColor.Purple, 1, 3, 8)
     {
 
     }
@@ -63,7 +63,7 @@ public class WeiYuChouMou : Card
 
 public class OuDuanSiLian : Card
 {
-    public OuDuanSiLian() : base(CardName.OuDuanSiLian, CardColor.Purple, 4, 1)
+    public OuDuanSiLian() : base(CardName.OuDuanSiLian, CardColor.Purple, 1, 4)
     {
 
     }
@@ -89,7 +89,7 @@ public class OuDuanSiLian : Card
 
 public class Confess : Card
 {
-    public Confess() : base(CardName.Confess, CardColor.Purple, 10, 4)
+    public Confess() : base(CardName.Confess, CardColor.Purple, 4, 10)
     {
 
     }

@@ -23,7 +23,7 @@ public class Enemy : Role
         }
     }
 
-    public Enemy(EnemyType enemyType) : base(200, 10)
+    public Enemy(EnemyType enemyType) : base(600, 10)
     {
         this.enemyType = enemyType;
         GetCardManager = new EnemyCardManager();
