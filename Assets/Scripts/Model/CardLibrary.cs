@@ -27,6 +27,14 @@ public class CardLibrary
         return cardLibrary;
     }
 
+    public List<Card> GetCards
+    {
+        get
+        {
+            return cards;
+        }
+    }
+
 
     public int GetNum
     {

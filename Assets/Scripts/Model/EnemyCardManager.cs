@@ -53,6 +53,9 @@ public class EnemyCardManager : CardManager
             library.RemoveAt(rand);
             cards.Add(tmp);
         }
+
+        if( num != 6)
+            view.ShowEnemyCards();
     }
     
 
@@ -61,6 +64,11 @@ public class EnemyCardManager : CardManager
         if (cards.Count > 0)
         {
             ExpenseLeast = cards[0].GetCost;
+        }
+
+        if(cards.Count ==0)
+        {
+            InitLibrary();
         }
 
         while (cards.Count > 0 && ExpenseCurrent > ExpenseLeast)
@@ -242,11 +250,12 @@ public class EnemyCardManager : CardManager
             }
             foreach (Card cardTemp in cards)
             {
-                if (ExpenseLeast < cardTemp.GetCost)
+                if (ExpenseLeast > cardTemp.GetCost)
                 {
                     ExpenseLeast = cardTemp.GetCost;
                 }
             }
+       
 
         }
 

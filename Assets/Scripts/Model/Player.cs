@@ -53,6 +53,11 @@ public class Player : Role
     {
         cardManager.PutCurrentCard(this, target);
     }
+    
+    public override void PutSelectCard(Role target, int index)
+    {
+        cardManager.PutSelectCard(this, target,index);
+    } 
 
 
     public void GetCardFromLibrary(int num)

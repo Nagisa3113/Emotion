@@ -189,9 +189,6 @@ public class CardManager
 
 
                     CardDiscard.GetInstance().AddCard(card);
-
-
-
                     break;
                 }
             }
@@ -241,8 +238,33 @@ public class CardManager
             view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
-        }
+        }  
+    }
 
+        //打出当前牌
+    public void PutSelectCard(Role self, Role target,int index)
+    {
+        currentCard = cards[index];
+        if (expenseCurrent >= currentCard.GetCost)
+        {
+            expenseCurrent -= currentCard.GetCost;
+
+            cards.Remove(currentCard);
+
+
+            /* check buff */
+            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+            {
+                self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
+            }
+
+            currentCard.TakeEffect(self, target);
+            CardDiscard.GetInstance().AddCard(currentCard);
+            view.ShowPlayerPutCard(currentCard.GetName);
+            view.ShowPlayerCards();
+            currentCard = emptyCard;
+            currentCardIndex = -1;
+        }  
 
     }
 

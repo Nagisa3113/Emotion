@@ -102,7 +102,7 @@ public class BattleSystem : MonoBehaviour
 
         CardLibrary.GetInstance().InitLibrary();
 
-        player.GetCardManager.GetCardsFromLibrary(6);
+        player.GetCardManager.GetCardsFromLibrary(9);
 
         enemy.GetCardManager.GetCardsFromLibrary(6);
 
@@ -118,7 +118,9 @@ public class BattleSystem : MonoBehaviour
 
         battleStatus = BattleStatus.Batttling;
 
+
         RoundBegin();
+
     }
 
     void RoundBegin()
@@ -157,6 +159,7 @@ public class BattleSystem : MonoBehaviour
         switch (roundTurn)
         {
             case RoundTurn.PlayerRound:
+                //InputMouse();
                 InputHandle();
                 break;
 
@@ -273,6 +276,11 @@ public class BattleSystem : MonoBehaviour
     }
 
 
+    void InputMouse()
+    {
+        // 按鼠标左
+         
+    }
 
 }
 

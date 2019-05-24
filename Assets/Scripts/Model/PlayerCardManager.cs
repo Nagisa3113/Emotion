@@ -20,5 +20,8 @@ public class PlayerCardManager : CardManager
             }
 
         }
+        
+        if(num != 9)
+            view.ShowPlayerCards();
     }
 }

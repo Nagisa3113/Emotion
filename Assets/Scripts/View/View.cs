@@ -15,16 +15,17 @@ public class View : MonoBehaviour
     public Text handcardsOfPlayer;
     public Text handcardsOfEnemy;
 
-    public Button pauseButton;
 
-    public bool isPause = false;
-    public Sprite[] pauseSprite;
 
     public GameObject[] handCards;
 
     public GameObject[] deskCards;
 
-    public GameObject backCard;   //牌背    
+
+    public GameObject backCard ;   //牌背   
+    public GameObject motherHandCard;
+    public GameObject motherPutCard;
+
 
     public GameObject[] buffs;
     Player player;
@@ -56,7 +57,9 @@ public class View : MonoBehaviour
         ShowEnemyCards();
 
         lastIndex = -1;
-        SelectedPlayerCard(0, enemy.GetCardManager.GetCards()[0]);
+
+        //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);
+
     }
 
     public void Update()
@@ -75,22 +78,8 @@ public class View : MonoBehaviour
     }
 
 
-    public void ClickPause()
-    {
-        if (isPause == false)
-        {
-            isPause = true;
-            pauseButton.image.sprite = pauseSprite[0];
-            GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.PlayerPause;
-        }
-        else
-        {
-            isPause = false;
-            pauseButton.image.sprite = pauseSprite[1];
-            GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.Batttling;
-        }
 
-    }
+
 
     //显示手牌里的牌
     public void ShowPlayerCards()
@@ -122,15 +111,21 @@ public class View : MonoBehaviour
                     break;
                 }
             }
-            GameObject itemGo = Instantiate(temp, startPosition + interval * i, Quaternion.identity);
-            itemGo.transform.SetParent(playerCards.transform);
+
+			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
+            itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
+            itemGo.name = temp.name+i.ToString();
+			itemGo.transform.SetParent(playerCards.transform);
+
             i++;
         }
     }
 
 
-    void ShowEnemyCards()
-    {
+
+    public void ShowEnemyCards()
+	{
+
 
         int i = 0;
         Vector3 interval = new Vector3(0.4f, 0, -0.01f);
@@ -139,10 +134,13 @@ public class View : MonoBehaviour
 
         //摧毁原有牌
         int childCount = enemyCards.transform.childCount;
-        for (i = 0; i < childCount; i++)
-        {
-            Destroy(enemyCards.transform.GetChild(i).gameObject);
-        }
+
+		for (i = 0; i < childCount; i++)
+		{
+			Destroy(enemyCards.transform.GetChild(i).gameObject);
+		}
+        i=0;
+
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
         for (int temp = 0; temp < enemy.GetCardManager.CardsNum; temp++)
@@ -212,8 +210,12 @@ public class View : MonoBehaviour
         {
             if (name.ToString() == prefab.name)
             {
-                GameObject itemGo = Instantiate(prefab, startPosition + interval * i, Quaternion.identity);
-                itemGo.transform.SetParent(cardTombs.transform);
+
+                GameObject itemGo = Instantiate(motherPutCard,startPosition+interval*i, Quaternion.identity);
+                itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
+			    itemGo.transform.SetParent(cardTombs.transform);
+                itemGo.name = prefab.name;
+
                 break;
             }
         }
