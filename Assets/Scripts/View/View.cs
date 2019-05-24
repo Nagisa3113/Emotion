@@ -15,11 +15,6 @@ public class View : MonoBehaviour
     public Text handcardsOfPlayer;
     public Text handcardsOfEnemy;
 
-    public Button pauseButton;
-
-    public bool isPause=false;
-	public Sprite[] pauseSprite;
-
     public GameObject[] handCards;
 
     public GameObject[] deskCards;
@@ -77,22 +72,6 @@ public class View : MonoBehaviour
     }
 
 
-    public void ClickPause()
-    {
-        if (isPause == false)
-        {
-            isPause = true;
-            pauseButton.image.sprite = pauseSprite[0];
-            GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.PlayerPause;
-        }
-        else
-        {
-            isPause = false;
-            pauseButton.image.sprite = pauseSprite[1];
-            GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.Batttling;
-        }
-        
-    }
 
     //显示手牌里的牌
     public void ShowPlayerCards()
@@ -126,7 +105,7 @@ public class View : MonoBehaviour
             }
 			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
-            itemGo.name = temp.name;
+            itemGo.name = temp.name+i.ToString();
 			itemGo.transform.SetParent(playerCards.transform);
             i++;
 		}    
@@ -220,6 +199,7 @@ public class View : MonoBehaviour
                 GameObject itemGo = Instantiate(motherPutCard,startPosition+interval*i, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
 			    itemGo.transform.SetParent(cardTombs.transform);
+                itemGo.name = prefab.name;
                 break;
             }
         }	 

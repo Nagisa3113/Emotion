@@ -139,6 +139,10 @@ public class Role
     {
 
     }
+    public virtual void PutSelectCard(Role target,int index)
+    {
+
+    }
 
     //获得牌
     public virtual void GetCard()

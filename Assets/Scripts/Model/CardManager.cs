@@ -242,14 +242,12 @@ public class CardManager
     }
 
         //打出当前牌
-    public void PutSelectCard(Role self, Role target)
+    public void PutSelectCard(Role self, Role target,int index)
     {
-
-        if (expenseCurrent >= currentCard.GetCost
-            && !currentCard.Equals(emptyCard))
+        currentCard = cards[index];
+        if (expenseCurrent >= currentCard.GetCost)
         {
             expenseCurrent -= currentCard.GetCost;
-
 
             cards.Remove(currentCard);
 
