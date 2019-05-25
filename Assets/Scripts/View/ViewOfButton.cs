@@ -11,18 +11,33 @@ public class ViewOfButton : MonoBehaviour
     View view;
     public Sprite[] pauseSprite;
     public GameObject cardLibrary;
+     
+    float scollIndex;
     void Start()
     {
         isPause=false;
         player = Player.GetInstance();
         view = View.GetInstance();
+        scollIndex = 0;
+    }
+    void Update()
+    {
+        if(isPause)
+        {
+            scollIndex -= Input.GetAxis("Mouse ScrollWheel");
+            print(Input.GetAxis("Mouse ScrollWheel"));
+            if(scollIndex >0.2f)
+               {
+                    ScrollShow();
+               }
+        }
     }
 
     // Update is called once per frame
    public void ClickPause()
     {
-        Vector3 interval = new Vector3(0.3f,0,-0.01f);
-        Vector3 startPosition = new Vector3(-1f,2f,-4.1f);
+        Vector3 interval = new Vector3(2f,0,-0.01f);
+        Vector3 startPosition = new Vector3(-4f,2f,-4.1f);
         int i=0;
         if (isPause == false)
         {
@@ -41,11 +56,16 @@ public class ViewOfButton : MonoBehaviour
                         break;
                     }
                 }
-			    GameObject itemGo = Instantiate(view.motherHandCard,startPosition + interval*i, Quaternion.identity);
+			    GameObject itemGo = Instantiate(view.motherPutCard,startPosition + interval*i, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
                 itemGo.name = temp.name;
 			    itemGo.transform.SetParent(cardLibrary.transform);
                 i++;
+                if (i%5 == 0)
+                {
+                    startPosition += new Vector3(0,1f,0);
+                }
+
 		    }
 
 
@@ -59,5 +79,20 @@ public class ViewOfButton : MonoBehaviour
 
         }
         
+    }
+
+    public void ScrollShow()
+    {
+        GameObject cardLibrary = GameObject.Find("CardLibrary");
+        for (int i=0; i<cardLibrary.transform.childCount;i++)
+        {
+            cardLibrary.transform.GetChild(i).position += new Vector3(0,-3f,0) ;
+            scollIndex = 0;
+        }
+    }
+
+    public void ClickEnd()
+    {
+        GameObject.Find("Battle").GetComponent<BattleSystem>().ChangeRoundStatus(RoundStatus.RoundEnd);
     }
 }

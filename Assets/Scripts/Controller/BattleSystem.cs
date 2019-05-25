@@ -182,7 +182,7 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    void ChangeRoundStatus(RoundStatus roundStatus)
+    public void ChangeRoundStatus(RoundStatus roundStatus)
     {
         switch (roundStatus)
         {

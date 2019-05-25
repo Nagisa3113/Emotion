@@ -47,7 +47,7 @@ public class EnemyCardManager : CardManager
     public override void GetCardsFromLibrary(int num)
     {
         int i;
-        for (i = 0;i  < num;i++)
+        for (i = 0;i  < num && CardsNum <= numMax;i++)
         {
             int rand = UnityEngine.Random.Range(0, library.Count);
             Card tmp = library[rand];
