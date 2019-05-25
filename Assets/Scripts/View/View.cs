@@ -87,9 +87,11 @@ public class View : MonoBehaviour
         int i = 0;
         lastIndex = -1;
 
-        Vector3 interval = new Vector3(0.3f, 0, -0.01f);
-        Vector3 startPosition = new Vector3(3f, -3f, 0);
-        GameObject playerCards = GameObject.Find("PlayerCards");
+
+        Vector3 interval = new Vector3(0.3f,0,-0.01f);
+        Vector3 startPosition = new Vector3(2.8f,-3f,0);
+		GameObject playerCards = GameObject.Find("PlayerCards");
+        
 
         //摧毁原有牌
         int childCount = playerCards.transform.childCount;
@@ -128,9 +130,11 @@ public class View : MonoBehaviour
 
 
         int i = 0;
-        Vector3 interval = new Vector3(0.4f, 0, -0.01f);
-        Vector3 startPosition = new Vector3(-5f, 3f, 0);
-        GameObject enemyCards = GameObject.Find("EnemyCards");
+
+        Vector3 interval = new Vector3(0.25f,0,-0.01f);
+        Vector3 startPosition = new Vector3(-5.5f,3f,0);
+		GameObject enemyCards = GameObject.Find("EnemyCards");
+
 
         //摧毁原有牌
         int childCount = enemyCards.transform.childCount;

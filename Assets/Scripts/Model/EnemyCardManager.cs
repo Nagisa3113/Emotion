@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyCardManager : CardManager
 {
@@ -46,7 +47,7 @@ public class EnemyCardManager : CardManager
     public override void GetCardsFromLibrary(int num)
     {
         int i;
-        for (i = 0;i  < num;i++)
+        for (i = 0;i  < num && CardsNum <= numMax;i++)
         {
             int rand = UnityEngine.Random.Range(0, library.Count);
             Card tmp = library[rand];
@@ -63,7 +64,7 @@ public class EnemyCardManager : CardManager
     {
         if (cards.Count > 0)
         {
-            ExpenseLeast = cards[0].GetCost;
+            ExpenseLeast = 0;
         }
 
         if(cards.Count ==0)
@@ -247,6 +248,8 @@ public class EnemyCardManager : CardManager
                 view.ShowPlayerPutCard(temp.GetName);
                 cards.Remove(temp);
                 ExpenseCurrent -= temp.GetCost;
+                
+                //System.Threading.Thread.Sleep(2000);
             }
             foreach (Card cardTemp in cards)
             {
@@ -255,7 +258,7 @@ public class EnemyCardManager : CardManager
                     ExpenseLeast = cardTemp.GetCost;
                 }
             }
-       
+        
 
         }
 

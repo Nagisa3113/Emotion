@@ -26,6 +26,6 @@ public class ViewPutCard : MonoBehaviour
 
     void OnMouseUp()
     {
-      showCard.SetActive(false);  
+      //showCard.SetActive(false);  
     }
 }

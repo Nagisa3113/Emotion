@@ -166,7 +166,9 @@ public class BattleSystem : MonoBehaviour
 
             case RoundTurn.EnemyRound:
                 enemy.GetCardManager.AI(enemy,player);
+                
                 ChangeRoundStatus(RoundStatus.RoundEnd);
+                
                 break;
 
         }
@@ -195,7 +197,7 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    void ChangeRoundStatus(RoundStatus nextRoundStatus)
+    public void ChangeRoundStatus(RoundStatus roundStatus)
     {
         switch (nextRoundStatus)
         {
