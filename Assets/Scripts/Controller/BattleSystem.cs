@@ -68,9 +68,15 @@ public class BattleSystem : MonoBehaviour
 
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
-        BattleStart();
+        BattleInit();
 
     }
+
+    public void Start()
+    {
+        BattleStart();
+    }
+
 
     public void Update()
     {
@@ -91,7 +97,7 @@ public class BattleSystem : MonoBehaviour
         //}
     }
 
-    public void BattleStart()
+    public void BattleInit()
     {
 
         cardLibrary = CardLibrary.GetInstance();
@@ -102,9 +108,6 @@ public class BattleSystem : MonoBehaviour
 
         CardLibrary.GetInstance().InitLibrary();
 
-        //player.GetCardManager.GetCardsFromLibrary(9);
-
-        enemy.GetCardManager.GetCardsFromLibrary(6);
 
         //player.PropReduceCD();
 
@@ -114,14 +117,24 @@ public class BattleSystem : MonoBehaviour
 
         player.GetCardManager.SelectCard();
 
+
+    }
+
+
+    public void BattleStart()
+    {
+        player.GetCardManager.GetCardsFromLibrary(9);
+
+        enemy.GetCardManager.GetCardsFromLibrary(6);
+
         roundTurn = RoundTurn.PlayerRound;
 
         battleStatus = BattleStatus.Batttling;
 
-
         RoundBegin();
-
     }
+
+
 
     void RoundBegin()
     {
@@ -130,34 +143,9 @@ public class BattleSystem : MonoBehaviour
             case RoundTurn.PlayerRound:
 
 
-                //player.GetCardFromLibrary(3);
-                //for (int i = 0; i < 10; i++)
-                //{
-                //    player.GetCardManager.AddCard(CardName.NoNameFire);
-                //}
-                player.GetCardManager.view.ShowPlayerCards();
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    AddCard(CardName.Comfort);
-                //}
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    AddCard(CardName.Incite);
-                //}
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    AddCard(CardName.Vent);
-                //}
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    AddCard(CardName.Revenge);
-                //}
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    AddCard(CardName.NoNameFire);
-                //}
-                player.GetCardManager.ExpenseReset();
+                player.GetCardFromLibrary(3);
 
+                player.GetCardManager.ExpenseReset();
 
 
                 break;

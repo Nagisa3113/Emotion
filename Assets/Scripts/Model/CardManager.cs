@@ -19,7 +19,7 @@ public class CardManager
     int currentCardIndex;
 
     [SerializeField]
-    public List<Card> cards;
+    protected List<Card> cards;
 
     [SerializeField]
     public int CardsNum
@@ -310,9 +310,12 @@ public class CardManager
 
 
     //获取此时手中的所有牌用于显示
-    public List<Card> GetCards()
+    public List<Card> GetCards
     {
-        return cards;
+        get
+        {
+            return cards;
+        }
     }
 
     public int CardIndex

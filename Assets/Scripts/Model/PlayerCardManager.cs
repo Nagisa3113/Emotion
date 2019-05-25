@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerCardManager : CardManager
 {
+
+    public PlayerCardManager():base()
+    {
+
+    }
+
+
     public override void GetCardsFromLibrary(int num)
     {
 
@@ -21,7 +28,7 @@ public class PlayerCardManager : CardManager
 
         }
         
-        if(num != 9)
+        //if(num != 9)
             view.ShowPlayerCards();
     }
 }

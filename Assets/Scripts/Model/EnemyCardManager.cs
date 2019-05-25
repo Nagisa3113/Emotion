@@ -55,7 +55,7 @@ public class EnemyCardManager : CardManager
             cards.Add(tmp);
         }
 
-        if( num != 6)
+        //if( num != 6)
             view.ShowEnemyCards();
     }
     

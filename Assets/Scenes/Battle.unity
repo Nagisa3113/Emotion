@@ -259,8 +259,8 @@ MonoBehaviour:
     cardManager:
       view: {fileID: 0}
       currentCard:
+        cardname: 
         name: 0
-        cost: 0
       currentCardIndex: 0
       cards: []
       numMax: 15
@@ -275,8 +275,8 @@ MonoBehaviour:
     cardManager:
       view: {fileID: 0}
       currentCard:
+        cardname: 
         name: 0
-        cost: 0
       currentCardIndex: 0
       cards: []
       numMax: 15
