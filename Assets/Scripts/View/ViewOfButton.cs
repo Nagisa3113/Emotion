@@ -6,30 +6,45 @@ using UnityEngine.UI;
 public class ViewOfButton : MonoBehaviour
 {
     public Button pauseButton;
+    public Button endButton;
     public bool isPause;
     Player player ;
     View view;
     public Sprite[] pauseSprite;
     public GameObject cardLibrary;
-     
     float scollIndex;
+
+    public GameObject playerCards;
+    public GameObject cardTombs;
+    public GameObject enemyCards;
     void Start()
     {
         isPause=false;
         player = Player.GetInstance();
         view = View.GetInstance();
+        playerCards = GameObject.Find("PlayerCards");
+        cardTombs = GameObject.Find("CardTombs");
+        enemyCards = GameObject.Find("EnemyCards");
         scollIndex = 0;
     }
     void Update()
     {
         if(isPause)
         {
-            scollIndex -= Input.GetAxis("Mouse ScrollWheel");
-            print(Input.GetAxis("Mouse ScrollWheel"));
-            if(scollIndex >0.2f)
-               {
-                    ScrollShow();
-               }
+            scollIndex += Input.GetAxis("Mouse ScrollWheel");
+
+            if(scollIndex > 0.25f)
+            {
+               
+                ScrollShow(-1);
+                scollIndex = 0;
+            }
+            else if(scollIndex <-0.25f)
+            {
+            
+                ScrollShow(1);
+                scollIndex = 0;
+            }
         }
     }
 
@@ -63,11 +78,10 @@ public class ViewOfButton : MonoBehaviour
                 i++;
                 if (i%5 == 0)
                 {
-                    startPosition += new Vector3(0,1f,0);
+                    startPosition += new Vector3(0,-4f,0);
                 }
-
 		    }
-
+            SetCondition(false);
 
         }
         else
@@ -76,19 +90,51 @@ public class ViewOfButton : MonoBehaviour
             pauseButton.image.sprite = pauseSprite[0];
             GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.Batttling;
             cardLibrary.SetActive(false); 
+            SetCondition(true);
 
         }
         
     }
 
-    public void ScrollShow()
+    public void ScrollShow(int x)
     {
+        
         GameObject cardLibrary = GameObject.Find("CardLibrary");
-        for (int i=0; i<cardLibrary.transform.childCount;i++)
+        if ( x == -1)
         {
-            cardLibrary.transform.GetChild(i).position += new Vector3(0,-3f,0) ;
-            scollIndex = 0;
+            if (!(cardLibrary.transform.GetChild(0).position.y-2 <0.001f&&cardLibrary.transform.GetChild(0).position.y-2 >-0.001f))
+            {
+                for (int i=0; i<cardLibrary.transform.childCount;i++)
+                {
+                    cardLibrary.transform.GetChild(i).position += new Vector3(0,4f,0) ;
+                    
+                } 
+            }
         }
+        else
+        {
+            if (!((cardLibrary.transform.GetChild(cardLibrary.transform.childCount-1).position.y+2 <0.001f
+                &&cardLibrary.transform.GetChild(cardLibrary.transform.childCount-1).position.y+2 >-0.001f)
+                ||(cardLibrary.transform.GetChild(cardLibrary.transform.childCount-1).position.y-2 <0.001f
+                &&cardLibrary.transform.GetChild(cardLibrary.transform.childCount-1).position.y-2 >-0.001f)))
+            {
+                print(cardLibrary.transform.GetChild(cardLibrary.transform.childCount-1).position.y);
+                for (int i=0; i<cardLibrary.transform.childCount;i++)
+                {
+                    cardLibrary.transform.GetChild(i).position += new Vector3(0,-4f,0) ;
+                    
+                } 
+            }
+        }
+      
+    }
+
+    public void SetCondition(bool value)
+    {
+        endButton.enabled = value;
+        playerCards.SetActive(value);
+        cardTombs.SetActive(value);
+        enemyCards.SetActive(value);
     }
 
     public void ClickEnd()
