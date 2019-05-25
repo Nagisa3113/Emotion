@@ -97,7 +97,7 @@ public class BuffManager
                 AddBuff(new ComfortBuff());
                 break;
         }
-        //view.ShowBuff(self);
+        view.ShowBuff(self);
         
 
     }

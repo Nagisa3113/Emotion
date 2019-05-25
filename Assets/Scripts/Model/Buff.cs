@@ -19,6 +19,11 @@ public enum BuffType
     Comfort,//安慰
 
 
+    buff,
+    debuff,
+
+
+
     AfterPutCard,//出牌后生效
     GetHurt,//收到伤害后生效
 }
@@ -28,11 +33,11 @@ public enum BuffType
 
 [System.Serializable]
 public class Buff
-{ 
-    public BuffType buffType;
-
+{
 
     public string name;
+
+    public BuffType buffType;
 
     bool active;
     public bool Active
@@ -60,13 +65,13 @@ public class Buff
         }
     }
 
-    public Buff()
+    public Buff(string name, int layer)
     {
 
     }
 
 
-    public Buff(string  name,BuffType buffType, int layer)
+    public Buff(string name, BuffType buffType, int layer)
     {
         this.name = name;
         this.buffType = buffType;
@@ -100,7 +105,7 @@ public class Buff
 public class InciteBuff : Buff
 {
 
-    public InciteBuff() : base("每打出一张非红，将一张怒火加入手牌",BuffType.AfterPutCard, 2)
+    public InciteBuff() : base("每打出一张非红，将一张怒火加入手牌", BuffType.AfterPutCard, 2)
     {
 
     }
@@ -118,7 +123,7 @@ public class InciteBuff : Buff
 public class RevengeBuff : Buff
 {
 
-    public RevengeBuff() : base("每收到一次伤害，将一张怒火加入手牌",BuffType.GetHurt, 1)
+    public RevengeBuff() : base("每受到一次伤害，将一张怒火加入手牌", BuffType.GetHurt, 1)
     {
 
     }
@@ -133,7 +138,7 @@ public class RevengeBuff : Buff
 
 public class DullAtmosphereBuff : Buff
 {
-    public DullAtmosphereBuff() : base("每打出一张卡牌，获得一层消沉",BuffType.AfterPutCard, 2)
+    public DullAtmosphereBuff() : base("每打出一张卡牌，获得一层消沉", BuffType.AfterPutCard, 2)
     {
 
     }
@@ -148,14 +153,14 @@ public class DullAtmosphereBuff : Buff
 
 public class ComfortBuff : Buff
 {
-    public ComfortBuff() : base( "每使用一张卡牌，回复15点",BuffType.AfterPutCard, 2)
+    public ComfortBuff() : base("每使用一张卡牌，回复15点", BuffType.AfterPutCard, 2)
     {
 
     }
 
     public override void Process(Role self)
     {
-        self.GetHP += 15;
+        self.GetHeal(15);
     }
 
 }
