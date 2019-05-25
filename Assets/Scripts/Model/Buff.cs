@@ -34,7 +34,7 @@ public enum BuffType
 [System.Serializable]
 public class Buff
 {
-
+    [HideInInspector]
     public string name;
 
     public BuffType buffType;
@@ -48,6 +48,7 @@ public class Buff
         }
     }
 
+    [SerializeField]
     protected int layer;
     public int Layer
     {

@@ -65,7 +65,7 @@ public class BattleSystem : MonoBehaviour
 
     public void Awake()
     {
-        
+
         roundNum = 1;
         battleStatus = BattleStatus.BattleBegin;
         BattleStart();
@@ -80,7 +80,7 @@ public class BattleSystem : MonoBehaviour
         //}
         if (battleStatus == BattleStatus.Batttling)
         {
-            if(roundStatus==RoundStatus.Rounding)
+            if (roundStatus == RoundStatus.Rounding)
             {
                 Rounding();
             }
@@ -102,7 +102,7 @@ public class BattleSystem : MonoBehaviour
 
         CardLibrary.GetInstance().InitLibrary();
 
-        player.GetCardManager.GetCardsFromLibrary(9);
+        //player.GetCardManager.GetCardsFromLibrary(9);
 
         enemy.GetCardManager.GetCardsFromLibrary(6);
 
@@ -130,7 +130,32 @@ public class BattleSystem : MonoBehaviour
             case RoundTurn.PlayerRound:
 
 
-                player.GetCardFromLibrary(3);
+                //player.GetCardFromLibrary(3);
+                //for (int i = 0; i < 10; i++)
+                //{
+                //    player.GetCardManager.AddCard(CardName.NoNameFire);
+                //}
+                player.GetCardManager.view.ShowPlayerCards();
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    AddCard(CardName.Comfort);
+                //}
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    AddCard(CardName.Incite);
+                //}
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    AddCard(CardName.Vent);
+                //}
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    AddCard(CardName.Revenge);
+                //}
+                //for (int i = 0; i < 5; i++)
+                //{
+                //    AddCard(CardName.NoNameFire);
+                //}
                 player.GetCardManager.ExpenseReset();
 
 
@@ -165,10 +190,10 @@ public class BattleSystem : MonoBehaviour
 
 
             case RoundTurn.EnemyRound:
-                enemy.GetCardManager.AI(enemy,player);
-                
+                enemy.GetCardManager.AI(enemy, player);
+
                 ChangeRoundStatus(RoundStatus.RoundEnd);
-                
+
                 break;
 
         }
@@ -197,7 +222,7 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    public void ChangeRoundStatus(RoundStatus roundStatus)
+    public void ChangeRoundStatus(RoundStatus nextRoundStatus)
     {
         switch (nextRoundStatus)
         {
@@ -236,7 +261,7 @@ public class BattleSystem : MonoBehaviour
     }
 
 
- 
+
 
 
 
@@ -281,7 +306,7 @@ public class BattleSystem : MonoBehaviour
     void InputMouse()
     {
         // 按鼠标左
-         
+
     }
 
 }

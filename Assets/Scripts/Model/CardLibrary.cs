@@ -45,6 +45,12 @@ public class CardLibrary
     }
 
 
+    public void AddCard(CardName cardName)
+    {
+        cards.Add(Card.NewCard(cardName));
+    }
+
+
     public void InitLibrary()
     {
 
@@ -52,44 +58,40 @@ public class CardLibrary
         //{
 
         //    if ( cardName != CardName.Empty)
-            
+
         //    cards.Add(Card.NewCard(cardName));
 
         //}
 
 
 
-        for(int i = 0; i < 10; i++)
+        for (int i = 0; i < 10; i++)
         {
-            cards.Add(Card.NewCard(CardName.Heal));
+            AddCard(CardName.Heal);
         }
         for (int i = 0; i < 5; i++)
         {
-            cards.Add(Card.NewCard(CardName.Comfort));
+            AddCard(CardName.Comfort);
         }
         for (int i = 0; i < 5; i++)
         {
-            cards.Add(Card.NewCard(CardName.Incite));
+            AddCard(CardName.Incite);
         }
         for (int i = 0; i < 5; i++)
         {
-            cards.Add(Card.NewCard(CardName.Vent));
+            AddCard(CardName.Vent);
         }
         for (int i = 0; i < 5; i++)
         {
-            cards.Add(Card.NewCard(CardName.Revenge));
+            AddCard(CardName.Revenge);
         }
         for (int i = 0; i < 5; i++)
         {
-            cards.Add(Card.NewCard(CardName.NoNameFire));
+            AddCard(CardName.NoNameFire);
         }
     }
 
 
-    public void AddCard(CardName cardName)
-    {
-        cards.Add(Card.NewCard(CardName.NoNameFire));
-    }
 
 
     public void RemoveFromLibrary(Card card)

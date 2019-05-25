@@ -2012,7 +2012,7 @@ MonoBehaviour:
   buffs:
   - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
   - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
-  - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
+  - {fileID: 2260303185196192654, guid: cb10a3b870fadfc468cef1fc9a1e198c, type: 3}
   - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
 --- !u!4 &1528461318
 Transform:

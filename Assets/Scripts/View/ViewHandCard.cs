@@ -13,7 +13,7 @@ public class ViewHandCard : MonoBehaviour
     Player player;
     Enemy enemy;
 
-    void Start()
+    void Awake()
     {
        view = View.GetInstance();
        player = Player.GetInstance();

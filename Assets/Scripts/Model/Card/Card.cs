@@ -74,13 +74,15 @@ public enum CardName
 [System.Serializable]
 public class Card
 {
+    [HideInInspector]
+    public string cardname;
 
     CardColor color;
 
     GameObject image;
 
-    [SerializeField]
-    protected CardName name;
+    [HideInInspector]
+    public CardName name;
 
 
     protected int upgrade;
@@ -97,8 +99,6 @@ public class Card
         }
     }
 
-
-    [SerializeField]
     int cost;
     public int GetCost
     {
@@ -131,6 +131,7 @@ public class Card
         this.upgrade = upgrade;
         this.upgradeTwice = upgradeTwice;
         this.cost = cost;
+        this.cardname = this.name.ToString();
     }
     public Card(CardName cardName, CardColor color, int cost, int upgrade)
     {
@@ -139,6 +140,7 @@ public class Card
         this.upgrade = upgrade;
         this.upgradeTwice = 999;
         this.cost = cost;
+        this.cardname = this.name.ToString();
     }
     public Card(CardName cardName, CardColor color, int cost)
     {
@@ -147,6 +149,7 @@ public class Card
         this.upgrade = 999;
         this.upgradeTwice = 999;
         this.cost = cost;
+        this.cardname = this.name.ToString();
     }
 
     public Card()

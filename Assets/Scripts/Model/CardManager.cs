@@ -103,8 +103,8 @@ public class CardManager
     public void SelectCard()
     {
 
-        currentCard = cards[0];
-        currentCardIndex = 0;
+        currentCard = emptyCard;
+        currentCardIndex = -1;
     }
 
     //选择不同牌

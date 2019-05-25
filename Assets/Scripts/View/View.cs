@@ -53,7 +53,7 @@ public class View : MonoBehaviour
     {
         enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
-        ShowPlayerCards();
+        //ShowPlayerCards();
         ShowEnemyCards();
 
         lastIndex = -1;
@@ -74,7 +74,7 @@ public class View : MonoBehaviour
         handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
         handcardsOfEnemy.text = enemy.GetCardManager.CardsNum.ToString();
 
-
+       
     }
 
 
@@ -102,22 +102,22 @@ public class View : MonoBehaviour
         i = 0;
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-        foreach (var card in player.GetCardManager.GetCards())
+        foreach (Card card in player.GetCardManager.GetCards())
         {
             GameObject temp = null;
-            foreach (var prefab in handCards)
-            {
-                if (card.GetName.ToString() == prefab.name)
-                {
-                    temp = prefab;
-                    break;
-                }
-            }
+            //foreach (var prefab in handCards)
+            //{
+            //    if (card.GetName.ToString() == prefab.name)
+            //    {
+            //        temp = prefab;
+            //        break;
+            //    }
+            //}
 
-			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
-            itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
-            itemGo.name = temp.name+i.ToString();
-			itemGo.transform.SetParent(playerCards.transform);
+			//GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
+   //         itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
+   //         itemGo.name = temp.name+i.ToString();
+			//itemGo.transform.SetParent(playerCards.transform);
 
             i++;
         }
