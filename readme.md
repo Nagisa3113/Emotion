@@ -2,6 +2,13 @@
 
 a rogue-like card game
 
+
+## 5.26
+
+- 删除了CardLibrary和CardDiscard脚本，直接在Role中用List<>表示
+- 修改结束回合按钮的bug
+
+
 ## 5.15
 
 1. 修改view的架构

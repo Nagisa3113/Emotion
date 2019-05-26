@@ -133,28 +133,24 @@ public class BattleSystem : MonoBehaviour
 
     void RoundBegin()
     {
+        Debug.Log("轮到" + roundTurn.ToString() + "的回合");
+
         switch (roundTurn)
         {
             case RoundTurn.PlayerRound:
 
                 player.GetCardManager.ExpenseReset();
 
-                if (player.GetCardManager.CanAddCard)
-                {
-                    Debug.Log("player get 3 cards");
-                    player.GetCardsFromLibrary(3);
-                }
+                player.GetCardsFromLibrary(3);
+
 
                 break;
 
             case RoundTurn.EnemyRound:
+
                 enemy.GetCardManager.ExpenseReset();
 
-                if (enemy.GetCardManager.CanAddCard)
-                {
-                    Debug.Log("enemy get 3 cards");
-                    enemy.GetCardsFromLibrary(3);
-                }
+                enemy.GetCardsFromLibrary(3);
 
                 //enemy.BuffReduceLayer();
 
@@ -247,7 +243,6 @@ public class BattleSystem : MonoBehaviour
 
             case RoundStatus.Rounding:
                 roundStatus = RoundStatus.Rounding;
-                Debug.Log("轮到" + roundTurn.ToString() + "的回合");
                 break;
         }
 
