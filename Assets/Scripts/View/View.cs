@@ -197,7 +197,7 @@ public class View : MonoBehaviour
         {
             if (name.ToString() == prefab.name)
             {
-                GameObject itemGo = Instantiate(motherPutCard,startPosition+interval*i, Quaternion.identity);
+                GameObject itemGo = ObjectPool.GetInstance().GetObj("motherPutCard",startPosition + interval*i, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
 			    itemGo.transform.SetParent(cardTombs.transform);
                 itemGo.name = prefab.name;
