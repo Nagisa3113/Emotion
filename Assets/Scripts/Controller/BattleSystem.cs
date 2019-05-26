@@ -307,20 +307,10 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-
-    void InputMouse()
-    {
-        // 按鼠标左
-
-    }
-
-
-
-
-
     IEnumerator EnemyPutCard()
     {
         flag = 1;
+        GameObject.Find("View").GetComponent<View>().canPutCard = false;
         while ((enemy.GetCardManager as EnemyCardManager).CheckCanPutCard())
         {
 
@@ -331,6 +321,8 @@ public class BattleSystem : MonoBehaviour
             enemy.PutCurrentCard(player);
         }
         ChangeRoundStatus(RoundStatus.RoundEnd);
+        GameObject.Find("ViewOfButton").GetComponent<ViewOfButton>().endButton.enabled = true;
+        GameObject.Find("View").GetComponent<View>().canPutCard = true;
         flag = 0;
     }
 

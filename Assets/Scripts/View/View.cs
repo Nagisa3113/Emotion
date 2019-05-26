@@ -15,16 +15,15 @@ public class View : MonoBehaviour
     public Text handcardsOfPlayer;
     public Text handcardsOfEnemy;
 
-
-
     public GameObject[] handCards;
-
     public GameObject[] deskCards;
 
 
     public GameObject backCard ;   //牌背   
     public GameObject motherHandCard;
     public GameObject motherPutCard;
+
+    public bool canPutCard;    //供使用这个类的用
 
 
     public GameObject[] buffs;
@@ -58,6 +57,8 @@ public class View : MonoBehaviour
 
         lastIndex = -1;
 
+        canPutCard = true;
+
         //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);
 
     }
@@ -65,8 +66,8 @@ public class View : MonoBehaviour
     public void Update()
     {
         /*显示各种参数 */
-        healthOfPlayer.fillAmount = player.GetHP / (float)player.GetHPMax;
-        healthOfEnemy.fillAmount = enemy.GetHP / (float)enemy.GetHPMax;
+        healthOfPlayer.fillAmount = player.GetHP / (float)player.GetHPMax  - 0.1f;
+        healthOfEnemy.fillAmount = enemy.GetHP / (float)enemy.GetHPMax - 0.1f;
 
         expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
         expenseOfEnemy.text = enemy.GetCardManager.ExpenseCurrent.ToString();
@@ -95,10 +96,10 @@ public class View : MonoBehaviour
 
         //摧毁原有牌
         int childCount = playerCards.transform.childCount;
-        for (i = 0; i < childCount; i++)
-        {
-            DestroyImmediate(playerCards.transform.GetChild(0).gameObject);
-        }
+		for (i = 0; i < childCount; i++)
+		{
+			ObjectPool.GetInstance().RecycleObj("motherHandCard",playerCards.transform.GetChild(0).gameObject);
+		}
         i = 0;
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
@@ -113,8 +114,7 @@ public class View : MonoBehaviour
                     break;
                 }
             }
-
-			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
+			GameObject itemGo = ObjectPool.GetInstance().GetObj("motherHandCard",startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
             itemGo.name = temp.name+i.ToString();
 			itemGo.transform.SetParent(playerCards.transform);
@@ -131,7 +131,7 @@ public class View : MonoBehaviour
 
         int i = 0;
 
-        Vector3 interval = new Vector3(0.25f,0,-0.01f);
+        Vector3 interval = new Vector3(0.4f,0,-0.01f);
         Vector3 startPosition = new Vector3(-5.5f,3f,0);
 		GameObject enemyCards = GameObject.Find("EnemyCards");
 
@@ -208,14 +208,25 @@ public class View : MonoBehaviour
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
         GameObject cardTombs = GameObject.Find("CardTombs");
-        int i = cardTombs.transform.childCount; ;
+        int i = cardTombs.transform.childCount; 
+        if (i == 20)
+        {
+            ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
+            i--;
+            
+            for (int j=0; j<cardTombs.transform.childCount;j++)
+            {
+                cardTombs.transform.GetChild(j).position -= interval;
+                    
+            } 
+
+        }
 
         foreach (var prefab in handCards)
         {
             if (name.ToString() == prefab.name)
             {
-
-                GameObject itemGo = Instantiate(motherPutCard,startPosition+interval*i, Quaternion.identity);
+                GameObject itemGo = ObjectPool.GetInstance().GetObj("motherPutCard",startPosition + interval*i, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
 			    itemGo.transform.SetParent(cardTombs.transform);
                 itemGo.name = prefab.name;

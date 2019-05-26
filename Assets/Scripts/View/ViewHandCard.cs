@@ -59,7 +59,7 @@ public class ViewHandCard : MonoBehaviour
         }
         showCard.SetActive(true);
       //当第二次点击鼠标，且时间间隔满足要求时双击鼠标
-       if (Time.time - time <= 0.3f)
+       if (Time.time - time <= 0.3f && view.canPutCard)
         {
             int index =Convert.ToInt32(transform.name.Substring(transform.name.Length-1, 1)); 
             player.PutSelectCard(enemy,index);

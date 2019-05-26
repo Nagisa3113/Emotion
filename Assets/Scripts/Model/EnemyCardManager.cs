@@ -86,7 +86,7 @@ public class EnemyCardManager : CardManager
             CardName name = card.GetName;
             if (card.GetCost > ExpenseCurrent)
             {
-                break;
+                continue;
             }
             else
             {
@@ -287,10 +287,6 @@ public class EnemyCardManager : CardManager
         view.ShowPlayerPutCard(currentCard.GetName);
         view.ShowEnemyCards();
         currentCard = null;
-
-        //System.Threading.Thread.Sleep(2000);
-
-
     }
 
 
