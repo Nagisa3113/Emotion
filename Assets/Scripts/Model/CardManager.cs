@@ -6,21 +6,16 @@ using UnityEngine;
 public class CardManager
 {
 
-
     public View view;
     //当前选中牌
     [SerializeField]
     protected Card currentCard;
 
-    //表示未选中卡牌
-    Card emptyCard;
-
-
     [SerializeField]
     protected List<Card> cards;
 
     [SerializeField]
-    int currentCardIndex;
+    protected int currentCardIndex;
 
 
     //获取此时手中的所有牌用于显示
@@ -59,18 +54,6 @@ public class CardManager
         }
     }
 
-    //随机获得一张牌
-    public Card GetRandomCard()
-    {
-        if (cards.Count > 0)
-        {
-            int rand = Random.Range(0, cards.Count - 1);
-            return cards[rand];
-        }
-        return null;
-
-    }
-
 
     //是否能抽牌
     bool canAddCard;
@@ -93,9 +76,7 @@ public class CardManager
 
     [SerializeField]
     protected int expenseCurrent;//当前费用
-
     int expenseMax;//费用上限
-
     public int ExpenseCurrent
     {
         get
@@ -110,19 +91,17 @@ public class CardManager
     }
 
 
-
     public CardManager()
     {
         view = View.GetInstance();
-        emptyCard = new Empty();
+
         cards = new List<Card>();
-        numMax = 10;
+        numMax = 15;
         expenseMax = 3;
         expenseCurrent = expenseMax;
         canAddCard = true;
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
-
     }
 
     public void ExpenseReset()
@@ -134,7 +113,7 @@ public class CardManager
     public void SelectCard()
     {
 
-        currentCard = emptyCard;
+        currentCard = Card.EmptyCard;
         currentCardIndex = -1;
     }
 
@@ -184,48 +163,21 @@ public class CardManager
 
     public void AddCard(CardName cardName)
     {
-        AddCard(Card.NewCard(cardName));
-    }
-
-
-    //从牌库中获得牌
-    public virtual void GetCardsFromLibrary(int num)
-    {
-
-    }
-
-
-
-
-    public void PutCard(CardName cardName, Role self, Role target)
-    {
-        if (expenseCurrent >= currentCard.GetCost)
+        if (CardsNum < numMax)
         {
-            expenseCurrent -= currentCard.GetCost;
-
-            foreach (Card card in cards)
-            {
-                if (card.GetName == cardName)
-                {
-                    cards.Remove(card);
-
-                    /* check buff */
-                    if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
-                    {
-                        self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
-                    }
-
-                    currentCard.TakeEffect(self, target);
-
-
-                    CardDiscard.GetInstance().AddCard(card);
-                    break;
-                }
-            }
+            this.cards.Add(Card.NewCard(cardName));
         }
     }
 
-    public void PutAllCard(CardName cardName, Role self, Role target)
+
+    //根据牌名出牌
+    public virtual void PutCard(CardName cardName, Role self, Role target)
+    {
+
+    }
+
+    //打出手牌中所有牌
+    public virtual void PutAllCard(CardName cardName, Role self, Role target)
     {
 
         for (int i = cards.Count - 1; i >= 0; i--)
@@ -235,7 +187,7 @@ public class CardManager
             {
                 cards.Remove(card);
                 currentCard.TakeEffect(self, target);
-                CardDiscard.GetInstance().AddCard(card);
+                self.GetCardDiscard.Add(card);
 
             }
         }
@@ -248,61 +200,13 @@ public class CardManager
     public virtual void PutCurrentCard(Role self, Role target)
     {
 
-        if (expenseCurrent >= currentCard.GetCost
-            && !currentCard.Equals(emptyCard))
-        {
-            expenseCurrent -= currentCard.GetCost;
-
-
-            cards.Remove(currentCard);
-
-            /* check buff */
-            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
-            {
-                self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
-            }
-
-            currentCard.TakeEffect(self, target);
-            CardDiscard.GetInstance().AddCard(currentCard);
-            view.ShowPlayerPutCard(currentCard.GetName);
-            view.ShowPlayerCards();
-            currentCard = emptyCard;
-            currentCardIndex = -1;
-        }
     }
 
     //打出索引位置的牌
-    public void PutSelectCard(Role self, Role target, int index)
+    public virtual void PutSelectCard(Role self, Role target, int index)
     {
-        currentCard = cards[index];
-        if (expenseCurrent >= currentCard.GetCost)
-        {
-
-
-            Debug.Log("player打出一张" + currentCard.cardname);
-
-            expenseCurrent -= currentCard.GetCost;
-
-            cards.Remove(currentCard);
-
-
-            /* check buff */
-            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
-            {
-                self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
-            }
-
-            currentCard.TakeEffect(self, target);
-            CardDiscard.GetInstance().AddCard(currentCard);
-            view.ShowPlayerPutCard(currentCard.GetName);
-            view.ShowPlayerCards();
-            currentCard = emptyCard;
-            currentCardIndex = -1;
-        }
 
     }
-
-
 
 
     //弃掉某种颜色的的牌
@@ -324,6 +228,17 @@ public class CardManager
         }
     }
 
+    //随机获得一张牌
+    public Card GetRandomCard()
+    {
+        if (cards.Count > 0)
+        {
+            int rand = Random.Range(0, cards.Count - 1);
+            return cards[rand];
+        }
+        return null;
+
+    }
 
 
 

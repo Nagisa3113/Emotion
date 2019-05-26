@@ -12,15 +12,14 @@ public class NoNameFire : Card
     public override void TakeEffect(Role self, Role target)
     {
         //造成10点伤害，将一张怒火加入你的牌库 / +2伤害
-
         self.TakeDamage(target, 10 + 2 * self.GetCardManager.GetBonus(this.name));
-        CardLibrary.GetInstance().AddCard(CardName.AngerFire);
+        self.GetCardLibrary.Add(Card.NewCard(CardName.AngerFire));
 
         //再将两张怒火加入你的牌库
         if (self.GetCardManager.GetBonus(this.name) > this.upgrade)
         {
-            CardLibrary.GetInstance().AddCard(CardName.AngerFire);
-            CardLibrary.GetInstance().AddCard(CardName.AngerFire);
+            self.GetCardLibrary.Add(Card.NewCard(CardName.AngerFire));
+            self.GetCardLibrary.Add(Card.NewCard(CardName.AngerFire));
         }
 
     }
@@ -108,7 +107,6 @@ public class Furious : Card
     public override void TakeEffect(Role self, Role target)
     {
         //随机弃掉2~5张红色卡牌，每张被弃掉的卡牌都将造成40伤害 / +2
-
         int num = UnityEngine.Random.Range(2, 6);
 
         self.GetCardManager.DicardCard(num, CardColor.Red);
@@ -118,7 +116,7 @@ public class Furious : Card
         //将和弃牌数量相同数量的怒火加入你的牌库
         if (self.GetCardManager.GetBonus(this.name) > this.upgrade)
         {
-            CardLibrary.GetInstance().AddCard(CardName.AngerFire);
+            self.GetCardLibrary.Add(Card.NewCard((CardName.AngerFire)));
         }
 
     }
@@ -157,7 +155,7 @@ public class Vent : Card
     {
         //打出牌库和手牌中所有怒火 
         self.GetCardManager.PutAllCard(CardName.AngerFire, self, target);
-        CardLibrary.GetInstance().PutAllCard(CardName.AngerFire, self, target);
+        self.PutAllCardInLibrary(CardName.AngerFire, self, target);
 
         if (self.GetCardManager.GetBonus(this.name) > this.upgrade)
         {
@@ -263,7 +261,7 @@ public class AngerFire : Card
         //将一张怒火加入你的牌库           
         if (self.GetCardManager.GetBonus(this.name) > this.upgrade)
         {
-            CardLibrary.GetInstance().AddCard(CardName.AngerFire);
+            self.GetCardLibrary.Add(Card.NewCard(CardName.AngerFire));
         }
     }
 

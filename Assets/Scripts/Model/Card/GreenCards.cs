@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Heal : Card
 {
-    public Heal() : base(CardName.Heal, CardColor.Green, 0, 5)
+    public Heal() : base(CardName.Heal, CardColor.Green, 1, 6)
     {
 
     }

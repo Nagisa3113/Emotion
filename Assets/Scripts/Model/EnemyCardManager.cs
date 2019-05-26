@@ -6,69 +6,17 @@ using System;
 public class EnemyCardManager : CardManager
 {
 
-    Player player;
-    Enemy enemy;
-    List<Card> library;
-    int ExpenseLeast;
-    public Card temp = new Card();
-
-    public EnemyCardManager()
+    public EnemyCardManager() : base()
     {
-        enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
-        player = Player.GetInstance();
-        library = new List<Card>();
-        InitLibrary();
+
     }
-
-    void InitLibrary()
-    {
-        int i = 0;
-        for (i = 0; i < 16; i++)
-        {
-            library.Add(Card.NewCard(CardName.Complain));
-        }
-        for (i = 0; i < 6; i++)
-        {
-            library.Add(Card.NewCard(CardName.DullAtmosphere));
-        }
-        for (i = 0; i < 3; i++)
-        {
-            library.Add(Card.NewCard(CardName.WeiYuChouMou));
-        }
-        for (i = 0; i < 5; i++)
-        {
-            library.Add(Card.NewCard(CardName.OuDuanSiLian));
-        }
-        for (i = 0; i < 1; i++)
-        {
-            library.Add(Card.NewCard(CardName.Confess));
-        }
-    }
-
-    public override void GetCardsFromLibrary(int num)
-    {
-        int i;
-        for (i = 0; i < num && CardsNum <= numMax; i++)
-        {
-            if (library.Count <= 0)
-            {
-                InitLibrary();
-            }
-            int rand = UnityEngine.Random.Range(0, library.Count);
-            Card tmp = library[rand];
-            library.RemoveAt(rand);
-            cards.Add(tmp);
-        }
-
-        //if( num != 6)
-        view.ShowEnemyCards();
-    }
-
-
 
 
     public void GetSelectedCard(Role self, Role target)
     {
+        Card temp = Card.EmptyCard;
+
+        List<Card> library = self.GetCardLibrary;
 
         int rankLeast = -10;
 
@@ -81,19 +29,18 @@ public class EnemyCardManager : CardManager
                 break;
             }
         }
+
         foreach (Card card in cards)
         {
             CardName name = card.GetName;
-            if (card.GetCost > ExpenseCurrent)
+            if (card.GetCost > expenseCurrent)
             {
-                break;
+                continue;
             }
             else
             {
                 switch (name)
                 {
-                    case CardName.Empty:
-                        break;
 
                     case CardName.Anger:
                         break;
@@ -115,7 +62,7 @@ public class EnemyCardManager : CardManager
                         break;
 
                     case CardName.Complain:
-                        if (player.GetHP < 10)
+                        if (target.GetHP < 10)
                         {
                             if (rankLeast < 10)
                             {
@@ -151,7 +98,7 @@ public class EnemyCardManager : CardManager
                                 temp = card;
                             }
                         }
-                        else if (flag && enemy.GetCardManager.ExpenseCurrent == 1)
+                        else if (flag && expenseCurrent == 1)
                         {
                             if (rankLeast < 5)
                             {
@@ -207,7 +154,7 @@ public class EnemyCardManager : CardManager
 
 
                     case CardName.Confess:
-                        if (player.GetDespondent > 80 || (player.GetDespondent > 40 && player.GetCardManager.CardsNum > 10))
+                        if (target.GetDespondent > 80 || (target.GetDespondent > 40 && target.GetCardManager.CardsNum > 10))
                         {
                             if (rankLeast < 5)
                             {
@@ -237,8 +184,11 @@ public class EnemyCardManager : CardManager
             }
         }
 
-        if (temp.GetName != CardName.Empty)
+        if (temp != Card.EmptyCard)
+        {
             currentCard = temp;
+            temp = Card.EmptyCard;
+        }
         Debug.Log(currentCard.cardname);
 
 
@@ -247,17 +197,17 @@ public class EnemyCardManager : CardManager
 
     public bool CheckCanPutCard()
     {
-        ExpenseLeast = 999;
+        int expenseLeast = 999;
 
         foreach (Card cardTemp in cards)
         {
-            if (ExpenseLeast > cardTemp.GetCost)
+            if (expenseLeast > cardTemp.GetCost)
             {
-                ExpenseLeast = cardTemp.GetCost;
+                expenseLeast = cardTemp.GetCost;
             }
         }
 
-        if (cards.Count <= 0 || expenseCurrent < ExpenseLeast)
+        if (cards.Count <= 0 || expenseCurrent < expenseLeast)
         {
             return false;
         }
@@ -286,13 +236,11 @@ public class EnemyCardManager : CardManager
 
         view.ShowPlayerPutCard(currentCard.GetName);
         view.ShowEnemyCards();
-        currentCard = null;
 
-        //System.Threading.Thread.Sleep(2000);
+        currentCard = Card.EmptyCard;
 
 
     }
-
 
 
 }

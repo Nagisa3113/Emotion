@@ -35,7 +35,7 @@ public class Player : Role
 
     public void PropReduceCD()
     {
-        foreach(Prop prop in props)
+        foreach (Prop prop in props)
         {
             prop.CD--;
         }
@@ -43,7 +43,7 @@ public class Player : Role
 
     public void PropEffect()
     {
-        foreach(Prop prop in props)
+        foreach (Prop prop in props)
         {
 
         }
@@ -53,17 +53,72 @@ public class Player : Role
     {
         cardManager.PutCurrentCard(this, target);
     }
-    
-    public override void PutSelectCard(Role target, int index)
-    {
-        cardManager.PutSelectCard(this, target,index);
-    } 
 
 
-    public void GetCardFromLibrary(int num)
+    public void PutSelectCard(Role target, int index)
     {
-        cardManager.GetCardsFromLibrary(num);
+        cardManager.PutSelectCard(this, target, index);
     }
+
+
+
+
+    public override void InitLibrary()
+    {
+
+        for (int i = 0; i < 10; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.Heal));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.Comfort));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.Incite));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.Vent));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.Revenge));
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.NoNameFire));
+        }
+    }
+
+
+
+
+
+    public override void GetCardsFromLibrary(int num)
+    {
+        if (!this.cardManager.CanAddCard)
+        {
+            return;
+
+        }
+        else
+        {
+            for (int i = 0; i < num && cardManager.CardsNum < cardManager.numMax && cardLibrary.Count != 0; i++)
+            {
+                int rand = UnityEngine.Random.Range(0, cardLibrary.Count);
+                Card tmp = cardLibrary[rand];
+                cardManager.GetCards.Add(tmp);
+                cardLibrary.RemoveAt(rand);
+
+            }
+        }
+
+        cardManager.view.ShowPlayerCards();
+
+    }
+
 
 }
 

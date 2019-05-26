@@ -15,8 +15,6 @@ public enum CardColor
 
 public enum CardName
 {
-    Empty,//空,未选择时
-
 
     NoNameFire,//无名火
     Enrange,//激怒
@@ -32,12 +30,7 @@ public enum CardName
     AngerFire,//怒火
 
 
-
-
-
     Complain,//抱怨
-
-
 
 
     DullAtmosphere,//沉闷氛围
@@ -98,6 +91,7 @@ public class Card
         }
     }
 
+    [SerializeField]
     int cost;
     public int GetCost
     {
@@ -119,6 +113,21 @@ public class Card
         {
             return color;
         }
+    }
+
+
+    static Card emptyCard;
+    static public Card EmptyCard
+    {
+        get
+        {
+            if (emptyCard == null)
+            {
+                emptyCard = new Card();
+            }
+            return emptyCard;
+        }
+
     }
 
 
@@ -151,10 +160,13 @@ public class Card
         this.cardname = this.name.ToString();
     }
 
+
+
     public Card()
     {
-        this.name = CardName.Empty;
+        this.cardname = "null";
     }
+
 
     public virtual void TakeEffect(Role self, Role target)
     {
@@ -167,9 +179,6 @@ public class Card
     {
         switch (cardName)
         {
-
-            case CardName.Empty:
-                break;
 
             case CardName.NoNameFire:
                 return new NoNameFire();
@@ -216,20 +225,10 @@ public class Card
                 return new Comfort();
 
             default:
+                Debug.Log("No Card for" + cardName.ToString());
                 return null;
 
         }
-        return null;
     }
 
-
-
-}
-
-public class Empty : Card
-{
-    public Empty()
-    {
-        this.name = CardName.Empty;
-    }
 }

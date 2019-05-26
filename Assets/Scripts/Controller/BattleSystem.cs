@@ -42,14 +42,6 @@ public class BattleSystem : MonoBehaviour
     }
 
 
-    [Header("牌库")]
-    [SerializeField]
-    CardLibrary cardLibrary;
-
-    [Header("弃牌")]
-    [SerializeField]
-    CardDiscard cardDiscard;
-
     [Header("谁的回合")]
     [SerializeField]
     RoundTurn roundTurn;
@@ -106,14 +98,11 @@ public class BattleSystem : MonoBehaviour
     public void BattleInit()
     {
 
-        cardLibrary = CardLibrary.GetInstance();
-        cardDiscard = CardDiscard.GetInstance();
-
         player = Player.GetInstance();
+        player.InitLibrary();
+
         enemy = new Enemy(EnemyType.Normal);
-
-        CardLibrary.GetInstance().InitLibrary();
-
+        enemy.InitLibrary();
 
         //player.PropReduceCD();
 
@@ -129,9 +118,9 @@ public class BattleSystem : MonoBehaviour
 
     public void BattleStart()
     {
-        player.GetCardManager.GetCardsFromLibrary(6);
+        player.GetCardsFromLibrary(6);
 
-        enemy.GetCardManager.GetCardsFromLibrary(6);
+        enemy.GetCardsFromLibrary(6);
 
         roundTurn = RoundTurn.PlayerRound;
 
@@ -153,7 +142,7 @@ public class BattleSystem : MonoBehaviour
                 if (player.GetCardManager.CanAddCard)
                 {
                     Debug.Log("player get 3 cards");
-                    player.GetCardFromLibrary(3);
+                    player.GetCardsFromLibrary(3);
                 }
 
                 break;
@@ -164,7 +153,7 @@ public class BattleSystem : MonoBehaviour
                 if (enemy.GetCardManager.CanAddCard)
                 {
                     Debug.Log("enemy get 3 cards");
-                    enemy.GetCardManager.GetCardsFromLibrary(3);
+                    enemy.GetCardsFromLibrary(3);
                 }
 
                 //enemy.BuffReduceLayer();
@@ -183,7 +172,7 @@ public class BattleSystem : MonoBehaviour
 
         switch (roundTurn)
         {
-            
+
             case RoundTurn.PlayerRound:
                 //InputMouse();
                 InputHandle();

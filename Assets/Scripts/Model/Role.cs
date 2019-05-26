@@ -70,7 +70,6 @@ public class Role
 
     [SerializeField]
     protected CardManager cardManager;
-
     public CardManager GetCardManager
     {
         get
@@ -82,6 +81,54 @@ public class Role
             cardManager = value;
         }
     }
+
+
+
+    [SerializeField]
+    List<Card> cardDiscard;
+    public List<Card> GetCardDiscard
+    {
+        get
+        {
+            return cardDiscard;
+        }
+    }
+
+
+
+    [SerializeField]
+    protected List<Card> cardLibrary;
+    public List<Card> GetCardLibrary
+    {
+        get
+        {
+            return cardLibrary;
+        }
+    }
+
+
+    public virtual void InitLibrary()
+    {
+
+    }
+
+
+    public void PutAllCardInLibrary(CardName cardName, Role self, Role target)
+    {
+
+        for (int i = cardLibrary.Count - 1; i >= 0; i--)
+        {
+            Card card = cardLibrary[i];
+            if (card.GetName == cardName)
+            {
+                card.TakeEffect(self, target);
+                cardDiscard.Add(card);
+                cardLibrary.Remove(card);
+            }
+        }
+
+    }
+
 
     [SerializeField]
     protected BuffManager buffManager;
@@ -100,8 +147,13 @@ public class Role
         hpCurrent = hpMax = hp;
         this.armor = armor;
         this.despondent = 0;
+
         //this.cardManager = new CardManager();
+
         this.buffManager = new BuffManager(this);
+        this.cardLibrary = new List<Card>();
+        this.cardDiscard = new List<Card>();
+
     }
 
 
@@ -109,7 +161,7 @@ public class Role
     public virtual void GetHeal(int heal)
     {
         int tmp = hpCurrent;
-        tmp = tmp > hpMax ? hpMax : tmp += heal;
+        tmp = tmp + heal > hpMax ? hpMax : tmp += heal;
         hpCurrent = tmp;
     }
 
@@ -163,13 +215,6 @@ public class Role
 
 
 
-    //打出一张牌
-    public virtual void PutCard(Role target)
-    {
-
-    }
-
-
     //buff结算
     public virtual void BuffReduce()
     {
@@ -181,14 +226,12 @@ public class Role
     {
 
     }
-    public virtual void PutSelectCard(Role target, int index)
+
+
+    //从牌库中获得牌
+    public virtual void GetCardsFromLibrary(int num)
     {
 
-    }
-
-    //获得牌
-    public virtual void GetCard()
-    {
 
     }
 

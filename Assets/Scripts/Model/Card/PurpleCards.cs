@@ -91,19 +91,18 @@ public class OuDuanSiLian : Card
     public override void TakeEffect(Role self, Role target)
     {
         //抽取2张牌，当手牌数小于3时再抽一张牌 
-        self.GetCardManager.GetCardsFromLibrary(2);
+        self.GetCardsFromLibrary(2);
 
         if (self.GetCardManager.CardsNum < 3)
         {
-
-            self.GetCardManager.GetCardsFromLibrary(1);
+            self.GetCardsFromLibrary(1);
         }
 
 
         if (self.GetCardManager.GetBonus(this.name) > this.upgrade)
         {
             //+1再抽牌上限
-            self.GetCardManager.GetCardsFromLibrary(1);
+            self.GetCardsFromLibrary(1);
         }
 
     }

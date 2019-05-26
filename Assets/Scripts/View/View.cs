@@ -22,7 +22,7 @@ public class View : MonoBehaviour
     public GameObject[] deskCards;
 
 
-    public GameObject backCard ;   //牌背   
+    public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
     public GameObject motherPutCard;
 
@@ -74,7 +74,7 @@ public class View : MonoBehaviour
         handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
         handcardsOfEnemy.text = enemy.GetCardManager.CardsNum.ToString();
 
-       
+
     }
 
 
@@ -88,9 +88,9 @@ public class View : MonoBehaviour
         lastIndex = -1;
 
 
-        Vector3 interval = new Vector3(0.3f,0,-0.01f);
-        Vector3 startPosition = new Vector3(2.8f,-3f,0);
-		GameObject playerCards = GameObject.Find("PlayerCards");
+        Vector3 interval = new Vector3(0.3f, 0, -0.01f);
+        Vector3 startPosition = new Vector3(2.8f, -3f, 0);
+        GameObject playerCards = GameObject.Find("PlayerCards");
 
 
         //摧毁原有牌
@@ -114,10 +114,10 @@ public class View : MonoBehaviour
                 }
             }
 
-			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
+            GameObject itemGo = Instantiate(motherHandCard, startPosition + interval * i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
-            itemGo.name = temp.name+i.ToString();
-			itemGo.transform.SetParent(playerCards.transform);
+            itemGo.name = temp.name + i.ToString();
+            itemGo.transform.SetParent(playerCards.transform);
 
             i++;
         }
@@ -126,24 +126,24 @@ public class View : MonoBehaviour
 
 
     public void ShowEnemyCards()
-	{
+    {
 
 
         int i = 0;
 
-        Vector3 interval = new Vector3(0.25f,0,-0.01f);
-        Vector3 startPosition = new Vector3(-5.5f,3f,0);
-		GameObject enemyCards = GameObject.Find("EnemyCards");
+        Vector3 interval = new Vector3(0.25f, 0, -0.01f);
+        Vector3 startPosition = new Vector3(-5.5f, 3f, 0);
+        GameObject enemyCards = GameObject.Find("EnemyCards");
 
 
         //摧毁原有牌
         int childCount = enemyCards.transform.childCount;
 
-		for (i = 0; i < childCount; i++)
-		{
-			Destroy(enemyCards.transform.GetChild(i).gameObject);
-		}
-        i=0;
+        for (i = 0; i < childCount; i++)
+        {
+            Destroy(enemyCards.transform.GetChild(i).gameObject);
+        }
+        i = 0;
 
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
@@ -215,9 +215,9 @@ public class View : MonoBehaviour
             if (name.ToString() == prefab.name)
             {
 
-                GameObject itemGo = Instantiate(motherPutCard,startPosition+interval*i, Quaternion.identity);
+                GameObject itemGo = Instantiate(motherPutCard, startPosition + interval * i, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
-			    itemGo.transform.SetParent(cardTombs.transform);
+                itemGo.transform.SetParent(cardTombs.transform);
                 itemGo.name = prefab.name;
 
                 break;
