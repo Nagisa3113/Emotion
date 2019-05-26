@@ -78,7 +78,9 @@ public class ViewOfButton : MonoBehaviour
                 i++;
                 if (i % 5 == 0)
                 {
-                    startPosition += new Vector3(0, -4f, 0);
+
+                    startPosition += new Vector3(0,-4f,0);
+                    i = 0;
                 }
             }
             SetCondition(false);
@@ -102,13 +104,15 @@ public class ViewOfButton : MonoBehaviour
         GameObject cardLibrary = GameObject.Find("CardLibrary");
         if (x == -1)
         {
-            if (!(cardLibrary.transform.GetChild(0).position.y - 2 < 0.001f && cardLibrary.transform.GetChild(0).position.y - 2 > -0.001f))
+
+            if (!(cardLibrary.transform.GetChild(0).position.y-2 <0.001f && cardLibrary.transform.GetChild(0).position.y-2 >-0.001f))
             {
                 for (int i = 0; i < cardLibrary.transform.childCount; i++)
                 {
-                    cardLibrary.transform.GetChild(i).position += new Vector3(0, 4f, 0);
 
-                }
+                    cardLibrary.transform.GetChild(i).position += new Vector3(0,-8f,0) ;
+                    
+                } 
             }
         }
         else
@@ -121,9 +125,10 @@ public class ViewOfButton : MonoBehaviour
                 print(cardLibrary.transform.GetChild(cardLibrary.transform.childCount - 1).position.y);
                 for (int i = 0; i < cardLibrary.transform.childCount; i++)
                 {
-                    cardLibrary.transform.GetChild(i).position += new Vector3(0, -4f, 0);
 
-                }
+                    cardLibrary.transform.GetChild(i).position += new Vector3(0,8f,0) ;
+                    
+                } 
             }
         }
 

@@ -237,6 +237,7 @@ public class EnemyCardManager : CardManager
         view.ShowPlayerPutCard(currentCard.GetName);
         view.ShowEnemyCards();
 
+
         currentCard = Card.EmptyCard;
 
 
