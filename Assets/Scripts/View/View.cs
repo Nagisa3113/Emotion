@@ -87,7 +87,8 @@ public class View : MonoBehaviour
         int childCount = playerCards.transform.childCount;
 		for (i = 0; i < childCount; i++)
 		{
-			DestroyImmediate(playerCards.transform.GetChild(0).gameObject);
+            print(i);
+			ObjectPool.GetInstance().RecycleObj("motherHandCard",playerCards.transform.GetChild(0).gameObject);
 		}
         i = 0;
 
@@ -103,7 +104,7 @@ public class View : MonoBehaviour
                     break;
                 }
             }
-			GameObject itemGo = Instantiate(motherHandCard,startPosition + interval*i, Quaternion.identity);
+			GameObject itemGo = ObjectPool.GetInstance().GetObj("motherHandCard",startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
             itemGo.name = temp.name+i.ToString();
 			itemGo.transform.SetParent(playerCards.transform);

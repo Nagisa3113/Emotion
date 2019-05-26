@@ -49,7 +49,7 @@ public class ViewHandCard : MonoBehaviour
 
     void OnMouseDown()
     {
-        foreach (var prefab in view.handCards)
+        foreach (var prefab in view.deskCards)
         {
             if (transform.name.Substring(0,transform.name.Length - 1)== prefab.name)
             {

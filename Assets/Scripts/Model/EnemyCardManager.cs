@@ -50,6 +50,10 @@ public class EnemyCardManager : CardManager
         int i;
         for (i = 0;i  < num && CardsNum <= numMax;i++)
         {
+            if (library.Count == 0)
+            {
+                InitLibrary();
+            }
             int rand = UnityEngine.Random.Range(0, library.Count);
             Card tmp = library[rand];
             library.RemoveAt(rand);
@@ -72,10 +76,8 @@ public class EnemyCardManager : CardManager
         {
             InitLibrary();
         }
-
         while (cards.Count > 0 && ExpenseCurrent > ExpenseLeast)
         {
-
             int rankLeast = -10;
             Card temp = new Card();
             bool flag = false; //判断牌内是否有倾诉
@@ -89,10 +91,11 @@ public class EnemyCardManager : CardManager
             }
             foreach (Card card in cards)
             {
+                
                 CardName name = card.GetName;
                 if (card.GetCost > ExpenseCurrent )
                 {
-                    break;
+                    continue;
                 }
                 else
                 {
