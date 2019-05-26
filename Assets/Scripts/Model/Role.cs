@@ -20,7 +20,6 @@ public class Role
 
     }
 
-
     //当前血量
     [SerializeField]
     protected int hpCurrent;
@@ -35,17 +34,6 @@ public class Role
         {
             return hpCurrent;
         }
-        set
-        {
-            int tmp = hpCurrent;
-            hpCurrent = value > hpMax ? hpMax : value < 0 ? 0 : value;
-
-            if (tmp < hpCurrent && buffManager.CheckBuff(BuffType.GetHurt))
-            {
-                buffManager.BuffProcess(BuffType.GetHurt, this);
-            }
-
-        }
     }
 
     public int GetHPMax
@@ -53,10 +41,6 @@ public class Role
         get
         {
             return hpMax;
-        }
-        set
-        {
-            hpMax = value;
         }
     }
 
@@ -107,7 +91,7 @@ public class Role
         {
             return buffManager;
         }
-        
+
     }
 
 
@@ -119,6 +103,64 @@ public class Role
         //this.cardManager = new CardManager();
         this.buffManager = new BuffManager(this);
     }
+
+
+
+    public virtual void GetHeal(int heal)
+    {
+        int tmp = hpCurrent;
+        tmp = tmp > hpMax ? hpMax : tmp += heal;
+        hpCurrent = tmp;
+    }
+
+
+    public virtual void GetDamage(int damage)
+    {
+
+        float damageBase = 1f;
+        foreach (Buff buff in buffManager.buffs)
+        {
+            if (buff.name.Equals("脆弱"))
+            {
+                damageBase += 0.2f;
+            }
+        }
+
+        int tmp = hpCurrent;
+        tmp -= (int)(damage * damageBase);
+
+        hpCurrent = tmp < 0 ? 0 : tmp;
+
+        //受到伤害时触发buff
+        buffManager.BuffProcess(BuffType.GetHurt, this);
+
+    }
+
+
+
+    public virtual void TakeDamage(Role target, int damage)
+    {
+        float damageBase = 1f;
+        foreach (Buff buff in buffManager.buffs)
+        {
+            if (buff.name.Equals("腐蚀"))
+            {
+                damageBase -= 0.2f;
+            }
+            if (buff.name.Equals("强力"))
+            {
+                damageBase += 0.2f;
+            }
+            if (buff.name.Equals("挑衅"))
+            {
+                damageBase *= 2f;
+            }
+        }
+
+
+        target.GetDamage((int)(damage * damageBase));
+    }
+
 
 
     //打出一张牌
@@ -139,7 +181,7 @@ public class Role
     {
 
     }
-    public virtual void PutSelectCard(Role target,int index)
+    public virtual void PutSelectCard(Role target, int index)
     {
 
     }

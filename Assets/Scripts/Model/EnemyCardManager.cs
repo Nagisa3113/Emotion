@@ -10,14 +10,14 @@ public class EnemyCardManager : CardManager
     Enemy enemy;
     List<Card> library;
     int ExpenseLeast;
-
+    public Card temp = new Card();
 
     public EnemyCardManager()
     {
-        enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
+        enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
         library = new List<Card>();
-        InitLibrary(); 
+        InitLibrary();
     }
 
     void InitLibrary()
@@ -25,32 +25,32 @@ public class EnemyCardManager : CardManager
         int i = 0;
         for (i = 0; i < 16; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.Complain));
+            library.Add(Card.NewCard(CardName.Complain));
         }
         for (i = 0; i < 6; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.DullAtmosphere));
+            library.Add(Card.NewCard(CardName.DullAtmosphere));
         }
         for (i = 0; i < 3; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.WeiYuChouMou));
+            library.Add(Card.NewCard(CardName.WeiYuChouMou));
         }
         for (i = 0; i < 5; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.OuDuanSiLian));
+            library.Add(Card.NewCard(CardName.OuDuanSiLian));
         }
         for (i = 0; i < 1; i++)
         {
-            library.Add(CardManager.GetNewCard(CardName.Confess));
+            library.Add(Card.NewCard(CardName.Confess));
         }
     }
 
     public override void GetCardsFromLibrary(int num)
     {
         int i;
-        for (i = 0;i  < num && CardsNum <= numMax;i++)
+        for (i = 0; i < num && CardsNum <= numMax; i++)
         {
-            if (library.Count == 0)
+            if (library.Count <= 0)
             {
                 InitLibrary();
             }
@@ -60,47 +60,38 @@ public class EnemyCardManager : CardManager
             cards.Add(tmp);
         }
 
-        if( num != 6)
-            view.ShowEnemyCards();
+        //if( num != 6)
+        view.ShowEnemyCards();
     }
-    
 
-    public override void AI(Role self, Role target)
+
+
+
+    public void GetSelectedCard(Role self, Role target)
     {
-        if (cards.Count > 0)
-        {
-            ExpenseLeast = 0;
-        }
 
-        if(cards.Count ==0)
+        int rankLeast = -10;
+
+        bool flag = false; //判断牌内是否有倾诉
+        foreach (Card cardTemp in cards)
         {
-            InitLibrary();
-        }
-        while (cards.Count > 0 && ExpenseCurrent > ExpenseLeast)
-        {
-            int rankLeast = -10;
-            Card temp = new Card();
-            bool flag = false; //判断牌内是否有倾诉
-            foreach (Card cardTemp in cards)
+            if (cardTemp.GetName == CardName.Confess)
             {
-                if (cardTemp.GetName == CardName.Confess)
-                {
-                    flag = true;
-                    break;
-                }
+                flag = true;
+                break;
             }
-            foreach (Card card in cards)
+        }
+        foreach (Card card in cards)
+        {
+            CardName name = card.GetName;
+            if (card.GetCost > ExpenseCurrent)
             {
-                
-                CardName name = card.GetName;
-                if (card.GetCost > ExpenseCurrent )
+                break;
+            }
+            else
+            {
+                switch (name)
                 {
-                    continue;
-                }
-                else
-                {
-                    switch (name)
-                    {
                     case CardName.Empty:
                         break;
 
@@ -242,30 +233,66 @@ public class EnemyCardManager : CardManager
                     case CardName.Comfort:
 
                         break;
-                    }
                 }
             }
-
-            if (temp.GetName != CardName.Empty)
-            {
-                temp.TakeEffect(self, target);
-                view.ShowPlayerPutCard(temp.GetName);
-                cards.Remove(temp);
-                ExpenseCurrent -= temp.GetCost;
-                
-                //System.Threading.Thread.Sleep(2000);
-            }
-            foreach (Card cardTemp in cards)
-            {
-                if (ExpenseLeast > cardTemp.GetCost)
-                {
-                    ExpenseLeast = cardTemp.GetCost;
-                }
-            }
-        
-
         }
 
+        if (temp.GetName != CardName.Empty)
+            currentCard = temp;
+        Debug.Log(currentCard.cardname);
+
+
     }
+
+
+    public bool CheckCanPutCard()
+    {
+        ExpenseLeast = 999;
+
+        foreach (Card cardTemp in cards)
+        {
+            if (ExpenseLeast > cardTemp.GetCost)
+            {
+                ExpenseLeast = cardTemp.GetCost;
+            }
+        }
+
+        if (cards.Count <= 0 || expenseCurrent < ExpenseLeast)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public override void PutCurrentCard(Role self, Role target)
+    {
+
+        GetSelectedCard(self, target);
+        Debug.Log("emeny打出一张" + currentCard.cardname);
+
+        expenseCurrent -= currentCard.GetCost;
+        cards.Remove(currentCard);
+
+        /* check buff */
+        if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+        {
+            self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
+        }
+
+        currentCard.TakeEffect(self, target);
+
+        view.ShowPlayerPutCard(currentCard.GetName);
+        view.ShowEnemyCards();
+        currentCard = null;
+
+        //System.Threading.Thread.Sleep(2000);
+
+
+    }
+
+
 
 }

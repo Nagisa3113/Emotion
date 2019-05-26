@@ -254,17 +254,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player:
     despondent: 0
-    hpCurrent: 200
-    hpMax: 200
+    hpCurrent: 300
+    hpMax: 300
     cardManager:
-      view: {fileID: 0}
+      view: {fileID: 1528461317}
       currentCard:
+        cardname: 
         name: 0
-        cost: 0
-      currentCardIndex: 0
       cards: []
-      numMax: 15
+      currentCardIndex: 0
+      numMax: 10
       expenseCurrent: 3
+    buffManager:
+      buffs: []
+      view: {fileID: 1528461317}
   enemy:
     despondent: 0
     hpCurrent: 0
@@ -272,18 +275,21 @@ MonoBehaviour:
     cardManager:
       view: {fileID: 0}
       currentCard:
+        cardname: 
         name: 0
-        cost: 0
-      currentCardIndex: 0
       cards: []
+      currentCardIndex: 0
       numMax: 15
       expenseCurrent: 3
+    buffManager:
+      buffs: []
+      view: {fileID: 0}
   cardLibrary:
     cards: []
   cardDiscard:
     cards: []
   roundTurn: 0
-  roundNum: 0
+  roundNum: 1
   battleStatus: 0
   roundStatus: 0
 --- !u!4 &79827542

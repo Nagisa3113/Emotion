@@ -6,20 +6,49 @@ using UnityEngine;
 public class CardManager
 {
 
-    
+
     public View view;
     //当前选中牌
     [SerializeField]
-    Card currentCard;
+    protected Card currentCard;
 
     //表示未选中卡牌
     Card emptyCard;
 
+
+    [SerializeField]
+    protected List<Card> cards;
+
     [SerializeField]
     int currentCardIndex;
 
-    [SerializeField]
-    public List<Card> cards;
+
+    //获取此时手中的所有牌用于显示
+    public List<Card> GetCards
+    {
+        get
+        {
+            return cards;
+        }
+    }
+
+    public int CardIndex
+    {
+        get
+        {
+            return currentCardIndex;
+        }
+    }
+
+    public Card CurrentCard
+    {
+        get
+        {
+            return currentCard;
+        }
+    }
+
+
 
     [SerializeField]
     public int CardsNum
@@ -30,6 +59,7 @@ public class CardManager
         }
     }
 
+    //随机获得一张牌
     public Card GetRandomCard()
     {
         if (cards.Count > 0)
@@ -62,7 +92,7 @@ public class CardManager
     public int numMax;//牌组数量上限
 
     [SerializeField]
-    int expenseCurrent;//当前费用
+    protected int expenseCurrent;//当前费用
 
     int expenseMax;//费用上限
 
@@ -89,6 +119,7 @@ public class CardManager
         numMax = 10;
         expenseMax = 3;
         expenseCurrent = expenseMax;
+        canAddCard = true;
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
 
@@ -102,9 +133,9 @@ public class CardManager
     //开始选择牌
     public void SelectCard()
     {
-     
-        currentCard = cards[0];
-        currentCardIndex = 0;
+
+        currentCard = emptyCard;
+        currentCardIndex = -1;
     }
 
     //选择不同牌
@@ -116,14 +147,14 @@ public class CardManager
         {
             if (currentCardIndex + 1 >= cards.Count)
             {
-                currentCardIndex = cards.Count-1;
-                Card temp =cards[0];
-                for (int i=1;i<cards.Count;i++)
+                currentCardIndex = cards.Count - 1;
+                Card temp = cards[0];
+                for (int i = 1; i < cards.Count; i++)
                 {
-                    cards[i-1] = cards[i];
+                    cards[i - 1] = cards[i];
                 }
-                cards[cards.Count-1] = temp;
-                view.ShowPlayerCards();    
+                cards[cards.Count - 1] = temp;
+                view.ShowPlayerCards();
             }
             else
             {
@@ -137,7 +168,7 @@ public class CardManager
         }
 
         currentCard = cards[currentCardIndex];
-        view.SelectedPlayerCard(currentCardIndex,currentCard);
+        view.SelectedPlayerCard(currentCardIndex, currentCard);
 
 
     }
@@ -153,7 +184,7 @@ public class CardManager
 
     public void AddCard(CardName cardName)
     {
-        AddCard(GetNewCard(cardName));
+        AddCard(Card.NewCard(cardName));
     }
 
 
@@ -163,10 +194,9 @@ public class CardManager
 
     }
 
-    public virtual void AI(Role self, Role target)
-    {
 
-    }
+
+
     public void PutCard(CardName cardName, Role self, Role target)
     {
         if (expenseCurrent >= currentCard.GetCost)
@@ -210,12 +240,12 @@ public class CardManager
             }
         }
     }
-    
+
 
 
 
     //打出当前牌
-    public void PutCurrentCard(Role self, Role target)
+    public virtual void PutCurrentCard(Role self, Role target)
     {
 
         if (expenseCurrent >= currentCard.GetCost
@@ -238,18 +268,23 @@ public class CardManager
             view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
-        }  
+        }
     }
 
-        //打出当前牌
-    public void PutSelectCard(Role self, Role target,int index)
+    //打出索引位置的牌
+    public void PutSelectCard(Role self, Role target, int index)
     {
         currentCard = cards[index];
         if (expenseCurrent >= currentCard.GetCost)
         {
+
+
+            Debug.Log("player打出一张" + currentCard.cardname);
+
             expenseCurrent -= currentCard.GetCost;
 
             cards.Remove(currentCard);
+
 
             /* check buff */
             if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
@@ -263,11 +298,36 @@ public class CardManager
             view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
-        }  
+        }
+
     }
 
 
 
+
+    //弃掉某种颜色的的牌
+    public void DicardCard(int num, CardColor cardColor)
+    {
+        while (cards.Count > 0 && num > 0)
+        {
+
+            foreach (Card card in cards)
+            {
+                if (card.GetColor == cardColor)
+                {
+                    cards.Remove(card);
+
+                }
+            }
+            num--;
+
+        }
+    }
+
+
+
+
+    //获得某张牌的Bonus
     public int GetBonus(CardName cardName)
     {
         int num = 0;
@@ -279,94 +339,6 @@ public class CardManager
             }
         }
         return num;
-    }
-
-
-
-    //获取此时手中的所有牌用于显示
-    public List<Card> GetCards()
-    {
-        return cards;
-    }
-
-    public int CardIndex
-    {
-        get
-        {
-            return currentCardIndex;
-        }
-    }
-
-    public Card CurrentCard
-    {
-        get
-        {
-            return currentCard;
-        }
-    }
-
-
-
-
-
-
-    public static Card GetNewCard(CardName cardName)
-    {
-        switch (cardName)
-        {
-
-            case CardName.Empty:
-                break;
-
-            case CardName.NoNameFire:
-                return new NoNameFire();
-
-            case CardName.Vent:
-                return new NoNameFire();
-
-            case CardName.Incite:
-                return new Incite();
-
-            case CardName.Revenge:
-                return new Revenge();
-
-            case CardName.Anger:
-                return new Anger();
-
-            case CardName.AngerFire:
-                return new AngerFire();
-
-
-
-            case CardName.Complain:
-                return new Complain();
-
-            case CardName.DullAtmosphere:
-                return new DullAtmosphere();
-
-
-            case CardName.WeiYuChouMou:
-                return new WeiYuChouMou();
-
-            case CardName.OuDuanSiLian:
-                return new OuDuanSiLian();
-
-
-            case CardName.Confess:
-                return new Confess();
-
-
-            case CardName.Heal:
-                return new Heal();
-
-            case CardName.Comfort:
-                return new Comfort();
-
-            default:
-                return null;
-
-        }
-        return null;
     }
 
 }
