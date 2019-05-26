@@ -10,16 +10,45 @@ public class CardManager
     public View view;
     //当前选中牌
     [SerializeField]
-    Card currentCard;
+    protected Card currentCard;
 
     //表示未选中卡牌
     Card emptyCard;
 
-    [SerializeField]
-    int currentCardIndex;
 
     [SerializeField]
     protected List<Card> cards;
+
+    [SerializeField]
+    int currentCardIndex;
+
+
+    //获取此时手中的所有牌用于显示
+    public List<Card> GetCards
+    {
+        get
+        {
+            return cards;
+        }
+    }
+
+    public int CardIndex
+    {
+        get
+        {
+            return currentCardIndex;
+        }
+    }
+
+    public Card CurrentCard
+    {
+        get
+        {
+            return currentCard;
+        }
+    }
+
+
 
     [SerializeField]
     public int CardsNum
@@ -30,6 +59,7 @@ public class CardManager
         }
     }
 
+    //随机获得一张牌
     public Card GetRandomCard()
     {
         if (cards.Count > 0)
@@ -62,7 +92,7 @@ public class CardManager
     public int numMax;//牌组数量上限
 
     [SerializeField]
-    int expenseCurrent;//当前费用
+    protected int expenseCurrent;//当前费用
 
     int expenseMax;//费用上限
 
@@ -89,6 +119,7 @@ public class CardManager
         numMax = 10;
         expenseMax = 3;
         expenseCurrent = expenseMax;
+        canAddCard = true;
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
 
@@ -163,10 +194,9 @@ public class CardManager
 
     }
 
-    public virtual void AI(Role self, Role target)
-    {
 
-    }
+
+
     public void PutCard(CardName cardName, Role self, Role target)
     {
         if (expenseCurrent >= currentCard.GetCost)
@@ -215,7 +245,7 @@ public class CardManager
 
 
     //打出当前牌
-    public void PutCurrentCard(Role self, Role target)
+    public virtual void PutCurrentCard(Role self, Role target)
     {
 
         if (expenseCurrent >= currentCard.GetCost
@@ -238,15 +268,19 @@ public class CardManager
             view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
-        }  
+        }
     }
 
-        //打出当前牌
-    public void PutSelectCard(Role self, Role target,int index)
+    //打出索引位置的牌
+    public void PutSelectCard(Role self, Role target, int index)
     {
         currentCard = cards[index];
         if (expenseCurrent >= currentCard.GetCost)
         {
+
+
+            Debug.Log("player打出一张" + currentCard.cardname);
+
             expenseCurrent -= currentCard.GetCost;
 
             cards.Remove(currentCard);
@@ -264,20 +298,20 @@ public class CardManager
             view.ShowPlayerCards();
             currentCard = emptyCard;
             currentCardIndex = -1;
-        }  
+        }
 
     }
 
 
 
 
-    //弃牌
-    public void DicardCard(int num,CardColor cardColor)
+    //弃掉某种颜色的的牌
+    public void DicardCard(int num, CardColor cardColor)
     {
         while (cards.Count > 0 && num > 0)
         {
 
-            foreach(Card card in cards)
+            foreach (Card card in cards)
             {
                 if (card.GetColor == cardColor)
                 {
@@ -293,7 +327,7 @@ public class CardManager
 
 
 
-
+    //获得某张牌的Bonus
     public int GetBonus(CardName cardName)
     {
         int num = 0;
@@ -305,33 +339,6 @@ public class CardManager
             }
         }
         return num;
-    }
-
-
-
-    //获取此时手中的所有牌用于显示
-    public List<Card> GetCards
-    {
-        get
-        {
-            return cards;
-        }
-    }
-
-    public int CardIndex
-    {
-        get
-        {
-            return currentCardIndex;
-        }
-    }
-
-    public Card CurrentCard
-    {
-        get
-        {
-            return currentCard;
-        }
     }
 
 }

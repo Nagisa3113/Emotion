@@ -63,6 +63,12 @@ public class BattleSystem : MonoBehaviour
     [Header("回合阶段")]
     public RoundStatus roundStatus;
 
+
+    /// <summary>
+    /// 用来检测敌人出牌
+    /// </summary>
+    int flag = 0;
+
     public void Awake()
     {
 
@@ -123,7 +129,7 @@ public class BattleSystem : MonoBehaviour
 
     public void BattleStart()
     {
-        player.GetCardManager.GetCardsFromLibrary(9);
+        player.GetCardManager.GetCardsFromLibrary(6);
 
         enemy.GetCardManager.GetCardsFromLibrary(6);
 
@@ -142,17 +148,24 @@ public class BattleSystem : MonoBehaviour
         {
             case RoundTurn.PlayerRound:
 
-
-                player.GetCardFromLibrary(3);
-
                 player.GetCardManager.ExpenseReset();
 
+                if (player.GetCardManager.CanAddCard)
+                {
+                    Debug.Log("player get 3 cards");
+                    player.GetCardFromLibrary(3);
+                }
 
                 break;
 
             case RoundTurn.EnemyRound:
                 enemy.GetCardManager.ExpenseReset();
-                enemy.GetCardManager.GetCardsFromLibrary(3);
+
+                if (enemy.GetCardManager.CanAddCard)
+                {
+                    Debug.Log("enemy get 3 cards");
+                    enemy.GetCardManager.GetCardsFromLibrary(3);
+                }
 
                 //enemy.BuffReduceLayer();
 
@@ -168,9 +181,9 @@ public class BattleSystem : MonoBehaviour
     void Rounding()
     {
 
-
         switch (roundTurn)
         {
+            
             case RoundTurn.PlayerRound:
                 //InputMouse();
                 InputHandle();
@@ -178,9 +191,11 @@ public class BattleSystem : MonoBehaviour
 
 
             case RoundTurn.EnemyRound:
-                enemy.GetCardManager.AI(enemy, player);
 
-                ChangeRoundStatus(RoundStatus.RoundEnd);
+                if (flag == 0)
+                {
+                    StartCoroutine("EnemyPutCard");
+                }
 
                 break;
 
@@ -212,6 +227,7 @@ public class BattleSystem : MonoBehaviour
 
     public void ChangeRoundStatus(RoundStatus nextRoundStatus)
     {
+        //Debug.Log("从" + roundStatus.ToString() + "到" + nextRoundStatus.ToString());
         switch (nextRoundStatus)
         {
             case RoundStatus.RoundEnd:
@@ -242,6 +258,7 @@ public class BattleSystem : MonoBehaviour
 
             case RoundStatus.Rounding:
                 roundStatus = RoundStatus.Rounding;
+                Debug.Log("轮到" + roundTurn.ToString() + "的回合");
                 break;
         }
 
@@ -295,6 +312,26 @@ public class BattleSystem : MonoBehaviour
     {
         // 按鼠标左
 
+    }
+
+
+
+
+
+    IEnumerator EnemyPutCard()
+    {
+        flag = 1;
+        while ((enemy.GetCardManager as EnemyCardManager).CheckCanPutCard())
+        {
+
+            for (float timer = 0; timer <= 2; timer += Time.deltaTime)
+            {
+                yield return 0;
+            }
+            enemy.PutCurrentCard(player);
+        }
+        ChangeRoundStatus(RoundStatus.RoundEnd);
+        flag = 0;
     }
 
 }

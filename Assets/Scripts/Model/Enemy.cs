@@ -26,7 +26,12 @@ public class Enemy : Role
     public Enemy(EnemyType enemyType) : base(600, 10)
     {
         this.enemyType = enemyType;
-        GetCardManager = new EnemyCardManager();
+        cardManager = new EnemyCardManager();
+    }
+
+    public override void PutCurrentCard(Role target)
+    {
+        cardManager.PutCurrentCard(this, target);
     }
 
 

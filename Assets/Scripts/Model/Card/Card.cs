@@ -81,7 +81,6 @@ public class Card
 
     GameObject image;
 
-    [HideInInspector]
     public CardName name;
 
 
@@ -154,7 +153,7 @@ public class Card
 
     public Card()
     {
-
+        this.name = CardName.Empty;
     }
 
     public virtual void TakeEffect(Role self, Role target)
