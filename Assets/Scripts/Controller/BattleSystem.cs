@@ -300,6 +300,7 @@ public class BattleSystem : MonoBehaviour
     {
         flag = 1;
         GameObject.Find("View").GetComponent<View>().canPutCard = false;
+        GameObject.Find("ViewOfButton").GetComponent<ViewOfButton>().endButton.enabled = false;
         while ((enemy.GetCardManager as EnemyCardManager).CheckCanPutCard())
         {
 
