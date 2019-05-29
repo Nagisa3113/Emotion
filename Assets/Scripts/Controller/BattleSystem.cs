@@ -57,7 +57,7 @@ public class BattleSystem : MonoBehaviour
 
 
     /// <summary>
-    /// 用来检测敌人出牌
+    /// 用来控制敌人出牌是否结束
     /// </summary>
     int flag = 0;
 
