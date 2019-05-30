@@ -62,7 +62,6 @@ public class Player : Role
 
 
 
-
     public override void InitLibrary()
     {
 
@@ -94,28 +93,22 @@ public class Player : Role
 
 
 
-
-
     public override void GetCardsFromLibrary(int num)
     {
-        if (!this.cardManager.CanAddCard)
+        int i = 0;
+        if (this.cardManager.CanAddCard)
         {
-            return;
 
-        }
-        else
-        {
-            for (int i = 0; i < num && cardManager.CardsNum < cardManager.numMax && cardLibrary.Count != 0; i++)
+            for (i = 0; i < num && cardManager.CardsNum < cardManager.numMax && cardLibrary.Count != 0; i++)
             {
                 int rand = UnityEngine.Random.Range(0, cardLibrary.Count);
                 Card tmp = cardLibrary[rand];
                 cardManager.GetCards.Add(tmp);
                 cardLibrary.RemoveAt(rand);
-
             }
         }
 
-        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName + "获得" + num + "张牌");
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName + "获得" + i + "张牌");
         cardManager.view.ShowPlayerCards();
 
     }

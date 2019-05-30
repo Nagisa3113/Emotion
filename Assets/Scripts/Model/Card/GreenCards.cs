@@ -10,10 +10,10 @@ public class Heal : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        self.GetHeal(40 + 2 * self.GetCardManager.GetBonus(this.name));
-        if (self.GetCardManager.GetBonus(this.name) > this.upgrade)
+        self.GetHeal(40 + 2 * self.CardManager.GetBonus(this.name));
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
-            self.GetHeal(2 * self.GetCardManager.GetBonus(this.name));
+            self.GetHeal(2 * self.CardManager.GetBonus(this.name));
         }
     }
 

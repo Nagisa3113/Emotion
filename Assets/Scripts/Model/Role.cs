@@ -7,7 +7,7 @@ public class Role
 {
     [SerializeField]
     int despondent;//消沉层数
-    public int GetDespondent
+    public int Despondent
     {
         get
         {
@@ -23,12 +23,7 @@ public class Role
     //当前血量
     [SerializeField]
     protected int hpCurrent;
-
-    //血量上限
-    [SerializeField]
-    protected int hpMax;
-
-    public int GetHP
+    public int HP
     {
         get
         {
@@ -36,7 +31,10 @@ public class Role
         }
     }
 
-    public int GetHPMax
+    //血量上限
+    [SerializeField]
+    protected int hpMax;
+    public int HPMax
     {
         get
         {
@@ -46,7 +44,7 @@ public class Role
 
     //护甲
     protected int armor;
-    public int GetArmor
+    public int Armor
     {
         get
         {
@@ -70,7 +68,7 @@ public class Role
 
     [SerializeField]
     protected CardManager cardManager;
-    public CardManager GetCardManager
+    public CardManager CardManager
     {
         get
         {
@@ -86,7 +84,7 @@ public class Role
 
     [SerializeField]
     List<Card> cardDiscard;
-    public List<Card> GetCardDiscard
+    public List<Card> CardDiscard
     {
         get
         {
@@ -98,7 +96,7 @@ public class Role
 
     [SerializeField]
     protected List<Card> cardLibrary;
-    public List<Card> GetCardLibrary
+    public List<Card> CardLibrary
     {
         get
         {
@@ -119,7 +117,7 @@ public class Role
         for (int i = cardLibrary.Count - 1; i >= 0; i--)
         {
             Card card = cardLibrary[i];
-            if (card.GetName == cardName)
+            if (card.Name == cardName)
             {
                 card.TakeEffect(self, target);
                 cardDiscard.Add(card);
@@ -148,8 +146,6 @@ public class Role
         this.armor = armor;
         this.despondent = 0;
 
-        //this.cardManager = new CardManager();
-
         this.buffManager = new BuffManager(this);
         this.cardLibrary = new List<Card>();
         this.cardDiscard = new List<Card>();
@@ -170,7 +166,7 @@ public class Role
     {
 
         float damageBase = 1f;
-        foreach (Buff buff in buffManager.buffs)
+        foreach (Buff buff in buffManager.Buffs)
         {
             if (buff.name.Equals("脆弱"))
             {
@@ -193,7 +189,7 @@ public class Role
     public virtual void TakeDamage(Role target, int damage)
     {
         float damageBase = 1f;
-        foreach (Buff buff in buffManager.buffs)
+        foreach (Buff buff in buffManager.Buffs)
         {
             if (buff.name.Equals("腐蚀"))
             {

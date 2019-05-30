@@ -60,12 +60,12 @@ public class ViewOfButton : MonoBehaviour
             pauseButton.image.sprite = pauseSprite[1];
             GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.PlayerPause;
             cardLibrary.SetActive(true);
-            foreach (var card in player.GetCardLibrary)
+            foreach (var card in player.CardLibrary)
             {
                 GameObject temp = null;
                 foreach (var prefab in view.handCards)
                 {
-                    if (card.GetName.ToString() == prefab.name)
+                    if (card.Name.ToString() == prefab.name)
                     {
                         temp = prefab;
                         break;

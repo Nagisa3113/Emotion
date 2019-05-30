@@ -7,7 +7,18 @@ using System.Collections.Generic;
 public class BuffManager
 {
     [SerializeField]
-    public List<Buff> buffs;
+    List<Buff> buffs;
+    public List<Buff> Buffs
+    {
+        get
+        {
+            return buffs;
+        }
+        set
+        {
+            buffs = value;
+        }
+    }
 
     Role self;
 
@@ -50,7 +61,7 @@ public class BuffManager
     public void BuffReduceLayer()
     {
         int tmp = buffs.Count;
-        for(int i = tmp - 1; i >= 0; i--)
+        for (int i = tmp - 1; i >= 0; i--)
         {
             buffs[i].Layer--;
             if (buffs[i].Active == false)
@@ -63,9 +74,9 @@ public class BuffManager
 
 
     //判断是否已经有重复Buff
-    private void AddBuff(Buff buff)
+    void AddBuff(Buff buff)
     {
-        foreach(Buff b in buffs)
+        foreach (Buff b in buffs)
         {
             if (b.name.Equals(buff.name))
             {
@@ -98,15 +109,8 @@ public class BuffManager
                 break;
         }
         view.ShowBuff(self);
-        
 
     }
-    public List<Buff> GetBuffs()
-    {
-        return buffs;
-    }
-
-
 
 
 }
