@@ -9,9 +9,11 @@ public class ViewHandCard : MonoBehaviour
 
     private View view;
     public GameObject showCard;
+    TextMesh text;
     float time = 0;
     Player player;
     Enemy enemy;
+    
 
     void Awake()
     {
@@ -19,8 +21,10 @@ public class ViewHandCard : MonoBehaviour
         player = Player.GetInstance();
         enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         showCard = GameObject.Find("View").transform.GetChild(0).gameObject;
+        text = showCard.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
         time = Time.time;
     }
+
     void OnMouseEnter()
     {
         foreach (var prefab in view.deskCards)
@@ -54,6 +58,7 @@ public class ViewHandCard : MonoBehaviour
             if (transform.name.Substring(0, transform.name.Length - 1) == prefab.name)
             {
                 showCard.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
+                text.text = Card.NewCard((CardName)Enum.Parse(typeof(CardName), transform.name)).GetNormalStr;
                 break;
             }
         }

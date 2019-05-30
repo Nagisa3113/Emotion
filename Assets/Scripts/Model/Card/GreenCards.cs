@@ -5,7 +5,7 @@ public class Heal : Card
 {
     public Heal() : base(CardName.Heal, CardColor.Green, 1, 6)
     {
-
+        this.normalStr = "qweewq";
     }
 
     public override void TakeEffect(Role self, Role target)

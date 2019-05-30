@@ -57,12 +57,7 @@ public enum CardName
 
 
 
-/*
-   存放牌的图片，建议写一个方法去获得gameobject的名字，然后直接赋予给card。 
-   由于可能要改成鼠标操作，所以也可以专门写一个牌的脚本。
-   以牌为核心来执行。 --lvkiller 4/25
-*/
-//public GameObject[] images;
+
 
 [System.Serializable]
 public class Card
@@ -76,10 +71,12 @@ public class Card
 
     public CardName name;
 
-
+    protected string normalStr;
     protected int upgrade;
+    protected string upgradeStr;
 
     protected int upgradeTwice;
+    protected string upgradeTwiceStr;
 
 
     public CardName GetName
@@ -112,6 +109,22 @@ public class Card
         get
         {
             return color;
+        }
+    }
+
+    public int GetUpgrade
+    {
+        get
+        {
+            return upgrade;
+        }
+    }
+
+    public string GetNormalStr
+    {
+        get
+        {
+            return normalStr;
         }
     }
 

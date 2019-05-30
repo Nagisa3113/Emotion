@@ -133,6 +133,7 @@ public class ViewOfButton : MonoBehaviour
         }
 
     }
+    
 
     public void SetCondition(bool value)
     {

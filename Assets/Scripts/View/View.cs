@@ -52,14 +52,12 @@ public class View : MonoBehaviour
     {
         enemy = GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
         player = Player.GetInstance();
-        //ShowPlayerCards();
-        //ShowEnemyCards();
 
         lastIndex = -1;
 
         canPutCard = true;
 
-        //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);
+        //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);   //键盘时使用
 
     }
 
@@ -92,6 +90,8 @@ public class View : MonoBehaviour
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(2.8f, -3f, 0);
         GameObject playerCards = GameObject.Find("PlayerCards");
+        TextMesh text;
+        GameObject mesh;
 
 
         //摧毁原有牌
@@ -118,7 +118,16 @@ public class View : MonoBehaviour
 			GameObject itemGo = ObjectPool.GetInstance().GetObj("motherHandCard",startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
             itemGo.name = temp.name + i.ToString();
+            
+            text = itemGo.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
+            mesh = itemGo. transform.GetChild(1).gameObject;
+            if(player.GetCardManager.GetBonus(card.name) > card.GetUpgrade)
+            {
+                text.text = "123";
+            }
+            
             itemGo.transform.SetParent(playerCards.transform);
+
 
             i++;
         }

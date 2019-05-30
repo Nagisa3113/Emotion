@@ -96,7 +96,7 @@ public class CardManager
         view = View.GetInstance();
 
         cards = new List<Card>();
-        numMax = 15;
+        numMax = 10;
         expenseMax = 3;
         expenseCurrent = expenseMax;
         canAddCard = true;
