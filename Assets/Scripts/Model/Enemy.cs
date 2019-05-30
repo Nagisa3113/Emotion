@@ -86,6 +86,7 @@ public class Enemy : Role
             }
         }
 
+        Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName + "获得" + num + "张牌");
         cardManager.view.ShowEnemyCards();
     }
 

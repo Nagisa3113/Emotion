@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,8 +66,6 @@ public class Card
     [HideInInspector]
     public string cardname;
 
-    CardColor color;
-
     GameObject image;
 
     public CardName name;
@@ -88,6 +87,7 @@ public class Card
         }
     }
 
+
     [SerializeField]
     int cost;
     public int GetCost
@@ -101,9 +101,13 @@ public class Card
         {
             cost = value >= 0 ? value : 0;
         }
-
     }
 
+    protected int upgrade;
+    protected int upgradeTwice;
+
+
+    CardColor color;
     public CardColor GetColor
     {
         get
@@ -143,14 +147,12 @@ public class Card
 
     }
 
-
-
-    public Card(CardName cardName, CardColor color, int cost, int upgrade, int upgradeTwice)
+    public Card(CardName cardName, CardColor color, int cost)
     {
         this.name = cardName;
         this.color = color;
-        this.upgrade = upgrade;
-        this.upgradeTwice = upgradeTwice;
+        this.upgrade = 999;
+        this.upgradeTwice = 999;
         this.cost = cost;
         this.cardname = this.name.ToString();
     }
@@ -163,15 +165,16 @@ public class Card
         this.cost = cost;
         this.cardname = this.name.ToString();
     }
-    public Card(CardName cardName, CardColor color, int cost)
+    public Card(CardName cardName, CardColor color, int cost, int upgrade, int upgradeTwice)
     {
         this.name = cardName;
         this.color = color;
-        this.upgrade = 999;
-        this.upgradeTwice = 999;
+        this.upgrade = upgrade;
+        this.upgradeTwice = upgradeTwice;
         this.cost = cost;
         this.cardname = this.name.ToString();
     }
+
 
 
 
@@ -187,61 +190,63 @@ public class Card
     }
 
 
-
     public static Card NewCard(CardName cardName)
     {
-        switch (cardName)
-        {
 
-            case CardName.NoNameFire:
-                return new NoNameFire();
+        //使用反射创建对象
+        Type type = Type.GetType(cardName.ToString());         object obj = Activator.CreateInstance(type, true);          if (obj == null)         {             Debug.Log("No Card for" + cardName.ToString());             return null;         }          return (Card)obj; 
+        //switch (cardName)
+        //{
 
-            case CardName.Vent:
-                return new NoNameFire();
+        //    case CardName.NoNameFire:
+        //        return new NoNameFire();
 
-            case CardName.Incite:
-                return new Incite();
+        //    case CardName.Vent:
+        //        return new Vent();
 
-            case CardName.Revenge:
-                return new Revenge();
+        //    case CardName.Incite:
+        //        return new Incite();
 
-            case CardName.Anger:
-                return new Anger();
+        //    case CardName.Revenge:
+        //        return new Revenge();
 
-            case CardName.AngerFire:
-                return new AngerFire();
+        //    case CardName.Anger:
+        //        return new Anger();
 
-
-
-            case CardName.Complain:
-                return new Complain();
-
-            case CardName.DullAtmosphere:
-                return new DullAtmosphere();
+        //    case CardName.AngerFire:
+        //        return new AngerFire();
 
 
-            case CardName.WeiYuChouMou:
-                return new WeiYuChouMou();
 
-            case CardName.OuDuanSiLian:
-                return new OuDuanSiLian();
+        //    case CardName.Complain:
+        //        return new Complain();
 
-
-            case CardName.Confess:
-                return new Confess();
+        //    case CardName.DullAtmosphere:
+        //        return new DullAtmosphere();
 
 
-            case CardName.Heal:
-                return new Heal();
+        //    case CardName.WeiYuChouMou:
+        //        return new WeiYuChouMou();
 
-            case CardName.Comfort:
-                return new Comfort();
+        //    case CardName.OuDuanSiLian:
+        //        return new OuDuanSiLian();
 
-            default:
-                Debug.Log("No Card for" + cardName.ToString());
-                return null;
 
-        }
+        //    case CardName.Confess:
+        //        return new Confess();
+
+
+        //    case CardName.Heal:
+        //        return new Heal();
+
+        //    case CardName.Comfort:
+        //        return new Comfort();
+
+        //    default:
+        //        Debug.Log("No Card for" + cardName.ToString());
+        //        return null;
+
+        //}
     }
 
 }

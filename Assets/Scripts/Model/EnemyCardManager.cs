@@ -189,8 +189,6 @@ public class EnemyCardManager : CardManager
             currentCard = temp;
             temp = Card.EmptyCard;
         }
-        Debug.Log(currentCard.cardname);
-
 
     }
 
