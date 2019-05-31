@@ -103,8 +103,7 @@ public class Card
         }
     }
 
-    protected int upgrade;
-    protected int upgradeTwice;
+
 
 
     CardColor color;
@@ -194,7 +193,14 @@ public class Card
     {
 
         //使用反射创建对象
-        Type type = Type.GetType(cardName.ToString());         object obj = Activator.CreateInstance(type, true);          if (obj == null)         {             Debug.Log("No Card for" + cardName.ToString());             return null;         }          return (Card)obj; 
+        Type type = Type.GetType(cardName.ToString());
+        object obj = Activator.CreateInstance(type, true);
+        if (obj == null)  
+            {            
+            Debug.Log("No Card for" + cardName.ToString());
+            return null;       
+            }
+        return (Card)obj;
         //switch (cardName)
         //{
 

@@ -58,7 +58,7 @@ public class ViewHandCard : MonoBehaviour
             if (transform.name.Substring(0, transform.name.Length - 1) == prefab.name)
             {
                 showCard.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
-                text.text = Card.NewCard((CardName)Enum.Parse(typeof(CardName), transform.name)).GetNormalStr;
+                //text.text = Card.NewCard((CardName)Enum.Parse(typeof(CardName), transform.name)).GetNormalStr;
                 break;
             }
         }
