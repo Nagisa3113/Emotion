@@ -14,14 +14,10 @@ public class Enemy : Role
 {
     EnemyType enemyType;
 
-
-    public EnemyType GetEnemyType
-    {
-        get
-        {
-            return enemyType;
-        }
-    }
+    /// <summary>
+    /// 是否处于出牌阶段
+    /// </summary>
+    public bool isRound;
 
     public Enemy(EnemyType enemyType) : base(600, 10)
     {
@@ -36,27 +32,11 @@ public class Enemy : Role
 
     public override void InitLibrary()
     {
-        int i = 0;
-        for (i = 0; i < 16; i++)
-        {
-            cardLibrary.Add(Card.NewCard(CardName.Complain));
-        }
-        for (i = 0; i < 6; i++)
-        {
-            cardLibrary.Add(Card.NewCard(CardName.DullAtmosphere));
-        }
-        for (i = 0; i < 3; i++)
-        {
-            cardLibrary.Add(Card.NewCard(CardName.WeiYuChouMou));
-        }
-        for (i = 0; i < 5; i++)
-        {
-            cardLibrary.Add(Card.NewCard(CardName.OuDuanSiLian));
-        }
-        for (i = 0; i < 1; i++)
-        {
-            cardLibrary.Add(Card.NewCard(CardName.Confess));
-        }
+        Card.AddCard(cardLibrary, CardName.Complain, 16);
+        Card.AddCard(cardLibrary, CardName.DullAtmosphere, 6);
+        Card.AddCard(cardLibrary, CardName.WeiYuChouMou, 3);
+        Card.AddCard(cardLibrary, CardName.OuDuanSiLian, 5);
+        Card.AddCard(cardLibrary, CardName.Confess, 1);
     }
 
 

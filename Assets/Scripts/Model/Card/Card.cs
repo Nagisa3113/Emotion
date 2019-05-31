@@ -68,17 +68,8 @@ public class Card
 
     GameObject image;
 
-    public CardName name;
-
-    protected string normalStr;
-    protected int upgrade;
-    protected string upgradeStr;
-
-    protected int upgradeTwice;
-    protected string upgradeTwiceStr;
-
-
-    public CardName GetName
+    protected CardName name;
+    public CardName Name
 
     {
         get
@@ -90,7 +81,7 @@ public class Card
 
     [SerializeField]
     int cost;
-    public int GetCost
+    public int Cost
     {
         get
         {
@@ -99,7 +90,11 @@ public class Card
 
         set
         {
-            cost = value >= 0 ? value : 0;
+            cost = value;
+            if (cost < 0)
+            {
+                Debug.Log("Cost<0");
+            }
         }
     }
 
@@ -107,7 +102,7 @@ public class Card
 
 
     CardColor color;
-    public CardColor GetColor
+    public CardColor Color
     {
         get
         {
@@ -146,6 +141,12 @@ public class Card
 
     }
 
+
+    public Card()
+    {
+        this.cardname = "null";
+    }
+
     public Card(CardName cardName, CardColor color, int cost)
     {
         this.name = cardName;
@@ -174,85 +175,35 @@ public class Card
         this.cardname = this.name.ToString();
     }
 
-
-
-
-    public Card()
-    {
-        this.cardname = "null";
-    }
-
-
     public virtual void TakeEffect(Role self, Role target)
     {
 
     }
 
 
-    public static Card NewCard(CardName cardName)
+    public static void AddCard(List<Card> cards,CardName cardName,int num)
     {
-
         //使用反射创建对象
         Type type = Type.GetType(cardName.ToString());
         object obj = Activator.CreateInstance(type, true);
-        if (obj == null)  
-            {            
+
+        if (obj == null)
+        {
             Debug.Log("No Card for" + cardName.ToString());
-            return null;       
-            }
-        return (Card)obj;
-        //switch (cardName)
-        //{
+        }
 
-        //    case CardName.NoNameFire:
-        //        return new NoNameFire();
+        for (int i=0;i<num;i++)
+        {
+            cards.Add((Card)obj);
 
-        //    case CardName.Vent:
-        //        return new Vent();
-
-        //    case CardName.Incite:
-        //        return new Incite();
-
-        //    case CardName.Revenge:
-        //        return new Revenge();
-
-        //    case CardName.Anger:
-        //        return new Anger();
-
-        //    case CardName.AngerFire:
-        //        return new AngerFire();
-
-
-
-        //    case CardName.Complain:
-        //        return new Complain();
-
-        //    case CardName.DullAtmosphere:
-        //        return new DullAtmosphere();
-
-
-        //    case CardName.WeiYuChouMou:
-        //        return new WeiYuChouMou();
-
-        //    case CardName.OuDuanSiLian:
-        //        return new OuDuanSiLian();
-
-
-        //    case CardName.Confess:
-        //        return new Confess();
-
-
-        //    case CardName.Heal:
-        //        return new Heal();
-
-        //    case CardName.Comfort:
-        //        return new Comfort();
-
-        //    default:
-        //        Debug.Log("No Card for" + cardName.ToString());
-        //        return null;
-
-        //}
+        }
     }
+
+    public static Card NewCard(CardName cardName)
+    {
+        //使用反射创建对象
+        Type type = Type.GetType(cardName.ToString());         object obj = Activator.CreateInstance(type, true);          if (obj == null)         {             Debug.Log("No Card for" + cardName.ToString());             return null;         }          return (Card)obj;
+    }
+
 
 }

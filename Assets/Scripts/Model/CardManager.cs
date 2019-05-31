@@ -17,7 +17,6 @@ public class CardManager
     [SerializeField]
     protected int currentCardIndex;
 
-
     //获取此时手中的所有牌用于显示
     public List<Card> GetCards
     {
@@ -183,11 +182,11 @@ public class CardManager
         for (int i = cards.Count - 1; i >= 0; i--)
         {
             Card card = cards[i];
-            if (card.GetName == cardName)
+            if (card.Name == cardName)
             {
                 cards.Remove(card);
                 currentCard.TakeEffect(self, target);
-                self.GetCardDiscard.Add(card);
+                self.CardDiscard.Add(card);
 
             }
         }
@@ -217,7 +216,7 @@ public class CardManager
 
             foreach (Card card in cards)
             {
-                if (card.GetColor == cardColor)
+                if (card.Color == cardColor)
                 {
                     cards.Remove(card);
 
@@ -248,7 +247,7 @@ public class CardManager
         int num = 0;
         foreach (Card c in cards)
         {
-            if (c.GetName == cardName)
+            if (c.Name == cardName)
             {
                 num++;
             }

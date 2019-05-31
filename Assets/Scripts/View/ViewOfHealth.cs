@@ -22,12 +22,12 @@ public class ViewOfHealth : MonoBehaviour
         if(transform.name == "player")
         {
             healthOfPlayer = transform.GetChild(0).gameObject.GetComponent<Text>();
-            healthOfPlayer.text =  player.GetHP.ToString()+'/'+player.GetHPMax.ToString();
+            healthOfPlayer.text =  player.HP.ToString()+'/'+player.HPMax.ToString();
         }
         if(transform.name == "enemy")
         {
             healtheOfEnemy = transform.GetChild(0).gameObject.GetComponent<Text>();
-            healtheOfEnemy.text =  enemy.GetHP.ToString()+'/'+enemy.GetHPMax.ToString();
+            healtheOfEnemy.text =  enemy.HP.ToString()+'/'+enemy.HPMax.ToString();
         }
     }
 

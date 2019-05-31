@@ -113,9 +113,9 @@ public class InciteBuff : Buff
 
     public override void Process(Role self)
     {
-        if (self.GetCardManager.CurrentCard.GetColor != CardColor.Red)
+        if (self.CardManager.CurrentCard.Color != CardColor.Red)
         {
-            self.GetCardManager.AddCard(CardName.AngerFire);
+            self.CardManager.AddCard(CardName.AngerFire);
         }
     }
 
@@ -131,7 +131,7 @@ public class RevengeBuff : Buff
 
     public override void Process(Role self)
     {
-        self.GetCardManager.AddCard(CardName.AngerFire);
+        self.CardManager.AddCard(CardName.AngerFire);
     }
 
 }
@@ -146,7 +146,7 @@ public class DullAtmosphereBuff : Buff
 
     public override void Process(Role self)
     {
-        self.GetDespondent++;
+        self.Despondent++;
     }
 
 }

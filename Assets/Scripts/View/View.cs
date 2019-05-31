@@ -64,14 +64,14 @@ public class View : MonoBehaviour
     public void Update()
     {
         /*显示各种参数 */
-        healthOfPlayer.fillAmount = player.GetHP / (float)player.GetHPMax  - 0.1f;
-        healthOfEnemy.fillAmount = enemy.GetHP / (float)enemy.GetHPMax - 0.1f;
+        healthOfPlayer.fillAmount = player.HP / (float)player.HPMax  - 0.1f;
+        healthOfEnemy.fillAmount = enemy.HP / (float)enemy.HPMax - 0.1f;
 
-        expenseOfPlayer.text = player.GetCardManager.ExpenseCurrent.ToString();
-        expenseOfEnemy.text = enemy.GetCardManager.ExpenseCurrent.ToString();
+        expenseOfPlayer.text = player.CardManager.ExpenseCurrent.ToString();
+        expenseOfEnemy.text = enemy.CardManager.ExpenseCurrent.ToString();
 
-        handcardsOfPlayer.text = player.GetCardManager.CardsNum.ToString();
-        handcardsOfEnemy.text = enemy.GetCardManager.CardsNum.ToString();
+        handcardsOfPlayer.text = player.CardManager.CardsNum.ToString();
+        handcardsOfEnemy.text = enemy.CardManager.CardsNum.ToString();
 
 
     }
@@ -103,12 +103,12 @@ public class View : MonoBehaviour
         i = 0;
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-        foreach (Card card in player.GetCardManager.GetCards)
+        foreach (Card card in player.CardManager.GetCards)
         {
             GameObject temp = null;
             foreach (var prefab in handCards)
             {
-                if (card.GetName.ToString() == prefab.name)
+                if (card.Name.ToString() == prefab.name)
                 {
                     temp = prefab;
                     break;
@@ -158,7 +158,7 @@ public class View : MonoBehaviour
 
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-        for (int temp = 0; temp < enemy.GetCardManager.CardsNum; temp++)
+        for (int temp = 0; temp < enemy.CardManager.CardsNum; temp++)
         {
             GameObject itemGo = Instantiate(backCard, startPosition + interval * i, Quaternion.identity);
             itemGo.transform.SetParent(enemyCards.transform);
@@ -186,7 +186,7 @@ public class View : MonoBehaviour
             lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
             foreach (var prefab in handCards)
             {
-                if (lastCard.GetName.ToString() == prefab.name)
+                if (lastCard.Name.ToString() == prefab.name)
                 {
                     handCard = prefab;
                     break;
@@ -199,7 +199,7 @@ public class View : MonoBehaviour
         selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
         foreach (var prefab in deskCards)
         {
-            if (currentCard.GetName.ToString() == prefab.name)
+            if (currentCard.Name.ToString() == prefab.name)
             {
                 deskCard = prefab;
                 break;
@@ -263,7 +263,7 @@ public class View : MonoBehaviour
             }
             i = 0;
 
-            foreach (var buff in player.GetBuffManager.GetBuffs())
+            foreach (var buff in player.GetBuffManager.Buffs)
             {
                 GameObject temp = null;
                 foreach (var prefab in buffs)
@@ -293,7 +293,7 @@ public class View : MonoBehaviour
             }
             i = 0;
 
-            foreach (var buff in enemy.GetBuffManager.GetBuffs())
+            foreach (var buff in enemy.GetBuffManager.Buffs)
             {
                 GameObject temp = null;
                 foreach (var prefab in buffs)

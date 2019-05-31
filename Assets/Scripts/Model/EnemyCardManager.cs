@@ -11,19 +11,18 @@ public class EnemyCardManager : CardManager
 
     }
 
-
     public void GetSelectedCard(Role self, Role target)
     {
         Card temp = Card.EmptyCard;
 
-        List<Card> library = self.GetCardLibrary;
+        List<Card> library = self.CardLibrary;
 
         int rankLeast = -10;
 
         bool flag = false; //判断牌内是否有倾诉
         foreach (Card cardTemp in cards)
         {
-            if (cardTemp.GetName == CardName.Confess)
+            if (cardTemp.Name == CardName.Confess)
             {
                 flag = true;
                 break;
@@ -32,8 +31,8 @@ public class EnemyCardManager : CardManager
 
         foreach (Card card in cards)
         {
-            CardName name = card.GetName;
-            if (card.GetCost > expenseCurrent)
+            CardName name = card.Name;
+            if (card.Cost > expenseCurrent)
             {
                 continue;
             }
@@ -62,7 +61,7 @@ public class EnemyCardManager : CardManager
                         break;
 
                     case CardName.Complain:
-                        if (target.GetHP < 10)
+                        if (target.HP < 10)
                         {
                             if (rankLeast < 10)
                             {
@@ -154,7 +153,7 @@ public class EnemyCardManager : CardManager
 
 
                     case CardName.Confess:
-                        if (target.GetDespondent > 80 || (target.GetDespondent > 40 && target.GetCardManager.CardsNum > 10))
+                        if (target.Despondent > 80 || (target.Despondent > 40 && target.CardManager.CardsNum > 10))
                         {
                             if (rankLeast < 5)
                             {
@@ -199,9 +198,9 @@ public class EnemyCardManager : CardManager
 
         foreach (Card cardTemp in cards)
         {
-            if (expenseLeast > cardTemp.GetCost)
+            if (expenseLeast > cardTemp.Cost)
             {
-                expenseLeast = cardTemp.GetCost;
+                expenseLeast = cardTemp.Cost;
             }
         }
 
@@ -215,16 +214,16 @@ public class EnemyCardManager : CardManager
         }
     }
 
+
     public override void PutCurrentCard(Role self, Role target)
     {
 
         GetSelectedCard(self, target);
         Debug.Log("emeny打出一张" + currentCard.cardname);
 
-        expenseCurrent -= currentCard.GetCost;
+        expenseCurrent -= currentCard.Cost;
         cards.Remove(currentCard);
 
-        /* check buff */
         if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
         {
             self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
@@ -232,14 +231,16 @@ public class EnemyCardManager : CardManager
 
         currentCard.TakeEffect(self, target);
 
-        view.ShowPlayerPutCard(currentCard.GetName);
+        view.ShowPlayerPutCard(currentCard.Name);
         view.ShowEnemyCards();
 
-
         currentCard = Card.EmptyCard;
-
-
     }
 
+
+    public void PutCard()
+    {
+
+    }
 
 }
