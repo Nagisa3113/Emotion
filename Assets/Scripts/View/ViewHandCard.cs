@@ -29,9 +29,17 @@ public class ViewHandCard : MonoBehaviour
     {
         foreach (var prefab in view.deskCards)
         {
-            if (transform.name.Substring(0, transform.name.Length - 1) == prefab.name)
+            if (transform.name== prefab.name)
             {
                 transform.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
+                for (int i=0;i < transform.GetSiblingIndex();i++)
+                {
+                    view.playerCards.transform.GetChild(i).position -= new Vector3(0.5f,0,0);
+                }
+                for( int i =transform.GetSiblingIndex()+1;i <view.playerCards.transform.childCount;i++)
+                {
+                    view.playerCards.transform.GetChild(i).position += new Vector3(0.7f,0,0);
+                }
                 transform.position = transform.position - new Vector3(0, 0, 2f);
                 break;
             }
@@ -42,9 +50,17 @@ public class ViewHandCard : MonoBehaviour
     {
         foreach (var prefab in view.handCards)
         {
-            if (transform.name.Substring(0, transform.name.Length - 1) == prefab.name)
+            if (transform.name == prefab.name)
             {
                 transform.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
+                for (int i=0;i < transform.GetSiblingIndex();i++)
+                {
+                    view.playerCards.transform.GetChild(i).position += new Vector3(0.5f,0,0);
+                }
+                for( int i =transform.GetSiblingIndex()+1;i <view.playerCards.transform.childCount;i++)
+                {
+                    view.playerCards.transform.GetChild(i).position -= new Vector3(0.7f,0,0);
+                }
                 transform.position = transform.position + new Vector3(0, 0, 2f);
                 break;
             }
@@ -55,7 +71,7 @@ public class ViewHandCard : MonoBehaviour
     {
         foreach (var prefab in view.deskCards)
         {
-            if (transform.name.Substring(0, transform.name.Length - 1) == prefab.name)
+            if (transform.name == prefab.name)
             {
                 showCard.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                 //text.text = Card.NewCard((CardName)Enum.Parse(typeof(CardName), transform.name)).GetNormalStr;
@@ -67,7 +83,7 @@ public class ViewHandCard : MonoBehaviour
         //当第二次点击鼠标，且时间间隔满足要求时双击鼠标
         if (Time.time - time <= 0.3f && view.canPutCard)
         {
-            int index = Convert.ToInt32(transform.name.Substring(transform.name.Length - 1, 1));
+            int index = transform.GetSiblingIndex();
             player.PutSelectCard(enemy, index);
             showCard.SetActive(false);
         }

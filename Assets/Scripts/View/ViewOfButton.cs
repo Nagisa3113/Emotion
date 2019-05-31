@@ -7,6 +7,9 @@ public class ViewOfButton : MonoBehaviour
 {
     public Button pauseButton;
     public Button endButton;
+    public GameObject leftButton;
+    public GameObject rightButton;
+
     public bool isPause;
     Player player;
     View view;
@@ -14,9 +17,11 @@ public class ViewOfButton : MonoBehaviour
     public GameObject cardLibrary;
     float scollIndex;
 
-    public GameObject playerCards;
-    public GameObject cardTombs;
-    public GameObject enemyCards;
+    GameObject playerCards;
+    GameObject cardTombs;
+    GameObject enemyCards;
+
+
     void Start()
     {
         isPause = false;
@@ -26,9 +31,20 @@ public class ViewOfButton : MonoBehaviour
         cardTombs = GameObject.Find("CardTombs");
         enemyCards = GameObject.Find("EnemyCards");
         scollIndex = 0;
+
     }
     void Update()
     {
+        if (player.CardManager.CardsNum > view.maxShowCount)
+        {
+            leftButton.SetActive(true);
+            rightButton.SetActive(true);
+        }
+        else
+        {
+            leftButton.SetActive(false);
+            rightButton.SetActive(false);
+        }
         if (isPause)
         {
             scollIndex += Input.GetAxis("Mouse ScrollWheel");
@@ -146,5 +162,42 @@ public class ViewOfButton : MonoBehaviour
     public void ClickEnd()
     {
         GameObject.Find("Battle").GetComponent<BattleSystem>().ChangeRoundStatus(RoundStatus.RoundEnd);
+    }
+
+    public void ClickLeft()
+    {
+        if (view.left > 0)
+        {
+            view.left --;
+            ChangePosition(new Vector3(0.3f,0,0));
+            ChangeActive();
+            view.right --;
+        }
+    }
+
+    public void ClickRight()
+    {
+        if(view.right< playerCards.transform.childCount-1)
+        {
+            view.right ++;
+            ChangePosition(new Vector3(-0.3f,0,0));
+            ChangeActive();
+            view.left ++;
+        }
+    }
+
+    void ChangePosition(Vector3 offset)
+    {
+        for (int i= 0 ;i<playerCards.transform.childCount;i++)
+        {
+            playerCards.transform.GetChild(i).position +=offset;
+        }
+    }
+    void ChangeActive()
+    {
+        GameObject temp=playerCards.transform.GetChild(view.left).gameObject;
+        temp.SetActive(! temp.activeInHierarchy);
+        temp=playerCards.transform.GetChild(view.right).gameObject;
+        temp.SetActive(!temp.activeInHierarchy);
     }
 }

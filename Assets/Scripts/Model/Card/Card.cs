@@ -118,6 +118,7 @@ public class Card
         }
     }
 
+    protected  string normalStr;
     public string GetNormalStr
     {
         get
@@ -146,6 +147,11 @@ public class Card
     {
         this.cardname = "null";
     }
+
+    protected int upgrade;
+    protected int upgradeTwice;
+
+
 
     public Card(CardName cardName, CardColor color, int cost)
     {
@@ -202,7 +208,12 @@ public class Card
     public static Card NewCard(CardName cardName)
     {
         //使用反射创建对象
-        Type type = Type.GetType(cardName.ToString());         object obj = Activator.CreateInstance(type, true);          if (obj == null)         {             Debug.Log("No Card for" + cardName.ToString());             return null;         }          return (Card)obj;
+        Type type = Type.GetType(cardName.ToString());   
+           object obj = Activator.CreateInstance(type, true) ;   
+             if (obj == null)
+              {            Debug.Log("No Card for" + cardName.ToString());
+                          return null;       }
+                    return (Card)obj;
     }
 
 

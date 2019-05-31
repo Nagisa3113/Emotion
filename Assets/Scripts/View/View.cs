@@ -17,13 +17,14 @@ public class View : MonoBehaviour
 
     public GameObject[] handCards;
     public GameObject[] deskCards;
+    public GameObject playerCards;
 
 
     public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
     public GameObject motherPutCard;
 
-    public bool canPutCard;    //供使用这个类的用
+    public bool canPutCard;         //供使用这个类的用
 
 
     public GameObject[] buffs;
@@ -32,6 +33,10 @@ public class View : MonoBehaviour
 
     int lastIndex;
     Card lastCard;
+
+    public int maxShowCount;    //最多一次显示几张牌
+    public int left;            //显示左边牌的index
+    public int right;           //显示右边牌的index
 
     private static View view;
 
@@ -56,6 +61,8 @@ public class View : MonoBehaviour
         lastIndex = -1;
 
         canPutCard = true;
+        playerCards = GameObject.Find("PlayerCards");
+        maxShowCount = 5;
 
         //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);   //键盘时使用
 
@@ -88,8 +95,8 @@ public class View : MonoBehaviour
 
 
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
-        Vector3 startPosition = new Vector3(2.8f, -3f, 0);
-        GameObject playerCards = GameObject.Find("PlayerCards");
+        Vector3 startPosition = new Vector3(3.4f, -3f, 0);
+       
         TextMesh text;
         GameObject mesh;
 
@@ -117,20 +124,25 @@ public class View : MonoBehaviour
 
 			GameObject itemGo = ObjectPool.GetInstance().GetObj("motherHandCard",startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
-            itemGo.name = temp.name + i.ToString();
+            itemGo.name = temp.name;
             
             text = itemGo.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
             mesh = itemGo. transform.GetChild(1).gameObject;
-            if(player.GetCardManager.GetBonus(card.name) > card.GetUpgrade)
-            {
-                text.text = "123";
-            }
+            // if(player.GetCardManager.GetBonus(card.name) > card.GetUpgrade)
+            // {
+            //     text.text = "123";
+            // }
             
             itemGo.transform.SetParent(playerCards.transform);
-
-
             i++;
         }
+       
+        for (i= maxShowCount ;i<playerCards.transform.childCount;i++)
+        {
+            playerCards.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        left = 0;
+        right = (maxShowCount < playerCards.transform.childCount ? maxShowCount : playerCards.transform.childCount) - 1;
     }
 
 
@@ -172,7 +184,6 @@ public class View : MonoBehaviour
     // 实现上一次选中牌恢复原状，现在选中牌放大
     public void SelectedPlayerCard(int currentIndex, Card currentCard)
     {
-        GameObject playerCard = GameObject.Find("PlayerCards");
         //现在选中在视图的牌
         GameObject selectedCard = null;
         //上次选中在视图的牌
@@ -183,7 +194,7 @@ public class View : MonoBehaviour
         GameObject handCard = null;
         if (lastIndex != -1)
         {
-            lastSelectedCard = playerCard.transform.GetChild(lastIndex).gameObject;
+            lastSelectedCard = playerCards.transform.GetChild(lastIndex).gameObject;
             foreach (var prefab in handCards)
             {
                 if (lastCard.Name.ToString() == prefab.name)
@@ -196,7 +207,7 @@ public class View : MonoBehaviour
             lastSelectedCard.GetComponent<SpriteRenderer>().sprite = handCard.GetComponent<SpriteRenderer>().sprite;
 
         }
-        selectedCard = playerCard.transform.GetChild(currentIndex).gameObject;
+        selectedCard = playerCards.transform.GetChild(currentIndex).gameObject;
         foreach (var prefab in deskCards)
         {
             if (currentCard.Name.ToString() == prefab.name)
