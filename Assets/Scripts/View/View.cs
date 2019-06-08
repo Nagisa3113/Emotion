@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
+ 
     public Image healthOfPlayer;
     public Image healthOfEnemy;
     public Text expenseOfPlayer;
@@ -94,11 +95,12 @@ public class View : MonoBehaviour
         lastIndex = -1;
 
 
-        Vector3 interval = new Vector3(0.3f, 0, -0.01f);
-        Vector3 startPosition = new Vector3(3.4f, -3f, 0);
+        Vector3 interval = new Vector3(1f, 0, -0.1f);
+        Vector3 startPosition = new Vector3(0f, -3f, 0);
        
         TextMesh text;
         GameObject mesh;
+        TextMesh bonus;
 
 
         //摧毁原有牌
@@ -125,18 +127,36 @@ public class View : MonoBehaviour
 			GameObject itemGo = ObjectPool.GetInstance().GetObj("motherHandCard",startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
             itemGo.name = temp.name;
-            
+            i++;
             text = itemGo.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
             mesh = itemGo. transform.GetChild(1).gameObject;
-            // if(player.GetCardManager.GetBonus(card.name) > card.GetUpgrade)
-            // {
-            //     text.text = "123";
-            // }
+            bonus = itemGo.transform.GetChild(2).gameObject.GetComponent<TextMesh>();
+            bonus.text = player.CardManager.GetBonus(card.Name).ToString();
+            
+            if(card.Color == CardColor.Red)
+            {
+                bonus.color=Color.red;
+            }
+            else if (card.Color == CardColor.Yellow)
+            {
+                bonus.color=Color.yellow;
+            }
+            else if(card.Color == CardColor.Green)
+            {
+                bonus.color=Color.green;
+            }
+            else if (card.Color == CardColor.Purple)
+            {
+                bonus.color=Color.cyan;
+            }
+            else if (card.Color == CardColor.Gray)
+            {
+                bonus.color=Color.gray;
+            }
             
             itemGo.transform.SetParent(playerCards.transform);
-            i++;
         }
-       
+        
         for (i= maxShowCount ;i<playerCards.transform.childCount;i++)
         {
             playerCards.transform.GetChild(i).gameObject.SetActive(false);
@@ -170,10 +190,11 @@ public class View : MonoBehaviour
 
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
-        for (int temp = 0; temp < enemy.CardManager.CardsNum; temp++)
+        foreach (Card card in enemy.CardManager.GetCards)
         {
             GameObject itemGo = Instantiate(backCard, startPosition + interval * i, Quaternion.identity);
             itemGo.transform.SetParent(enemyCards.transform);
+            itemGo.name = card.Name.ToString();
             i++;
         }
     }
@@ -222,9 +243,43 @@ public class View : MonoBehaviour
         lastCard = currentCard;
     }
 
+    public void ShowEnemyPutCard(CardName name)
+    {
+        Vector3 interval = new Vector3(0.3f, 0, -0.01f);
+        Vector3 startPosition = new Vector3(-4f, 0f, 0);
+        GameObject cardTombs = GameObject.Find("CardTombs");
+        GameObject enemyCards = GameObject.Find("EnemyCards");
+        int i = cardTombs.transform.childCount; 
+        if (i == 20)
+        {
+            ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
+            i--;
+            
+            for (int j=0; j<cardTombs.transform.childCount;j++)
+            {
+                cardTombs.transform.GetChild(j).position -= interval;
+                    
+            } 
+
+        }
+
+         
+        for (int j=0; j <enemyCards.transform.childCount;j++)
+        {
+            if (enemyCards.transform.GetChild(j).name == name.ToString())
+            {
+                GameObject itemGo = Instantiate(backCard, enemyCards.transform.GetChild(j).position, Quaternion.identity);
+                itemGo.name = name.ToString();
+                itemGo.GetComponent<ViewEnemyCard>().StartFront();
+                break;
+            }           
+        } 
+
+    }
+
 
     //显示出过的牌
-    public void ShowPlayerPutCard(CardName name)
+    public void ShowPlayerPutCard(CardName name,int index)
     {
 
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
@@ -243,17 +298,17 @@ public class View : MonoBehaviour
             } 
 
         }
-
+        
         foreach (var prefab in handCards)
         {
             if (name.ToString() == prefab.name)
             {
 
-                GameObject itemGo = ObjectPool.GetInstance().GetObj("motherPutCard",startPosition + interval*i, Quaternion.identity);
+                GameObject itemGo = ObjectPool.GetInstance().GetObj("motherPlayerCard",playerCards.transform.GetChild(index).position, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                 itemGo.transform.SetParent(cardTombs.transform);
+                itemGo.GetComponent<ViewPlayerCard>().StartShow();
                 itemGo.name = prefab.name;
-
                 break;
             }
         }

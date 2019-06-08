@@ -228,10 +228,13 @@ public class EnemyCardManager : CardManager
         {
             self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
         }
-
+       
         currentCard.TakeEffect(self, target);
+        if(currentCard != Card.EmptyCard)
+        {
+            view.ShowEnemyPutCard(currentCard.Name);
+        }
 
-        view.ShowPlayerPutCard(currentCard.Name);
         view.ShowEnemyCards();
 
         currentCard = Card.EmptyCard;

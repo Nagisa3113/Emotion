@@ -7,8 +7,12 @@ public class ObjectPool: MonoBehaviour
     
     public const string motherHandCard = "motherHandCard";
     public const string motherPutCard  = "motherPutCard";
+    public const string motherPlayerCard = "motherPlayerCard";
+    public const string motherEnemyCard  = "motherEnemyCard";
     public GameObject putCard;
     public GameObject handCard;
+    public GameObject playerCard;
+    public GameObject enemyCard;
     private Dictionary<string, List<GameObject>> pool;
 
     private static ObjectPool objectPool;
@@ -52,9 +56,12 @@ public class ObjectPool: MonoBehaviour
            result = Object.Instantiate(handCard);
         else if(objName == "motherPutCard")
            result = Object.Instantiate(putCard);
+        if(objName == "motherEnemyCard")
+           result = Object.Instantiate(enemyCard);
+        else if(objName == "motherPlayerCard")
+           result = Object.Instantiate(playerCard);
         result.transform.position = position;
         result.transform.rotation = quaternion;    
-    
         }
         
         return result;

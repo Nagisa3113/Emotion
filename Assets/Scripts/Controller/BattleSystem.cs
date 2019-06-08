@@ -295,7 +295,7 @@ public class BattleSystem : MonoBehaviour
         {
             enemy.PutCurrentCard(player);
             //出完一张牌后等待2秒
-            for (float timer = 0; timer <= 2; timer += Time.deltaTime)
+            for (float timer = 0; timer <= 5; timer += Time.deltaTime)
             {
                 yield return 0;
             }
@@ -307,9 +307,6 @@ public class BattleSystem : MonoBehaviour
         ChangeRoundStatus(RoundStatus.RoundEnd);
         GameObject.Find("ViewOfButton").GetComponent<ViewOfButton>().endButton.enabled = true;
         GameObject.Find("View").GetComponent<View>().canPutCard = true;
-
-
-
     }
 
 }

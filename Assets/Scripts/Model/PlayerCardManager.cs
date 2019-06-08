@@ -27,7 +27,7 @@ public class PlayerCardManager : CardManager
             currentCard.TakeEffect(self, target);
             self.CardDiscard.Add(currentCard);
 
-            view.ShowPlayerPutCard(currentCard.Name);
+            view.ShowPlayerPutCard(currentCard.Name, currentCardIndex);
             view.ShowPlayerCards();
 
             currentCard = Card.EmptyCard;
@@ -42,8 +42,6 @@ public class PlayerCardManager : CardManager
         currentCard = cards[index];
         if (expenseCurrent >= currentCard.Cost)
         {
-
-
             Debug.Log("player打出一张" + currentCard.cardname);
 
             expenseCurrent -= currentCard.Cost;
@@ -58,7 +56,7 @@ public class PlayerCardManager : CardManager
             currentCard.TakeEffect(self, target);
             self.CardDiscard.Add(currentCard);
 
-            view.ShowPlayerPutCard(currentCard.Name);
+            view.ShowPlayerPutCard(currentCard.Name,index);
             view.ShowPlayerCards();
 
             currentCard = Card.EmptyCard;

@@ -169,7 +169,7 @@ public class ViewOfButton : MonoBehaviour
         if (view.left > 0)
         {
             view.left --;
-            ChangePosition(new Vector3(0.3f,0,0));
+            ChangePosition(new Vector3(1f,0,0));
             ChangeActive();
             view.right --;
         }
@@ -180,7 +180,7 @@ public class ViewOfButton : MonoBehaviour
         if(view.right< playerCards.transform.childCount-1)
         {
             view.right ++;
-            ChangePosition(new Vector3(-0.3f,0,0));
+            ChangePosition(new Vector3(-1f,0,0));
             ChangeActive();
             view.left ++;
         }
