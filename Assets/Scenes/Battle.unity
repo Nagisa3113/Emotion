@@ -2585,12 +2585,32 @@ MonoBehaviour:
     type: 3}
   motherPutCard: {fileID: 1721440656105535475, guid: b80ebd7725b35a14ab54ea2831801781,
     type: 3}
+  motherBuff: {fileID: 923234616319054863, guid: a6b9bd12c98ba3e47b34a2a67faa1f11,
+    type: 3}
   canPutCard: 0
   buffs:
   - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
   - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
   - {fileID: 2260303185196192654, guid: cb10a3b870fadfc468cef1fc9a1e198c, type: 3}
   - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
+  player:
+    despondent: 0
+    hpCurrent: 300
+    hpMax: 300
+    cardManager:
+      view: {fileID: 1528461317}
+      currentCard:
+        cardname: null
+        cost: 0
+      cards: []
+      currentCardIndex: 0
+      numMax: 10
+      expenseCurrent: 3
+    cardDiscard: []
+    cardLibrary: []
+    buffManager:
+      buffs: []
+      view: {fileID: 1528461317}
   maxShowCount: 0
   left: 0
   right: 0

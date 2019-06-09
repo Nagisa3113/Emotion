@@ -33,7 +33,7 @@ public class BuffManager
     }
 
 
-    public bool CheckBuff(BuffType buffType)
+    public bool CheckBuff(BuffType buffType)    //严
     {
         foreach (Buff buff in buffs)
         {
@@ -44,6 +44,18 @@ public class BuffManager
         }
 
         return false;
+    }
+
+    public int CheckLayer (string name)
+    {
+        foreach (Buff buff in buffs)
+        {
+            if (buff.ToString() == name)
+            {
+                return  buff.Layer;
+            }
+        }
+        return 0;
     }
 
     public void BuffProcess(BuffType buffType, Role self)

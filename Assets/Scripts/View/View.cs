@@ -24,12 +24,13 @@ public class View : MonoBehaviour
     public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
     public GameObject motherPutCard;
+    public GameObject motherBuff;
 
     public bool canPutCard;         //供使用这个类的用
 
 
     public GameObject[] buffs;
-    Player player;
+    public Player player;
     Enemy enemy;
 
     int lastIndex;
@@ -133,26 +134,6 @@ public class View : MonoBehaviour
             bonus = itemGo.transform.GetChild(2).gameObject.GetComponent<TextMesh>();
             bonus.text = player.CardManager.GetBonus(card.Name).ToString();
             
-            if(card.Color == CardColor.Red)
-            {
-                bonus.color=Color.red;
-            }
-            else if (card.Color == CardColor.Yellow)
-            {
-                bonus.color=Color.yellow;
-            }
-            else if(card.Color == CardColor.Green)
-            {
-                bonus.color=Color.green;
-            }
-            else if (card.Color == CardColor.Purple)
-            {
-                bonus.color=Color.cyan;
-            }
-            else if (card.Color == CardColor.Gray)
-            {
-                bonus.color=Color.gray;
-            }
             
             itemGo.transform.SetParent(playerCards.transform);
         }
@@ -173,7 +154,7 @@ public class View : MonoBehaviour
 
         int i = 0;
 
-        Vector3 interval = new Vector3(0.25f, 0, -0.01f);
+        Vector3 interval = new Vector3(0.8f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-5.5f, 3f, 0);
         GameObject enemyCards = GameObject.Find("EnemyCards");
 
@@ -340,8 +321,10 @@ public class View : MonoBehaviour
                         break;
                     }
                 }
-                GameObject itemGo = Instantiate(temp, startPosition + interval * i, Quaternion.identity);
+                GameObject itemGo = Instantiate(motherBuff, startPosition + interval * i, Quaternion.identity);
                 itemGo.transform.SetParent(playerBuffs.transform);
+                itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
+                itemGo.name = buff.ToString();
                 i++;
             }
         }

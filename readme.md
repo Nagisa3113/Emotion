@@ -1,5 +1,11 @@
 # Emotion
 
+修改：bonus牌的下面显示，出牌动画，buff显示layer，布局，修改bug
+
+           问：BuffType 前面的那些comfort之类的是没有用吧
+
+
+
 a rogue-like card game
 
 - 基本对局流程,包括抽牌,选牌,打出,造成效果,游戏状态判断与切换
@@ -10,7 +16,6 @@ a rogue-like card game
 - 在Role中用List<Card>表示牌库
 - 每张卡牌都从基类Card派生,添加卡牌方式从 Add(Card.NewCard(CardName))
 - 使用反射创建Card类对象，卡牌效果为TakeEffect(self,target)
-
 
 ## 图
 

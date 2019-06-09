@@ -10,7 +10,7 @@ public class ViewPlayerCard : MonoBehaviour
     void Start () 
     {
         mTime = 1f;
-        endPos =new Vector3(4.9f,1,0);
+        endPos =new Vector3(2f,1,0);
        
     }
 
@@ -39,7 +39,12 @@ public class ViewPlayerCard : MonoBehaviour
             transform.position = Vector3.Lerp(beginPos, endPos, dur / time); 
             yield return 0; 
         }
-
+        dur = 0;
+        while (dur <= time)
+        { 
+            dur += Time.deltaTime; 
+            yield return 0; 
+        }
         dur = 0.0f;
         while (dur <= time)
         { 
