@@ -18,8 +18,7 @@ public class View : MonoBehaviour
 
     public GameObject[] handCards;
     public GameObject[] deskCards;
-    public GameObject playerCards;
-
+    public GameObject[] buffs;
 
     public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
@@ -28,11 +27,12 @@ public class View : MonoBehaviour
 
     public bool canPutCard;         //供使用这个类的用
 
-
-    public GameObject[] buffs;
     public Player player;
-    Enemy enemy;
-
+    public Enemy enemy;
+    public GameObject playerCards;
+    public GameObject enemyCards;
+    public GameObject cardTombs;
+    
     int lastIndex;
     Card lastCard;
 
@@ -50,7 +50,6 @@ public class View : MonoBehaviour
 
     public static View GetInstance()
     {
-
         return view;
     }
 
@@ -64,7 +63,11 @@ public class View : MonoBehaviour
 
         canPutCard = true;
         playerCards = GameObject.Find("PlayerCards");
+        enemyCards = GameObject.Find("EnemyCards");
+        cardTombs = GameObject.Find("CardTombs"); 
+
         maxShowCount = 5;
+        
 
         //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);   //键盘时使用
 
@@ -81,20 +84,13 @@ public class View : MonoBehaviour
 
         handcardsOfPlayer.text = player.CardManager.CardsNum.ToString();
         handcardsOfEnemy.text = enemy.CardManager.CardsNum.ToString();
-
-
     }
-
-
-
-
 
     //显示手牌里的牌
     public void ShowPlayerCards()
     {
         int i = 0;
         lastIndex = -1;
-
 
         Vector3 interval = new Vector3(1f, 0, -0.1f);
         Vector3 startPosition = new Vector3(0f, -3f, 0);
@@ -134,7 +130,6 @@ public class View : MonoBehaviour
             bonus = itemGo.transform.GetChild(2).gameObject.GetComponent<TextMesh>();
             bonus.text = player.CardManager.GetBonus(card.Name).ToString();
             
-            
             itemGo.transform.SetParent(playerCards.transform);
         }
         
@@ -142,25 +137,19 @@ public class View : MonoBehaviour
         {
             playerCards.transform.GetChild(i).gameObject.SetActive(false);
         }
+
         left = 0;
         right = (maxShowCount < playerCards.transform.childCount ? maxShowCount : playerCards.transform.childCount) - 1;
     }
 
 
-
     public void ShowEnemyCards()
     {
-
-
         int i = 0;
 
         Vector3 interval = new Vector3(0.8f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-5.5f, 3f, 0);
-        GameObject enemyCards = GameObject.Find("EnemyCards");
 
-
-
-        //摧毁原有牌
         int childCount = enemyCards.transform.childCount;
 
         for (i = 0; i < childCount; i++)
@@ -168,7 +157,6 @@ public class View : MonoBehaviour
             Destroy(enemyCards.transform.GetChild(i).gameObject);
         }
         i = 0;
-
 
         //对于每个手牌里的牌，找到对应handCards库里的prefab，然后生成
         foreach (Card card in enemy.CardManager.GetCards)
@@ -179,8 +167,6 @@ public class View : MonoBehaviour
             i++;
         }
     }
-
-
 
 
     // 实现上一次选中牌恢复原状，现在选中牌放大
@@ -228,8 +214,7 @@ public class View : MonoBehaviour
     {
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
-        GameObject cardTombs = GameObject.Find("CardTombs");
-        GameObject enemyCards = GameObject.Find("EnemyCards");
+
         int i = cardTombs.transform.childCount; 
         if (i == 20)
         {
@@ -265,19 +250,15 @@ public class View : MonoBehaviour
 
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
-        GameObject cardTombs = GameObject.Find("CardTombs");
         int i = cardTombs.transform.childCount; 
         if (i == 20)
         {
             ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
             i--;
-            
             for (int j=0; j<cardTombs.transform.childCount;j++)
             {
-                cardTombs.transform.GetChild(j).position -= interval;
-                    
+                cardTombs.transform.GetChild(j).position -= interval;    
             } 
-
         }
         
         foreach (var prefab in handCards)
@@ -328,7 +309,6 @@ public class View : MonoBehaviour
                 i++;
             }
         }
-
         else
         {
             Vector3 interval = new Vector3(0.3f, 0, -0.01f);

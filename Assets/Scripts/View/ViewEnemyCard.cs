@@ -9,7 +9,7 @@ public class ViewEnemyCard : MonoBehaviour
 {
     private GameObject front;
     public float mTime;
-    public bool isActive;       //true代表正在执行翻转，不许被打断
+
     private Vector3 endPos;
 
     public void Init() 
@@ -20,7 +20,6 @@ public class ViewEnemyCard : MonoBehaviour
      
     void Start () 
     {
-        isActive =false;
         mTime = 1f;
         endPos =new Vector3(4.9f,1,0);
        
@@ -32,7 +31,7 @@ public class ViewEnemyCard : MonoBehaviour
     {
         front = ObjectPool.GetInstance().GetObj("motherPutCard", transform.position, Quaternion.identity);
         front.transform.name = transform.name;
-        front.transform.SetParent(GameObject.Find("CardTombs").transform);
+        front.transform.SetParent(View.GetInstance().cardTombs.transform);
         foreach (var prefab in View.GetInstance().handCards)
         {
 
@@ -54,8 +53,7 @@ public class ViewEnemyCard : MonoBehaviour
     {
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
-        GameObject cardTombs = GameObject.Find("CardTombs");
-        int x = cardTombs.transform.childCount; 
+        int x = View.GetInstance().cardTombs.transform.childCount; 
         var dur = 0.0f; 
         float time =1f;
         Vector3 beginPos = transform.position;

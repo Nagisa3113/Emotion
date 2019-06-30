@@ -5,18 +5,16 @@ using System;
 
 public class ViewPutCard : MonoBehaviour
 {
-    private View view;
     public GameObject showCard;
     TextMesh text;
     void Start()
     {
-        view = View.GetInstance();
         showCard = GameObject.Find("View").transform.GetChild(0).gameObject;
         text = showCard.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
     }
     void OnMouseDown()
     {
-        foreach (var prefab in view.deskCards)
+        foreach (var prefab in View.GetInstance().deskCards)
         {
             if (transform.name == prefab.name)
             {

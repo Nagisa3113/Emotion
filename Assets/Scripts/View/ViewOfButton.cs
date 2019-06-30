@@ -11,31 +11,23 @@ public class ViewOfButton : MonoBehaviour
     public GameObject rightButton;
 
     public bool isPause;
-    Player player;
     View view;
     public Sprite[] pauseSprite;
     public GameObject cardLibrary;
     float scollIndex;
 
-    GameObject playerCards;
-    GameObject cardTombs;
-    GameObject enemyCards;
 
 
     void Start()
     {
         isPause = false;
-        player = Player.GetInstance();
         view = View.GetInstance();
-        playerCards = GameObject.Find("PlayerCards");
-        cardTombs = GameObject.Find("CardTombs");
-        enemyCards = GameObject.Find("EnemyCards");
         scollIndex = 0;
 
     }
     void Update()
     {
-        if (player.CardManager.CardsNum > view.maxShowCount)
+        if (Player.GetInstance().CardManager.CardsNum > view.maxShowCount)
         {
             leftButton.SetActive(true);
             rightButton.SetActive(true);
@@ -76,7 +68,7 @@ public class ViewOfButton : MonoBehaviour
             pauseButton.image.sprite = pauseSprite[1];
             GameObject.Find("Battle").GetComponent<BattleSystem>().battleStatus = BattleStatus.PlayerPause;
             cardLibrary.SetActive(true);
-            foreach (var card in player.CardLibrary)
+            foreach (var card in Player.GetInstance().CardLibrary)
             {
                 GameObject temp = null;
                 foreach (var prefab in view.handCards)
@@ -154,9 +146,9 @@ public class ViewOfButton : MonoBehaviour
     public void SetCondition(bool value)
     {
         endButton.enabled = value;
-        playerCards.SetActive(value);
-        cardTombs.SetActive(value);
-        enemyCards.SetActive(value);
+        view.playerCards.SetActive(value);
+        view.cardTombs.SetActive(value);
+        view.enemyCards.SetActive(value);
     }
 
     public void ClickEnd()
@@ -177,7 +169,7 @@ public class ViewOfButton : MonoBehaviour
 
     public void ClickRight()
     {
-        if(view.right< playerCards.transform.childCount-1)
+        if(view.right< view.playerCards.transform.childCount-1)
         {
             view.right ++;
             ChangePosition(new Vector3(-1f,0,0));
@@ -188,16 +180,16 @@ public class ViewOfButton : MonoBehaviour
 
     void ChangePosition(Vector3 offset)
     {
-        for (int i= 0 ;i<playerCards.transform.childCount;i++)
+        for (int i= 0 ;i<view.playerCards.transform.childCount;i++)
         {
-            playerCards.transform.GetChild(i).position +=offset;
+            view.playerCards.transform.GetChild(i).position +=offset;
         }
     }
     void ChangeActive()
     {
-        GameObject temp=playerCards.transform.GetChild(view.left).gameObject;
+        GameObject temp=view.playerCards.transform.GetChild(view.left).gameObject;
         temp.SetActive(! temp.activeInHierarchy);
-        temp=playerCards.transform.GetChild(view.right).gameObject;
+        temp=view.playerCards.transform.GetChild(view.right).gameObject;
         temp.SetActive(!temp.activeInHierarchy);
     }
 }

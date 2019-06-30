@@ -8,13 +8,10 @@ public class ViewOfHealth : MonoBehaviour
 {
     private Text healthOfPlayer;
 	private Text healtheOfEnemy;
-    private Player player;
-    private Enemy enemy;
+
 
     void Start()
     {
-        enemy =  GameObject.Find("Battle").GetComponent<BattleSystem>().GetEnemy();
-        player = Player.GetInstance();
         
     }
     public void MouseEnter()
@@ -22,12 +19,12 @@ public class ViewOfHealth : MonoBehaviour
         if(transform.name == "player")
         {
             healthOfPlayer = transform.GetChild(0).gameObject.GetComponent<Text>();
-            healthOfPlayer.text =  player.HP.ToString()+'/'+player.HPMax.ToString();
+            healthOfPlayer.text =  Player.GetInstance().HP.ToString()+'/'+Player.GetInstance().HPMax.ToString();
         }
         if(transform.name == "enemy")
         {
             healtheOfEnemy = transform.GetChild(0).gameObject.GetComponent<Text>();
-            healtheOfEnemy.text =  enemy.HP.ToString()+'/'+enemy.HPMax.ToString();
+            healtheOfEnemy.text = View.GetInstance().enemy.HP.ToString() + '/' + View.GetInstance().enemy.HPMax.ToString();
         }
     }
 

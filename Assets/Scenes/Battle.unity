@@ -1618,6 +1618,7 @@ MonoBehaviour:
     type: 3}
   enemyCard: {fileID: 892280663915446802, guid: 5ac6dfd3ed6d88a4c9ff1ea7a666ab84,
     type: 3}
+  buff: {fileID: 923234616319054863, guid: a6b9bd12c98ba3e47b34a2a67faa1f11, type: 3}
 --- !u!4 &712499502
 Transform:
   m_ObjectHideFlags: 0
@@ -1659,14 +1660,14 @@ RectTransform:
   m_GameObject: {fileID: 748168194}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2125, y: 1.6875, z: 1}
+  m_LocalScale: {x: 1.9289359, y: 2.9985821, z: 1}
   m_Children: []
   m_Father: {fileID: 1937243640}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30.4, y: -95}
+  m_AnchoredPosition: {x: 30.4, y: -101.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &748168196
@@ -1896,14 +1897,14 @@ RectTransform:
   m_GameObject: {fileID: 827203929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2125, y: 1.6875, z: 1}
+  m_LocalScale: {x: 1.8339063, y: 2.19375, z: 1}
   m_Children: []
   m_Father: {fileID: 1034887757}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 39.7, y: 86.8}
+  m_AnchoredPosition: {x: 74.8, y: 86.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &827203931
@@ -2579,7 +2580,11 @@ MonoBehaviour:
   - {fileID: 8436187745216077942, guid: aa393ed9d599fad468fb1d1040d5bbad, type: 3}
   - {fileID: 7912555551258343524, guid: 1a37d28754122e24c934b2c5445813ec, type: 3}
   - {fileID: 4407460555629837442, guid: 986e697c00e1af94985acd9010457e23, type: 3}
-  playerCards: {fileID: 0}
+  buffs:
+  - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
+  - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
+  - {fileID: 2260303185196192654, guid: cb10a3b870fadfc468cef1fc9a1e198c, type: 3}
+  - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
   backCard: {fileID: 892280663915446802, guid: 5ac6dfd3ed6d88a4c9ff1ea7a666ab84, type: 3}
   motherHandCard: {fileID: 413910622841821823, guid: 41886630fc647d24db99e574b4e76951,
     type: 3}
@@ -2588,11 +2593,6 @@ MonoBehaviour:
   motherBuff: {fileID: 923234616319054863, guid: a6b9bd12c98ba3e47b34a2a67faa1f11,
     type: 3}
   canPutCard: 0
-  buffs:
-  - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
-  - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
-  - {fileID: 2260303185196192654, guid: cb10a3b870fadfc468cef1fc9a1e198c, type: 3}
-  - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
   player:
     despondent: 0
     hpCurrent: 300
@@ -2611,6 +2611,28 @@ MonoBehaviour:
     buffManager:
       buffs: []
       view: {fileID: 1528461317}
+  enemy:
+    despondent: 0
+    hpCurrent: 0
+    hpMax: 0
+    cardManager:
+      view: {fileID: 1528461317}
+      currentCard:
+        cardname: null
+        cost: 0
+      cards: []
+      currentCardIndex: 0
+      numMax: 10
+      expenseCurrent: 3
+    cardDiscard: []
+    cardLibrary: []
+    buffManager:
+      buffs: []
+      view: {fileID: 0}
+    isRound: 0
+  playerCards: {fileID: 0}
+  enemyCards: {fileID: 0}
+  cardTombs: {fileID: 0}
   maxShowCount: 0
   left: 0
   right: 0

@@ -28,8 +28,7 @@ public class ViewPlayerCard : MonoBehaviour
     {
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
-        GameObject cardTombs = GameObject.Find("CardTombs");
-        int x = cardTombs.transform.childCount; 
+        int x =View. GetInstance().cardTombs.transform.childCount; 
         var dur = 0.0f; 
         float time =1f;
         Vector3 beginPos = transform.position;
