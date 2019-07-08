@@ -1,12 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
+public enum RoomType
+{
+    Enemy,
+    Boss,
+    Store,
+    Treasure,
+}
 
 public class Room : MonoBehaviour
 {
     //0 normal Enemy 1 shore 2 bonus 3 boss
-    public RoomType type;
-    public bool isActive;
+    RoomType type;
+    [SerializeField]
+    public RoomType Type
+    {
+        get
+        {
+            return type;
+        }
+        set
+        {
+            switch (value)
+            {
+                case RoomType.Boss:
+                    GetComponent<Image>().sprite = bossImage;
+                    break;
+                case RoomType.Enemy:
+                    GetComponent<Image>().sprite = enemyImage;
+
+                    break;
+                case RoomType.Store:
+                    GetComponent<Image>().sprite = storeImage;
+
+                    break;
+                case RoomType.Treasure:
+                    GetComponent<Image>().sprite = treasureImage;
+
+                    break;
+            }
+        }
+    }
+
+
+    bool isActive;
+
+
+    public Sprite bossImage;
+    public Sprite enemyImage;
+    public Sprite storeImage;
+    public Sprite treasureImage;
+
+
+
 
     public bool isBranchMiddle;
     public bool isBranchStart;
@@ -37,17 +86,19 @@ public class Room : MonoBehaviour
 
     public static Room NewRoom()
     {
-        return GameObject.Instantiate(
+        Room room= GameObject.Instantiate(
             Resources.Load("Node") as GameObject, 
-            GameObject.Find("Canvas").transform)
+            GameObject.Find("Rooms").transform)
             .GetComponent<Room>();
+        room.Type = RoomType.Enemy;
+        return room;
+
     }
 
 
     public void SetBranch()
     {
         Room room = Room.NewRoom();
-        room.transform.SetParent(GameObject.Find("Canvas").transform);
         room.transform.position = transform.position;
         this.transform.localPosition += new Vector3(-40, 0, 0);
 

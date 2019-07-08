@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 8987017029741048366}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: ff6f0293f12ae79418e6741f43d80863, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87,8 +87,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17dd9a468071d4b129653eeb7d46bb37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  isActive: 0
+  bossImage: {fileID: 21300000, guid: 2f16b06552fae5248a371f61c064cc8e, type: 3}
+  enemyImage: {fileID: 21300000, guid: 52a6caf96aca5d04f8709563424b44d8, type: 3}
+  storeImage: {fileID: 21300000, guid: 14e997979b2a68946bfd096324f36c5d, type: 3}
+  treasureImage: {fileID: 21300000, guid: 21a508147d713e5449bcc1b3d2d4639d, type: 3}
   isBranchMiddle: 0
   isBranchStart: 0
   isBranchEnd: 0
