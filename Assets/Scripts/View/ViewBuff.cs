@@ -6,22 +6,30 @@ using System;
 public class ViewBuff : MonoBehaviour
 {
     GameObject layer;
+    GameObject tip;
     void Start()
     {
         layer = transform.GetChild(0).gameObject;
+        tip = transform.GetChild(1).gameObject;
     }
-
-    void OnMouseEnter()
+    void Update()
     {
         int temp;
         temp =  View.GetInstance().player.GetBuffManager.CheckLayer( transform.name);
         layer.SetActive(true);
         layer.GetComponent<TextMesh>().text =temp.ToString();
+    }
 
+    void OnMouseEnter()
+    {
+        string temp;
+        temp =  View.GetInstance().player.GetBuffManager.CheckName( transform.name);
+        tip.SetActive(true);
+        tip.GetComponent<TextMesh>().text =temp.ToString();
     }
 
     void OnMouseExit()
     {
-        layer.SetActive(false);
+        tip.SetActive(false);
     }
 }

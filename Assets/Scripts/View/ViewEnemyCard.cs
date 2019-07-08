@@ -20,8 +20,8 @@ public class ViewEnemyCard : MonoBehaviour
      
     void Start () 
     {
-        mTime = 1f;
-        endPos =new Vector3(4.9f,1,0);
+        mTime = 0.5f;
+        endPos =new Vector3(0f,0,0);
        
     }
 
@@ -48,20 +48,18 @@ public class ViewEnemyCard : MonoBehaviour
      
 
      
-
     IEnumerator ToFront()
     {
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
         int x = View.GetInstance().cardTombs.transform.childCount; 
         var dur = 0.0f; 
-        float time =1f;
         Vector3 beginPos = transform.position;
-        while (dur <= time)
+        while (dur <= mTime)
         { 
             dur += Time.deltaTime; 
-            transform.position = Vector3.Lerp(beginPos, endPos, dur / time); 
-            front.transform.position = Vector3.Lerp(beginPos, endPos, dur / time); 
+            transform.position = Vector3.Lerp(beginPos, endPos, dur / mTime); 
+            front.transform.position = Vector3.Lerp(beginPos, endPos, dur / mTime); 
             yield return 0; 
         }
 
@@ -76,10 +74,10 @@ public class ViewEnemyCard : MonoBehaviour
             yield return 0;
         }
         dur = 0.0f;
-        while (dur <= time)
+        while (dur <= mTime)
         { 
             dur += Time.deltaTime; 
-            front.transform.position = Vector3.Lerp(endPos, startPosition + interval*(x-1), dur / time); 
+            front.transform.position = Vector3.Lerp(endPos, startPosition + interval*(x-1), dur / mTime); 
             yield return null; 
         }
 

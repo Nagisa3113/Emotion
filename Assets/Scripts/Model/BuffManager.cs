@@ -58,6 +58,20 @@ public class BuffManager
         return 0;
     }
 
+    public string CheckName (string name)
+    {
+        foreach (Buff buff in buffs)
+        {
+            if (buff.ToString() == name)
+            {
+                return  buff.Name;
+            }
+        }
+        return "";
+    }
+
+
+
     public void BuffProcess(BuffType buffType, Role self)
     {
         foreach (Buff buff in buffs)

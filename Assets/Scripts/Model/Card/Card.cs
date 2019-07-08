@@ -70,7 +70,6 @@ public class Card
 
     protected CardName name;
     public CardName Name
-
     {
         get
         {

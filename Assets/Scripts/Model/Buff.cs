@@ -66,6 +66,19 @@ public class Buff
         }
     }
 
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+    }
+
+
     public Buff(string name, int layer)
     {
 

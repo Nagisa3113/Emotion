@@ -7,12 +7,10 @@ public class ObjectPool: MonoBehaviour
     
     public const string motherHandCard = "motherHandCard";
     public const string motherPutCard  = "motherPutCard";
-    public const string motherPlayerCard = "motherPlayerCard";
     public const string motherEnemyCard  = "motherEnemyCard";
     public const string motherBuff = "motherBuff";
     public GameObject putCard;
     public GameObject handCard;
-    public GameObject playerCard;
     public GameObject enemyCard;
     public GameObject buff;
     private Dictionary<string, List<GameObject>> pool;
@@ -59,8 +57,6 @@ public class ObjectPool: MonoBehaviour
            result = Object.Instantiate(putCard);
         if(objName == "motherEnemyCard")
            result = Object.Instantiate(enemyCard);
-        else if(objName == "motherPlayerCard")
-           result = Object.Instantiate(playerCard);
         else if (objName == "motherBuff")
             result = Object.Instantiate(buff);
         result.transform.position = position;

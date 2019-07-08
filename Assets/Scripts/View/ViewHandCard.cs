@@ -8,7 +8,7 @@ public class ViewHandCard : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject showCard;
-    TextMesh text;
+
     TextMesh bonus;
     float time = 0;
     Vector3 bonusPosition;
@@ -18,8 +18,6 @@ public class ViewHandCard : MonoBehaviour
     void Awake()
     {
         showCard = GameObject.Find("View").transform.GetChild(0).gameObject;
-        text = showCard.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
-        bonus = showCard.transform.GetChild(1).gameObject.GetComponent<TextMesh>();
         bonusPosition = transform.GetChild(2).position - transform.position;
         time = Time.time;
         condition = 0;
@@ -93,13 +91,11 @@ public class ViewHandCard : MonoBehaviour
             if (transform.name == prefab.name)
             {
                 showCard.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
-                //text.text = Card.NewCard((CardName)Enum.Parse(typeof(CardName), transform.name)).GetNormalStr;
-                bonus.text = "12";
                 break;
             }
         }
-        showCard.transform.GetChild(1).gameObject.GetComponent<TextMesh>().text =
-            Player.GetInstance().CardManager.GetBonus((CardName)Enum.Parse(typeof(CardName), transform.name)).ToString();;
+        showCard.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text =
+            Player.GetInstance().CardManager.GetBonus((CardName)Enum.Parse(typeof(CardName), transform.name)).ToString();
         showCard.SetActive(true);
 
         //当第二次点击鼠标，且时间间隔满足要求时双击鼠标

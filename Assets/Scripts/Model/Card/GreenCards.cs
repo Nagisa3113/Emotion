@@ -16,8 +16,6 @@ public class Heal : Card
             self.GetHeal(2 * self.CardManager.GetBonus(this.name));
         }
     }
-
-
 }
 
 public class Comfort : Card

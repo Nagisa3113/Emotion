@@ -216,7 +216,7 @@ public class View : MonoBehaviour
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
 
         int i = cardTombs.transform.childCount; 
-        if (i == 20)
+        if (i == 6)
         {
             ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
             i--;
@@ -230,7 +230,7 @@ public class View : MonoBehaviour
         }
 
          
-        for (int j=0; j <enemyCards.transform.childCount;j++)
+        for (int j=0; j < enemyCards.transform.childCount;j++)
         {
             if (enemyCards.transform.GetChild(j).name == name.ToString())
             {
@@ -250,9 +250,11 @@ public class View : MonoBehaviour
 
         Vector3 interval = new Vector3(0.3f, 0, -0.01f);
         Vector3 startPosition = new Vector3(-4f, 0f, 0);
-        int i = cardTombs.transform.childCount; 
-        if (i == 20)
+        int i = cardTombs.transform.childCount;
+        int bonus = int.Parse(playerCards.transform.GetChild(index).GetChild(2).gameObject.GetComponent<TextMesh>().text); 
+        if (i == 6)
         {
+            cardTombs.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMesh>().text = "";
             ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
             i--;
             for (int j=0; j<cardTombs.transform.childCount;j++)
@@ -265,11 +267,10 @@ public class View : MonoBehaviour
         {
             if (name.ToString() == prefab.name)
             {
-
-                GameObject itemGo = ObjectPool.GetInstance().GetObj("motherPlayerCard",playerCards.transform.GetChild(index).position, Quaternion.identity);
+                GameObject itemGo = ObjectPool.GetInstance().GetObj("motherPutCard",playerCards.transform.GetChild(index).position, Quaternion.identity);
                 itemGo.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                 itemGo.transform.SetParent(cardTombs.transform);
-                itemGo.GetComponent<ViewPlayerCard>().StartShow();
+                itemGo.GetComponent<ViewPutCard>().StartShow(bonus);
                 itemGo.name = prefab.name;
                 break;
             }
@@ -340,8 +341,6 @@ public class View : MonoBehaviour
         }
 
     }
-
-
 }
 
 

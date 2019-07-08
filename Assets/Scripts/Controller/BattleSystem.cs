@@ -286,7 +286,7 @@ public class BattleSystem : MonoBehaviour
         GameObject.Find("ViewOfButton").GetComponent<ViewOfButton>().endButton.enabled = false;
 
         //先等1秒
-        for (float timer = 0; timer <= 1; timer += Time.deltaTime)
+        for (float timer = 0; timer <= 1f; timer += Time.deltaTime)
         {
             yield return 0;
         }
@@ -295,7 +295,7 @@ public class BattleSystem : MonoBehaviour
         {
             enemy.PutCurrentCard(player);
             //出完一张牌后等待2秒
-            for (float timer = 0; timer <= 5; timer += Time.deltaTime)
+            for (float timer = 0; timer <= 2; timer += Time.deltaTime)
             {
                 yield return 0;
             }
