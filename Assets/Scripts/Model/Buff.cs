@@ -115,6 +115,52 @@ public class Buff
 
 }
 
+public class CorrodeBuff : Buff
+{
+
+    public CorrodeBuff(int layer) : base("敌人造成伤害下降20%", BuffType.AfterPutCard, 1)
+    {
+        this.layer = layer;
+    }
+
+
+    public override void Process(Role self)
+    {
+    }
+
+}
+
+public class FragileBuff : Buff
+{
+
+    public FragileBuff() : base("敌人受到伤害增加20%", BuffType.AfterPutCard, 3)
+    {
+
+    }
+
+
+    public override void Process(Role self)
+    {
+
+    }
+
+}
+
+public class WearyBuff : Buff
+{
+
+    public WearyBuff() : base("敌人费用上限-1", BuffType.AfterPutCard, 2)
+    {
+        
+    }
+
+
+    public override void Process(Role self)
+    {
+    }
+
+}
+
 
 public class InciteBuff : Buff
 {

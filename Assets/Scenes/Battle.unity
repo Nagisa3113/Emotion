@@ -265,6 +265,7 @@ MonoBehaviour:
       currentCardIndex: 0
       numMax: 10
       expenseCurrent: 3
+      expenseMax: 3
     cardDiscard: []
     cardLibrary: []
     buffManager:
@@ -283,6 +284,7 @@ MonoBehaviour:
       currentCardIndex: 0
       numMax: 15
       expenseCurrent: 3
+      expenseMax: 3
     cardDiscard: []
     cardLibrary: []
     buffManager:
@@ -2522,6 +2524,8 @@ MonoBehaviour:
   - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
   - {fileID: 2260303185196192654, guid: cb10a3b870fadfc468cef1fc9a1e198c, type: 3}
   - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
+  - {fileID: 75025580634259424, guid: ef229e698002e6546a3df483a2892e0b, type: 3}
+  - {fileID: 4595973017972081214, guid: db20ac5c4572baf4a83bae67f1e60e52, type: 3}
   backCard: {fileID: 892280663915446802, guid: 5ac6dfd3ed6d88a4c9ff1ea7a666ab84, type: 3}
   motherHandCard: {fileID: 413910622841821823, guid: 41886630fc647d24db99e574b4e76951,
     type: 3}
@@ -2543,6 +2547,7 @@ MonoBehaviour:
       currentCardIndex: 0
       numMax: 10
       expenseCurrent: 3
+      expenseMax: 3
     cardDiscard: []
     cardLibrary: []
     buffManager:
@@ -2561,6 +2566,7 @@ MonoBehaviour:
       currentCardIndex: 0
       numMax: 10
       expenseCurrent: 3
+      expenseMax: 3
     cardDiscard: []
     cardLibrary: []
     buffManager:

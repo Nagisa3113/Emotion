@@ -32,7 +32,10 @@ public class BuffManager
 
     }
 
-
+    public int CheckCount()
+    {
+        return buffs.Count;
+    }
     public bool CheckBuff(BuffType buffType)    //严
     {
         foreach (Buff buff in buffs)
@@ -95,7 +98,16 @@ public class BuffManager
                 buffs.Remove(buffs[i]);
             }
         }
-
+    }
+    public void BuffAddLayer(string name)
+    {
+        foreach (Buff buff in buffs)
+        {
+            if (buff.ToString() == name)
+            {
+                buff.Layer ++ ;
+            }
+        }
     }
 
 
@@ -113,8 +125,12 @@ public class BuffManager
         buffs.Add(buff);
     }
 
+ 
+    //用卡牌来添加buff我觉得不好，不如直接用buff名字
+    //添加buff的层数不能在这里设计，只能借助buff自身的构造函数，我觉得不好
 
-    public void AddBuff(CardName cardName)
+    //buff的name是描述，而不是名字，所以在role里的equal（“脆弱”）等是无效的
+    public void AddBuff(CardName cardName)   
     {
         switch (cardName)
         {
@@ -133,6 +149,20 @@ public class BuffManager
             case CardName.Comfort:
                 AddBuff(new ComfortBuff());
                 break;
+             case CardName.XingZaiLeHuo:
+                AddBuff(new CorrodeBuff(1));
+                break;
+            case CardName.Plot:
+                AddBuff(new CorrodeBuff(3));
+                break;
+            case CardName.Encumber:
+                AddBuff(new WearyBuff());
+                break;
+            case CardName.Sneer:
+                AddBuff(new WearyBuff());
+                break;
+                
+
         }
         view.ShowBuff(self);
 

@@ -5,7 +5,6 @@ public class Heal : Card
 {
     public Heal() : base(CardName.Heal, CardColor.Green, 1, 6)
     {
-        this.normalStr = "qweewq";
     }
 
     public override void TakeEffect(Role self, Role target)
@@ -45,6 +44,11 @@ public class XingZaiLehuo : Card
     public override void TakeEffect(Role self, Role target)
     {
         //敌人每有一种异常状态，回复自己30血量/+5回复
+        self.GetHeal(30 *target.GetBuffManager.CheckCount() + 5 * self.CardManager.GetBonus(this.name));
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            target.GetBuffManager.AddBuff(CardName.XingZaiLeHuo);
+        }
     }
 
 
@@ -77,6 +81,20 @@ public class Plot : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使敌人获得3回合腐蚀效果
+        target.GetBuffManager.AddBuff(CardName.Plot);
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //持续加一
+             target.GetBuffManager.BuffAddLayer("CorrodeBuff");
+        }
+
+
+        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        {
+            //持续加一
+            target.GetBuffManager.BuffAddLayer("CorrodeBuff");
+        }
+
     }
 
 
@@ -92,6 +110,19 @@ public class Encumber : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使敌人获得2回合疲惫效果
+        target.GetBuffManager.AddBuff(CardName.Encumber);
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //持续加一
+             target.GetBuffManager.BuffAddLayer("WearyBuff");
+        }
+
+
+        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        {
+            //持续加一
+            target.GetBuffManager.BuffAddLayer("WearyBuff");
+        }
     }
 
 
@@ -108,7 +139,6 @@ public class Sneer : Card
     {
         //使敌人获得2回合脆弱效果
     }
-
 
 }
 

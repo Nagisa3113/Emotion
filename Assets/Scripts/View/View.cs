@@ -219,17 +219,15 @@ public class View : MonoBehaviour
         if (i == 6)
         {
             ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
-            i--;
             
-            for (int j=0; j<cardTombs.transform.childCount;j++)
+            
+            for (int j = 0; j < cardTombs.transform.childCount;j++)
             {
                 cardTombs.transform.GetChild(j).position -= interval;
-                    
             } 
 
         }
 
-         
         for (int j=0; j < enemyCards.transform.childCount;j++)
         {
             if (enemyCards.transform.GetChild(j).name == name.ToString())
@@ -254,10 +252,9 @@ public class View : MonoBehaviour
         int bonus = int.Parse(playerCards.transform.GetChild(index).GetChild(2).gameObject.GetComponent<TextMesh>().text); 
         if (i == 6)
         {
-            cardTombs.transform.GetChild(0).GetChild(2).gameObject.GetComponent<TextMesh>().text = "";
             ObjectPool.GetInstance().RecycleObj("motherPutCard",cardTombs.transform.GetChild(0).gameObject);
-            i--;
-            for (int j=0; j<cardTombs.transform.childCount;j++)
+    
+            for (int j=0; j < cardTombs.transform.childCount;j++)
             {
                 cardTombs.transform.GetChild(j).position -= interval;    
             } 

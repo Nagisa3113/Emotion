@@ -73,9 +73,9 @@ public class CardManager
 
     public int numMax;//牌组数量上限
 
-    [SerializeField]
-    protected int expenseCurrent;//当前费用
-    int expenseMax;//费用上限
+
+    public int expenseCurrent;//当前费用
+    public int expenseMax;//费用上限
     public int ExpenseCurrent
     {
         get
@@ -103,9 +103,9 @@ public class CardManager
         //IEnumerator<Card> iter = cards.GetEnumerator();
     }
 
-    public void ExpenseReset()
+    public virtual void ExpenseReset()
     {
-        expenseCurrent = expenseMax;
+        
     }
 
     //开始选择牌

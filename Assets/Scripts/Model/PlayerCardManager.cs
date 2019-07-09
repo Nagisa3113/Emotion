@@ -35,6 +35,14 @@ public class PlayerCardManager : CardManager
         }
     }
 
+    public override void  ExpenseReset()
+    {
+        if ( Player.GetInstance().GetBuffManager.CheckLayer("WearyBuff") > 0)
+            expenseCurrent = expenseMax -1;
+        else
+            expenseCurrent = expenseMax;
+      
+    }
 
 
     public override void PutSelectCard(Role self, Role target, int index)

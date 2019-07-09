@@ -10,6 +10,13 @@ public class EnemyCardManager : CardManager
     {
 
     }
+    public override void  ExpenseReset()
+    {
+         if (view.enemy.GetBuffManager.CheckLayer("WearyBuff") > 0)
+            expenseCurrent = expenseMax -1;
+        else
+            expenseCurrent = expenseMax;
+    }
 
     public void GetSelectedCard(Role self, Role target)
     {

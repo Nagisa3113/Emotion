@@ -1,10 +1,14 @@
 # Emotion
 
+*>*  //用卡牌来添加buff我觉得不好，不如直接用buff名字
+
+  //添加buff的层数不能在这里设计，只能借助buff自身的构造函数，我觉得不好
+
+//buff的name是描述，而不是名字，所以在role里的equal（“脆弱”）等是无效的
+
 修改：bonus牌的下面显示，出牌动画，buff显示layer，布局，修改bug
 
            问：BuffType 前面的那些comfort之类的是没有用吧
-
-
 
 a rogue-like card game
 

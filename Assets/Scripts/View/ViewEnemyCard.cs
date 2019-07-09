@@ -25,7 +25,7 @@ public class ViewEnemyCard : MonoBehaviour
        
     }
 
-     
+
         //开始前转
     public void StartFront()
     {
@@ -34,7 +34,6 @@ public class ViewEnemyCard : MonoBehaviour
         front.transform.SetParent(View.GetInstance().cardTombs.transform);
         foreach (var prefab in View.GetInstance().handCards)
         {
-
             if (transform.name == prefab.name)
             {
                 front.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
@@ -59,7 +58,7 @@ public class ViewEnemyCard : MonoBehaviour
         { 
             dur += Time.deltaTime; 
             transform.position = Vector3.Lerp(beginPos, endPos, dur / mTime); 
-            front.transform.position = Vector3.Lerp(beginPos, endPos, dur / mTime); 
+            front.transform.position = transform.position ; 
             yield return 0; 
         }
 
