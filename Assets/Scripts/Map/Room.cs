@@ -48,14 +48,10 @@ public class Room : MonoBehaviour
 
     bool isActive;
 
-
     public Sprite bossImage;
     public Sprite enemyImage;
     public Sprite storeImage;
     public Sprite treasureImage;
-
-
-
 
     public bool isBranchMiddle;
     public bool isBranchStart;
@@ -96,21 +92,4 @@ public class Room : MonoBehaviour
     }
 
 
-    public void SetBranch()
-    {
-        Room room = Room.NewRoom();
-        room.transform.position = transform.position;
-        this.transform.localPosition += new Vector3(-40, 0, 0);
-
-        room.transform.localPosition += new Vector3(40, 0, 0);
-
-        isBranchMiddle = true;
-        prevRoom.isBranchStart = true;
-        prevRoom.EnextRoom = room;
-        nextRoom.isBranchEnd = true;
-        nextRoom.EprevRoom = room;
-
-        room.nextRoom = this.nextRoom;
-        room.prevRoom = this.prevRoom;
-    }
 }

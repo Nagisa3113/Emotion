@@ -9,7 +9,6 @@ public class Map : MonoBehaviour
     Room start;
     Room end;
 
-    //[SerializeField]
     public List<List<Room>> lines = new List<List<Room>>();
 
     public List<Room> l0;
@@ -21,6 +20,11 @@ public class Map : MonoBehaviour
 
     public Vector3[] offsetX = new Vector3[3];
     public float roomlengthmax;
+
+
+    public Vector3 branchOffset;
+    public float RandomX;
+    public float RandomY;
 
 
     [ContextMenu("Init")]
@@ -111,12 +115,28 @@ public class Map : MonoBehaviour
                 {
                     num = Random.Range(0, lines[i].Count);
                 }
-                lines[i][num].SetBranch();
+
+                Room room = Room.NewRoom();
+                room.transform.position = lines[i][num].transform.position;
+
+                lines[i][num].transform.localPosition -= branchOffset;
+
+                room.transform.localPosition += branchOffset;
+
+                lines[i][num].isBranchMiddle = true;
+                lines[i][num].prevRoom.isBranchStart = true;
+                lines[i][num].prevRoom.EnextRoom = room;
+                lines[i][num].nextRoom.isBranchEnd = true;
+                lines[i][num].nextRoom.EprevRoom = room;
+
+                room.nextRoom = lines[i][num].nextRoom;
+                room.prevRoom = lines[i][num].prevRoom;
             }
 
         }
     }
 
+    //添加转换路径
     void SetTranX()
     {
 
@@ -125,16 +145,14 @@ public class Map : MonoBehaviour
 
             int num1 = Random.Range(4, 8);
             int num2 = Random.Range(4, 8);
-
             int num = Random.Range(1, 3);
 
 
-
-            while (lines[i][num1].isTranX)
+            while (lines[i][num1].isTranX || lines[i][num1].isBranchMiddle)
             {
                 num1 = Random.Range(4, 8);
             }
-            while (lines[i + 1][num2].isTranX)
+            while (lines[i + 1][num2].isTranX || lines[i + 1][num2].isBranchMiddle)
             {
                 num2 = Random.Range(4, 8);
             }
@@ -147,9 +165,7 @@ public class Map : MonoBehaviour
             {
 
                 case 1:
-
                     Room room = Room.NewRoom();
-
                     if (i == 0)
                     {
                         tranX12.Add(lines[i][num1]);
@@ -172,7 +188,6 @@ public class Map : MonoBehaviour
                 case 2:
                     Room room1 = Room.NewRoom();
                     Room room2 = Room.NewRoom();
-
 
                     if (i == 0)
                     {
@@ -212,7 +227,6 @@ public class Map : MonoBehaviour
         }
 
 
-
         offset = tranX23[tranX23.Count - 1].transform.position - tranX23[0].transform.position;
         offset /= (tranX23.Count - 1);
 
@@ -225,7 +239,6 @@ public class Map : MonoBehaviour
 
     }
 
-    //[ContextMenu("Draw")]
     void Start()
     {
         Init();
@@ -248,9 +261,8 @@ public class Map : MonoBehaviour
         Draw();
     }
 
-
-
-    private void Draw()
+    //画线
+    void Draw()
     {
 
 
@@ -300,22 +312,16 @@ public class Map : MonoBehaviour
 
     }
 
-
-
+    //房间在地图上随机偏移
     void RandomMove()
     {
         foreach (Room room in GameObject.Find("Rooms").GetComponentsInChildren<Room>())
         {
 
-            float x = Random.Range(-30, 30);
-            float y = Random.Range(-30, 30);
+            float x = Random.Range(-RandomX, RandomX);
+            float y = Random.Range(-RandomY, RandomY);
             room.transform.position += new Vector3(x, y, 0);
-
-
         }
-
-
-
     }
 
 
