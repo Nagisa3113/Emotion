@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class Role
 {
+
+     bool isFeed;
+
+    public bool IsFeed
+    {
+        get
+        {
+            return isFeed;
+        }
+        set
+        {
+            isFeed = value;
+        }
+    }
     [SerializeField]
     int despondent;//消沉层数
     public int Despondent
@@ -159,6 +173,11 @@ public class Role
         int tmp = hpCurrent;
         tmp = tmp + heal > hpMax ? hpMax : tmp += heal;
         hpCurrent = tmp;
+    }
+
+    public virtual void GetArmor(int armor)
+    {
+       this.armor += armor;
     }
 
 

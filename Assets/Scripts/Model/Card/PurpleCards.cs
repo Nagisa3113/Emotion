@@ -34,7 +34,7 @@ public class DullAtmosphere : Card
     public override void TakeEffect(Role self, Role target)
     {
         //两回合内，敌人每打出一张卡牌，获得一层消沉
-        target.GetBuffManager.AddBuff(CardName.DullAtmosphere);
+        target.GetBuffManager.AddBuff(BuffName.DullAtmosphereBuff,2);
 
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {

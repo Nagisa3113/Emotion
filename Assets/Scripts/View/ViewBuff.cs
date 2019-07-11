@@ -23,7 +23,7 @@ public class ViewBuff : MonoBehaviour
     void OnMouseEnter()
     {
         string temp;
-        temp =  View.GetInstance().player.GetBuffManager.CheckName( transform.name);
+        temp =  View.GetInstance().player.GetBuffManager.CheckTip( transform.name);
         tip.SetActive(true);
         tip.GetComponent<TextMesh>().text =temp.ToString();
     }

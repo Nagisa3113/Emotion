@@ -28,6 +28,29 @@ public enum BuffType
     GetHurt,//收到伤害后生效
 }
 
+public enum BuffName
+{
+    CorrodeBuff,//腐蚀
+    WearyBuff,//疲惫
+    FragileBuff,//脆弱
+    DullAtmosphereBuff,//沉闷氛围
+    DizzyBuff,//眩晕
+    VigourBuff,//活力
+    PowerfulBuff,//强力
+    ProvokeBuff,//挑衅
+
+
+    RevengeBuff,//报复
+    InciteBuff,//躁动
+
+
+
+    ComfortBuff,//安慰
+
+    IncreaseBuff,
+
+}
+
 
 
 
@@ -36,6 +59,7 @@ public class Buff
 {
     [HideInInspector]
     public string name;
+    public string tip;
 
     public BuffType buffType;
 
@@ -93,6 +117,15 @@ public class Buff
         this.active = true;
     }
 
+    public Buff(string name,string tip, BuffType buffType)
+    {
+        this.name = name;
+        this.tip = tip;
+        this.buffType = buffType;
+        this.layer = 0;
+        this.active = true;
+    }
+
     public virtual void Process()
     {
 
@@ -118,7 +151,7 @@ public class Buff
 public class CorrodeBuff : Buff
 {
 
-    public CorrodeBuff(int layer) : base("敌人造成伤害下降20%", BuffType.AfterPutCard, 1)
+    public CorrodeBuff(int layer) : base("腐蚀","敌人造成伤害下降20%", BuffType.AfterPutCard)
     {
         this.layer = layer;
     }
@@ -133,7 +166,7 @@ public class CorrodeBuff : Buff
 public class FragileBuff : Buff
 {
 
-    public FragileBuff() : base("敌人受到伤害增加20%", BuffType.AfterPutCard, 3)
+    public FragileBuff() : base("脆弱","敌人受到伤害增加20%",BuffType.AfterPutCard)
     {
 
     }
@@ -149,7 +182,7 @@ public class FragileBuff : Buff
 public class WearyBuff : Buff
 {
 
-    public WearyBuff() : base("敌人费用上限-1", BuffType.AfterPutCard, 2)
+    public WearyBuff() : base("疲惫","敌人费用上限-1", BuffType.AfterPutCard)
     {
         
     }
@@ -165,7 +198,7 @@ public class WearyBuff : Buff
 public class InciteBuff : Buff
 {
 
-    public InciteBuff() : base("每打出一张非红，将一张怒火加入手牌", BuffType.AfterPutCard, 2)
+    public InciteBuff() : base("躁动","每打出一张非红，将一张怒火加入手牌", BuffType.AfterPutCard)
     {
 
     }
@@ -183,7 +216,7 @@ public class InciteBuff : Buff
 public class RevengeBuff : Buff
 {
 
-    public RevengeBuff() : base("每受到一次伤害，将一张怒火加入手牌", BuffType.GetHurt, 1)
+    public RevengeBuff() : base("报复","每受到一次伤害，将一张怒火加入手牌", BuffType.GetHurt)
     {
 
     }
@@ -198,7 +231,7 @@ public class RevengeBuff : Buff
 
 public class DullAtmosphereBuff : Buff
 {
-    public DullAtmosphereBuff() : base("每打出一张卡牌，获得一层消沉", BuffType.AfterPutCard, 2)
+    public DullAtmosphereBuff() : base("沉闷气氛","每打出一张卡牌，获得一层消沉", BuffType.AfterPutCard)
     {
 
     }
@@ -210,12 +243,78 @@ public class DullAtmosphereBuff : Buff
 
 }
 
+public class DizzyBuff : Buff
+{
+    public DizzyBuff() : base("眩晕","一回合内无法抽牌", BuffType.AfterPutCard)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        
+    }
+}
+
+public class VigourBuff : Buff
+{
+    public VigourBuff() : base("活力","每回合开始多抽1张牌", BuffType.AfterPutCard)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        
+    }
+}
+
+public class PowerfulBuff : Buff
+{
+    public PowerfulBuff() : base("强力","自己造成伤害增加20%", BuffType.AfterPutCard)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        
+    }
+}
+
+public class ProvokeBuff : Buff
+{
+    public ProvokeBuff() : base("挑衅","本回合中你的牌伤害翻倍", BuffType.AfterPutCard)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        
+    }
+}
+
+public class IncreaseBuff : Buff
+{
+    public IncreaseBuff() : base("改进","在本局游戏中，每回合开始时，减少5点血量，获得10点护甲/+2护甲", BuffType.AfterPutCard)
+    {
+
+    }
+
+    public override void Process(Role self)
+    {
+        self.GetDamage(5);
+        self.GetArmor(10);
+    }
+}
+
 
 public class ComfortBuff : Buff
 {
-    public ComfortBuff() : base("每使用一张卡牌，回复15点", BuffType.AfterPutCard, 2)
+    public ComfortBuff() : base("安抚","每使用一张卡牌，回复15点", BuffType.AfterPutCard)
     {
-
+        
     }
 
     public override void Process(Role self)
@@ -224,3 +323,4 @@ public class ComfortBuff : Buff
     }
 
 }
+

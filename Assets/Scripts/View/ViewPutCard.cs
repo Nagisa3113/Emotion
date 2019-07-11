@@ -58,7 +58,7 @@ public class ViewPutCard : MonoBehaviour
         int x =View. GetInstance().cardTombs.transform.childCount; 
         var dur = 0.0f; 
         Vector3 beginPos = transform.position;
-        while (dur <= mTime)
+        while (dur <= mTime+0.2f)
         { 
             dur += Time.deltaTime; 
             transform.position = Vector3.Lerp(beginPos, endPos, dur / mTime); 
@@ -82,7 +82,7 @@ public class ViewPutCard : MonoBehaviour
         }
         dur = 0;
 
-        while (dur <= mTime)
+        while (dur <= mTime+0.2f)
         { 
             dur += Time.deltaTime; 
             transform.position = Vector3.Lerp(endPos, startPosition + interval*(x-1), dur / mTime); 

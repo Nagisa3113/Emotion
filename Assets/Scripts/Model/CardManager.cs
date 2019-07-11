@@ -26,6 +26,10 @@ public class CardManager
         }
     }
 
+    public Card leftCard;
+    public Card rightCard;
+
+
     public int CardIndex
     {
         get
@@ -99,6 +103,9 @@ public class CardManager
         expenseMax = 3;
         expenseCurrent = expenseMax;
         canAddCard = true;
+
+        leftCard =new Card();
+        rightCard = new Card();
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
     }
@@ -236,8 +243,9 @@ public class CardManager
             return cards[rand];
         }
         return null;
-
     }
+
+
 
 
 

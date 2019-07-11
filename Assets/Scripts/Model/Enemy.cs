@@ -43,6 +43,21 @@ public class Enemy : Role
 
     public override void GetCardsFromLibrary(int num)
     {
+        int i;
+        CardColor c1 = new CardColor();
+        CardColor c2 = new CardColor();
+        if (num == 3)
+        {  
+            if (GetBuffManager.IsBuff("活力"))
+            {
+                num ++;
+            }
+            if (GetBuffManager.IsBuff("眩晕"))
+            {
+                num = 0;
+            }
+        }
+
         if (!this.cardManager.CanAddCard)
         {
             return;
@@ -50,7 +65,7 @@ public class Enemy : Role
         }
         else
         {
-            for (int i = 0; i < num && cardManager.CardsNum < cardManager.numMax; i++)
+            for ( i = 0; i < num && cardManager.CardsNum < cardManager.numMax; i++)
             {
 
                 if (cardLibrary.Count <= 0)
@@ -60,9 +75,16 @@ public class Enemy : Role
 
                 int rand = UnityEngine.Random.Range(0, cardLibrary.Count);
                 Card tmp = cardLibrary[rand];
+                if (i == 0 )
+                   c1 = tmp.Color;
+                else
+                   c2 = tmp.Color;
                 cardManager.GetCards.Add(tmp);
                 cardLibrary.RemoveAt(rand);
-
+            }
+            if (i == 2 && c1 == c2)
+            {
+              IsFeed = true;
             }
         }
 

@@ -60,7 +60,6 @@ public class Map : MonoBehaviour
                     lines[i][j].prevRoom = lines[i][j - 1];
 
                 if (j == num - 1)
-
                     lines[i][j].nextRoom = end;
                 else
                     lines[i][j].nextRoom = lines[i][j + 1];
@@ -85,7 +84,6 @@ public class Map : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-
             for (int n = 0; n < Storenum; n++)
             {
                 int num = Random.Range(0, lines[i].Count);

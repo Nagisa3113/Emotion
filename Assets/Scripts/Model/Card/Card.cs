@@ -53,6 +53,21 @@ public enum CardName
 
 
 
+    Iron,  //坚强
+    HoldOn,//硬撑
+    FightBack,//反击
+    JianRenBuBa,//坚韧不拔
+    Lesson,//教训
+    Accelerate, //加速
+    Reinforce,//加强
+    Increase,  //改进
+
+    Reconcile,//调和
+    Suppress,//压制
+    Transfer,//转化
+    Feed,//补给
+    Trick,//戏法
+
 }
 
 
@@ -210,7 +225,8 @@ public class Card
         Type type = Type.GetType(cardName.ToString());   
            object obj = Activator.CreateInstance(type, true) ;   
              if (obj == null)
-              {            Debug.Log("No Card for" + cardName.ToString());
+              {            
+                  Debug.Log("No Card for" + cardName.ToString());
                           return null;       }
                     return (Card)obj;
     }

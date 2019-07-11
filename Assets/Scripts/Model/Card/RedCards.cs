@@ -180,7 +180,7 @@ public class Incite : Card
     public override void TakeEffect(Role self, Role target)
     {
         //2回合内。你每打出一张非红色卡牌。将一张怒火加入你的手牌
-        self.GetBuffManager.AddBuff(CardName.Incite);
+        self.GetBuffManager.AddBuff(BuffName.InciteBuff,2);
 
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
@@ -229,7 +229,7 @@ public class Revenge : Card
     public override void TakeEffect(Role self, Role target)
     {
         //1回合内，你每受到一次伤害就将一张怒火加入你的手牌
-        self.GetBuffManager.AddBuff(CardName.Revenge);
+        self.GetBuffManager.AddBuff(BuffName.RevengeBuff,1);
 
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {

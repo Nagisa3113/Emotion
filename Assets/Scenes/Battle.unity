@@ -263,6 +263,12 @@ MonoBehaviour:
         cost: 0
       cards: []
       currentCardIndex: 0
+      leftCard:
+        cardname: null
+        cost: 0
+      rightCard:
+        cardname: null
+        cost: 0
       numMax: 10
       expenseCurrent: 3
       expenseMax: 3
@@ -282,6 +288,12 @@ MonoBehaviour:
         cost: 0
       cards: []
       currentCardIndex: 0
+      leftCard:
+        cardname: null
+        cost: 0
+      rightCard:
+        cardname: null
+        cost: 0
       numMax: 15
       expenseCurrent: 3
       expenseMax: 3
@@ -1494,36 +1506,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623665115}
   m_CullTransparentMesh: 0
---- !u!1 &697392410
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 697392411}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &697392411
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 697392410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.05, z: 88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &712499500
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,41 +2473,9 @@ MonoBehaviour:
   expenseOfEnemy: {fileID: 1638568445}
   handcardsOfPlayer: {fileID: 1701701608}
   handcardsOfEnemy: {fileID: 1734638966}
-  handCards:
-  - {fileID: 7588439304500172504, guid: 40077fad4e79e0549960ede6c6a9d7ca, type: 3}
-  - {fileID: 3894925146737879024, guid: a987cbf5da780af45b6389f5c00342a8, type: 3}
-  - {fileID: 3473445628912847711, guid: cce8b66e9e3ae7043a246c6d3dbf3501, type: 3}
-  - {fileID: 2531233786841596060, guid: 8c702b5a4cc84674c8e4369f4045cf18, type: 3}
-  - {fileID: 5657379083924812679, guid: a1bfb52f89cae2a4ead0c0d22488b9f2, type: 3}
-  - {fileID: 8255119335247895436, guid: dc95098c7c263d840a79bc653a0c4a63, type: 3}
-  - {fileID: 8060085189281926513, guid: 8cc885be48e5c35428a61c70077eb0fc, type: 3}
-  - {fileID: 5820220002756886217, guid: b1d4a4f1a7230324cb9e8cfa0731cfe0, type: 3}
-  - {fileID: 8312904265913723357, guid: dcce18fd94682e74cb7cb8501de77915, type: 3}
-  - {fileID: 2335080648285053885, guid: 2178cd92e6f53f04d8a4ef55c82e162d, type: 3}
-  - {fileID: 3756305470682057834, guid: 8e05c2d78c7574949a79e4a698d8f148, type: 3}
-  - {fileID: 1927299204935480191, guid: 54b04d971b9425a40858891f25bf4d5c, type: 3}
-  - {fileID: 7118662579086972586, guid: 21cce1485caae3c4586b83b01cdaf5f7, type: 3}
-  deskCards:
-  - {fileID: 7710111507491915571, guid: 55b24d4a78829324eb3dbb44ca47aadb, type: 3}
-  - {fileID: 4509820740018954804, guid: 130b70da955da9a46b8ad27d0635f7a2, type: 3}
-  - {fileID: 8334517935107242006, guid: b33697853e724d442adb9b6d6ff909db, type: 3}
-  - {fileID: 713989558341880490, guid: 8f67cc4cb7002b74da7a04f4be51b554, type: 3}
-  - {fileID: 4678595252656218328, guid: 0e1cfeaa01fb46c45918fd7c8ba12edf, type: 3}
-  - {fileID: 5394494389125284775, guid: 796bb2cc4a30d5a4b806ddb5c738fdfc, type: 3}
-  - {fileID: 3870830248893156160, guid: 9ff2def5511285147ae1aa6feecfa51e, type: 3}
-  - {fileID: 6341445526165078400, guid: 3cef8ff40d90b6e42897b1a93fcdeec1, type: 3}
-  - {fileID: 1883892051892290250, guid: 4a01d143aecb30f409529e444e5dc62d, type: 3}
-  - {fileID: 3970476083671555494, guid: 990e0fd3dfc17504daac627b9e32611e, type: 3}
-  - {fileID: 8436187745216077942, guid: aa393ed9d599fad468fb1d1040d5bbad, type: 3}
-  - {fileID: 7912555551258343524, guid: 1a37d28754122e24c934b2c5445813ec, type: 3}
-  - {fileID: 4407460555629837442, guid: 986e697c00e1af94985acd9010457e23, type: 3}
-  buffs:
-  - {fileID: 8376354455593418099, guid: 61d951199a1765c4f9d046efddf0329f, type: 3}
-  - {fileID: 8729118741731160573, guid: 6a748072d06fb3d438132112c629140a, type: 3}
-  - {fileID: 2260303185196192654, guid: cb10a3b870fadfc468cef1fc9a1e198c, type: 3}
-  - {fileID: 8659575730648803476, guid: 5e477013f014df94f99b44fb9603d82e, type: 3}
-  - {fileID: 75025580634259424, guid: ef229e698002e6546a3df483a2892e0b, type: 3}
-  - {fileID: 4595973017972081214, guid: db20ac5c4572baf4a83bae67f1e60e52, type: 3}
+  buffs: []
+  handCards: []
+  deskCards: []
   backCard: {fileID: 892280663915446802, guid: 5ac6dfd3ed6d88a4c9ff1ea7a666ab84, type: 3}
   motherHandCard: {fileID: 413910622841821823, guid: 41886630fc647d24db99e574b4e76951,
     type: 3}
@@ -2545,6 +2495,12 @@ MonoBehaviour:
         cost: 0
       cards: []
       currentCardIndex: 0
+      leftCard:
+        cardname: null
+        cost: 0
+      rightCard:
+        cardname: null
+        cost: 0
       numMax: 10
       expenseCurrent: 3
       expenseMax: 3
@@ -2564,6 +2520,12 @@ MonoBehaviour:
         cost: 0
       cards: []
       currentCardIndex: 0
+      leftCard:
+        cardname: null
+        cost: 0
+      rightCard:
+        cardname: null
+        cost: 0
       numMax: 10
       expenseCurrent: 3
       expenseMax: 3
@@ -2774,7 +2736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -632, y: -446.10007}
+  m_AnchoredPosition: {x: -641.3, y: -443.4}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1701701608
@@ -2804,7 +2766,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2853,7 +2815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 359.9, y: 457}
+  m_AnchoredPosition: {x: 346, y: 457}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1734638966
@@ -2883,7 +2845,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

@@ -16,9 +16,10 @@ public class View : MonoBehaviour
     public Text handcardsOfPlayer;
     public Text handcardsOfEnemy;
 
+  
+    public GameObject[] buffs;
     public GameObject[] handCards;
     public GameObject[] deskCards;
-    public GameObject[] buffs;
 
     public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
@@ -65,6 +66,10 @@ public class View : MonoBehaviour
         playerCards = GameObject.Find("PlayerCards");
         enemyCards = GameObject.Find("EnemyCards");
         cardTombs = GameObject.Find("CardTombs"); 
+        int i =0 ;
+        handCards = Resources.LoadAll<GameObject>("Prefabs/handCard");
+        deskCards = Resources.LoadAll<GameObject>("Prefabs/deskCard");
+        buffs = Resources.LoadAll<GameObject>("Prefabs/buff");
 
         maxShowCount = 5;
         

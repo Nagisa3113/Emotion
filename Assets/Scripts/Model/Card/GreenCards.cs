@@ -26,7 +26,7 @@ public class Comfort : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        self.GetBuffManager.AddBuff(CardName.Comfort);
+        self.GetBuffManager.AddBuff(BuffName.ComfortBuff,2);
     }
 
 
@@ -34,9 +34,9 @@ public class Comfort : Card
 
 
 
-public class XingZaiLehuo : Card
+public class XingZaiLeHuo : Card
 {
-    public XingZaiLehuo() : base(CardName.XingZaiLeHuo, CardColor.Green, 1, 4)
+    public XingZaiLeHuo() : base(CardName.XingZaiLeHuo, CardColor.Green, 1, 4)
     {
 
     }
@@ -47,7 +47,7 @@ public class XingZaiLehuo : Card
         self.GetHeal(30 *target.GetBuffManager.CheckCount() + 5 * self.CardManager.GetBonus(this.name));
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
-            target.GetBuffManager.AddBuff(CardName.XingZaiLeHuo);
+            target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,1);
         }
     }
 
@@ -81,18 +81,18 @@ public class Plot : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使敌人获得3回合腐蚀效果
-        target.GetBuffManager.AddBuff(CardName.Plot);
+        target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,3);
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //持续加一
-             target.GetBuffManager.BuffAddLayer("CorrodeBuff");
+             target.GetBuffManager.BuffAddLayer(BuffName.CorrodeBuff);
         }
 
 
         if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
         {
             //持续加一
-            target.GetBuffManager.BuffAddLayer("CorrodeBuff");
+            target.GetBuffManager.BuffAddLayer(BuffName.CorrodeBuff);
         }
 
     }
@@ -110,18 +110,18 @@ public class Encumber : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使敌人获得2回合疲惫效果
-        target.GetBuffManager.AddBuff(CardName.Encumber);
+        target.GetBuffManager.AddBuff(BuffName.WearyBuff,2);
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //持续加一
-             target.GetBuffManager.BuffAddLayer("WearyBuff");
+             target.GetBuffManager.BuffAddLayer(BuffName.WearyBuff);
         }
 
 
         if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
         {
             //持续加一
-            target.GetBuffManager.BuffAddLayer("WearyBuff");
+            target.GetBuffManager.BuffAddLayer(BuffName.WearyBuff);
         }
     }
 
@@ -138,6 +138,19 @@ public class Sneer : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使敌人获得2回合脆弱效果
+        target.GetBuffManager.AddBuff(BuffName.FragileBuff,2);
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //持续加一
+             target.GetBuffManager.BuffAddLayer(BuffName.FragileBuff);
+        }
+
+
+        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        {
+            //持续加一
+            target.GetBuffManager.BuffAddLayer(BuffName.FragileBuff);
+        }
     }
 
 }
@@ -152,6 +165,37 @@ public class OverHeated : Card
     public override void TakeEffect(Role self, Role target)
     {
         //随机一种负面状态
+        int num = UnityEngine.Random.Range(1, 4);
+        switch (num)
+        {
+            case 1:
+                target.GetBuffManager.AddBuff(BuffName.FragileBuff,1);
+                break;
+            case 2:
+                target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,1);
+                break;
+            case 3:
+                target.GetBuffManager.AddBuff(BuffName.WearyBuff,1);
+                break;
+        }
+
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            switch (num)
+            {
+                case 1:
+                    target.GetBuffManager.AddBuff(BuffName.FragileBuff,2);
+                    break;
+                case 2:
+                    target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,2);
+                    break;
+                case 3:
+                    target.GetBuffManager.AddBuff(BuffName.WearyBuff,12);
+                    break;
+            }
+        }
+
+
     }
 
 
@@ -167,14 +211,18 @@ public class RePastEvent : Card
     public override void TakeEffect(Role self, Role target)
     {
         //延长敌人异常状态2回合
+        foreach(Buff buff in target.GetBuffManager.Buffs)
+        {
+            target.GetBuffManager.BuffAddLayer((BuffName)Enum.Parse(typeof(BuffName), buff.ToString()),2);
+        }
     }
 
 
 }
 
-public class Obstrucst : Card
+public class Obstruct : Card
 {
-    public Obstrucst() : base(CardName.RePastEvent, CardColor.Green, 2, 5)
+    public Obstruct() : base(CardName.Obstruct, CardColor.Green, 2, 5)
     {
 
     }
@@ -182,6 +230,14 @@ public class Obstrucst : Card
     public override void TakeEffect(Role self, Role target)
     {
         //清除敌人身上的所有异常状态，每清除一个异常状态，使敌人眩晕一回合
+        int temp = target.GetBuffManager.CheckCount();
+        target.GetBuffManager.ResetBuff();
+        target.GetBuffManager.AddBuff(BuffName.DizzyBuff,temp);
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //费用减一
+             
+        }
     }
 
 

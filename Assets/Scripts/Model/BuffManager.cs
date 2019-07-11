@@ -45,11 +45,12 @@ public class BuffManager
                 return true;
             }
         }
-
         return false;
     }
 
-    public int CheckLayer (string name)
+
+    
+    public int CheckLayer (string name)    //用于显示的，所以name为inciteBuff等
     {
         foreach (Buff buff in buffs)
         {
@@ -61,16 +62,28 @@ public class BuffManager
         return 0;
     }
 
-    public string CheckName (string name)
+    public string CheckTip (string name)
     {
         foreach (Buff buff in buffs)
         {
             if (buff.ToString() == name)
             {
-                return  buff.Name;
+                return  buff.tip;
             }
         }
         return "";
+    }
+
+     public bool IsBuff (string name)    
+    {
+        foreach (Buff buff in buffs)
+        {
+            if (buff.name == name)
+            {
+                return  true;
+            }
+        }
+        return false;
     }
 
 
@@ -83,6 +96,15 @@ public class BuffManager
             {
                 buff.Process(self);
             }
+        }
+    }
+
+    public void ResetBuff()
+    {
+        foreach (Buff buff in buffs)
+        {
+            buff.Layer = 0;
+            buffs.Remove(buff);
         }
     }
 
@@ -99,15 +121,17 @@ public class BuffManager
             }
         }
     }
-    public void BuffAddLayer(string name)
+    public void BuffAddLayer(BuffName buffName,int layer =1)
     {
         foreach (Buff buff in buffs)
         {
-            if (buff.ToString() == name)
+            if (buff.ToString() == buffName.ToString())
             {
-                buff.Layer ++ ;
+                buff.Layer += layer ;
+                return;
             }
-        }
+        } 
+
     }
 
 
@@ -118,7 +142,6 @@ public class BuffManager
         {
             if (b.name.Equals(buff.name))
             {
-                b.Layer += buff.Layer;
                 return;
             }
         }
@@ -126,44 +149,18 @@ public class BuffManager
     }
 
  
-    //用卡牌来添加buff我觉得不好，不如直接用buff名字
-    //添加buff的层数不能在这里设计，只能借助buff自身的构造函数，我觉得不好
 
-    //buff的name是描述，而不是名字，所以在role里的equal（“脆弱”）等是无效的
-    public void AddBuff(CardName cardName)   
+    public void AddBuff(BuffName buffName,int layer)   
     {
-        switch (cardName)
-        {
-            case CardName.Incite:
-                AddBuff(new InciteBuff());
-                break;
-
-            case CardName.Revenge:
-                AddBuff(new RevengeBuff());
-                break;
-
-            case CardName.DullAtmosphere:
-                AddBuff(new DullAtmosphereBuff());
-                break;
-
-            case CardName.Comfort:
-                AddBuff(new ComfortBuff());
-                break;
-             case CardName.XingZaiLeHuo:
-                AddBuff(new CorrodeBuff(1));
-                break;
-            case CardName.Plot:
-                AddBuff(new CorrodeBuff(3));
-                break;
-            case CardName.Encumber:
-                AddBuff(new WearyBuff());
-                break;
-            case CardName.Sneer:
-                AddBuff(new WearyBuff());
-                break;
-                
-
-        }
+        Type type = Type.GetType(buffName.ToString());   
+        object obj = Activator.CreateInstance(type, true) ;   
+        if (obj == null)
+        {            
+            Debug.Log("No Card for" + buffName.ToString());
+            return;
+         }
+        AddBuff((Buff)obj);
+        BuffAddLayer(buffName,layer);
         view.ShowBuff(self);
 
     }
