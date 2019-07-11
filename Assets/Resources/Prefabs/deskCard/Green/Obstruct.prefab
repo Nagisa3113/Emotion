@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4321184278183618290}
   - component: {fileID: 4321184278183618289}
   m_Layer: 0
-  m_Name: Obstrucst
+  m_Name: Obstruct
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5153f90cbf1320042b7427dcb12dd879, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee898a2b7f2aa5b4d9b7e6d2633166aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

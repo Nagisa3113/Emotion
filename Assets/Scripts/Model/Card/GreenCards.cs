@@ -27,6 +27,18 @@ public class Comfort : Card
     public override void TakeEffect(Role self, Role target)
     {
         self.GetBuffManager.AddBuff(BuffName.ComfortBuff,2);
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //持续加一
+             target.GetBuffManager.BuffAddLayer(BuffName.ComfortBuff);
+        }
+
+
+        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        {
+            //持续加一
+            target.GetBuffManager.BuffAddLayer(BuffName.ComfortBuff);
+        }
     }
 
 

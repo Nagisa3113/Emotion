@@ -185,6 +185,7 @@ public class Incite : Card
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //+1 持续回合
+            self.GetBuffManager.BuffAddLayer(BuffName.InciteBuff);
         }
 
     }
@@ -234,11 +235,13 @@ public class Revenge : Card
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //+1 持续回合
+             self.GetBuffManager.BuffAddLayer(BuffName.RevengeBuff);
         }
 
         if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
         {
             //再将一张怒火加入到你的牌库
+            self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
         }
     }
 
