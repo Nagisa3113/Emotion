@@ -91,6 +91,41 @@ public class View : MonoBehaviour
 
         handcardsOfPlayer.text = player.CardManager.CardsNum.ToString();
         handcardsOfEnemy.text = enemy.CardManager.CardsNum.ToString();
+        foreach (Card card in player.CardManager.GetCards)
+        {
+            if (card.Name ==CardName.Provoke )
+            {
+                if(player.CardManager.GetBonus(card.Name) > card.GetUpgradeTwice)
+                {
+                    card.Cost =card.CostMax - 2;
+                }
+                else if(player.CardManager.GetBonus(card.Name) > card.GetUpgrade)
+                {
+                    card.Cost =card.CostMax - 1;
+                }
+                else
+                {
+                    card.Cost =card.CostMax;
+                }
+            }
+            if( card.Name ==CardName.Obstruct)
+            {
+                if(player.CardManager.GetBonus(card.Name) > card.GetUpgrade)
+                {
+                    card.Cost = card.CostMax - 1;
+                }
+                else
+                {
+                    card.Cost = card.CostMax;
+                }
+            }
+        }
+        int childCount = playerCards.transform.childCount;
+		for (int i = 0; i < childCount; i++)
+		{
+			playerCards.transform.GetChild(i).GetChild(4).gameObject.GetComponent<TextMesh>().text
+                    = player.CardManager.GetCards[i].Cost.ToString();
+		}
     }
 
 

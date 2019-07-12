@@ -82,16 +82,12 @@ public class PlayerCardManager : CardManager
             {
                 self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
             }
-            
-
-            
-
             currentCard.TakeEffect(self, target);
             self.CardDiscard.Add(currentCard);
 
             view.ShowPlayerPutCard(currentCard.Name,index);
             view.ShowPlayerCards();
-
+            
             currentCard = Card.EmptyCard;
             currentCardIndex = -1;
         }

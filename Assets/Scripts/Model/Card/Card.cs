@@ -114,6 +114,24 @@ public class Card
         }
     }
 
+    int costMax;
+    public int CostMax
+    {
+        get
+        {
+            return costMax;
+        }
+
+        set
+        {
+            costMax = value;
+            if (costMax < 0)
+            {
+                Debug.Log("costMax<0");
+            }
+        }
+    }
+
 
 
 
@@ -167,6 +185,14 @@ public class Card
     protected int upgrade;
     protected int upgradeTwice;
 
+    public int GetUpgradeTwice
+    {
+        get
+        {
+            return upgradeTwice;
+        }
+    }
+
 
 
     public Card(CardName cardName, CardColor color, int cost)
@@ -177,6 +203,8 @@ public class Card
         this.upgradeTwice = 999;
         this.cost = cost;
         this.cardname = this.name.ToString();
+
+        this.costMax = cost;
     }
     public Card(CardName cardName, CardColor color, int cost, int upgrade)
     {
@@ -186,6 +214,8 @@ public class Card
         this.upgradeTwice = 999;
         this.cost = cost;
         this.cardname = this.name.ToString();
+
+        this.costMax = cost;
     }
     public Card(CardName cardName, CardColor color, int cost, int upgrade, int upgradeTwice)
     {
@@ -195,6 +225,8 @@ public class Card
         this.upgradeTwice = upgradeTwice;
         this.cost = cost;
         this.cardname = this.name.ToString();
+
+        this.costMax = cost;
     }
 
     public virtual void TakeEffect(Role self, Role target)

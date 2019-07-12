@@ -39,6 +39,8 @@ public class ViewHandCard : MonoBehaviour
             {
                 transform.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                 transform.GetChild(2).position -=new Vector3(0,0.3f,0);
+                transform.GetChild(3).position +=new Vector3(0,0.3f,0);
+                transform.GetChild(4).position +=new Vector3(0,0.3f,0);
                 
                 for (int i=0;i < transform.GetSiblingIndex();i++)
                 {
@@ -68,6 +70,8 @@ public class ViewHandCard : MonoBehaviour
                 {
                     transform.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                     transform.GetChild(2).position +=new Vector3(0,0.3f,0);
+                    transform.GetChild(3).position -=new Vector3(0,0.3f,0);
+                    transform.GetChild(4).position -=new Vector3(0,0.3f,0);  
                     for (int i=0;i < transform.GetSiblingIndex();i++)
                     {
                         View.GetInstance().playerCards.transform.GetChild(i).position += new Vector3(0.7f,0,0);
