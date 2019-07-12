@@ -11,6 +11,8 @@ public class ViewEnemyCard : MonoBehaviour
     public float mTime;
 
     private Vector3 endPos;
+    Vector3 bigSize;
+    Vector3 normalSize;
 
     public void Init() 
     {
@@ -22,6 +24,8 @@ public class ViewEnemyCard : MonoBehaviour
     {
         mTime = 0.5f;
         endPos =new Vector3(0f,0,0);
+        bigSize = new Vector3(1.2f,1.2f,1);
+        normalSize = new Vector3(1,1,1);
        
     }
 
@@ -71,6 +75,23 @@ public class ViewEnemyCard : MonoBehaviour
         for (float i = mTime ; i >= 0; i-= Time.deltaTime)
         {
             yield return 0;
+        }
+
+         dur = 0;
+
+        while (dur <= mTime)
+        {
+            front.transform.localScale = Vector3.Lerp(normalSize, bigSize, dur / mTime); 
+            dur += Time.deltaTime; 
+            yield return 0; 
+        }
+        dur = 0;
+
+        while (dur <= mTime)
+        {
+            front.transform.localScale = Vector3.Lerp(bigSize, normalSize, dur / mTime); 
+            dur += Time.deltaTime; 
+            yield return 0; 
         }
         dur = 0.0f;
         while (dur <= mTime)

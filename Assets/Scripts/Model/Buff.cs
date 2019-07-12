@@ -151,9 +151,10 @@ public class Buff
 public class CorrodeBuff : Buff
 {
 
-    public CorrodeBuff(int layer) : base("腐蚀","敌人造成伤害下降20%", BuffType.AfterPutCard)
+    public CorrodeBuff() : base("腐蚀","敌人造成伤害下降20%", BuffType.AfterPutCard)
     {
-        this.layer = layer;
+        Debug.Log(1);
+        Debug.Log(2);
     }
 
 
@@ -166,7 +167,7 @@ public class CorrodeBuff : Buff
 public class FragileBuff : Buff
 {
 
-    public FragileBuff() : base("脆弱","敌人受到伤害增加20%",BuffType.AfterPutCard)
+    public FragileBuff() : base("脆弱","敌人受到伤害增加20%", BuffType.AfterPutCard)
     {
 
     }

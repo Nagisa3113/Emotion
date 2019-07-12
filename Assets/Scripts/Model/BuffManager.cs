@@ -106,6 +106,7 @@ public class BuffManager
             buff.Layer = 0;
             buffs.Remove(buff);
         }
+        view.ShowBuff(self);
     }
 
 
@@ -118,9 +119,12 @@ public class BuffManager
             if (buffs[i].Active == false)
             {
                 buffs.Remove(buffs[i]);
+                view.ShowBuff(self);
+
             }
         }
     }
+
     public void BuffAddLayer(BuffName buffName,int layer =1)
     {
         foreach (Buff buff in buffs)
@@ -128,6 +132,7 @@ public class BuffManager
             if (buff.ToString() == buffName.ToString())
             {
                 buff.Layer += layer ;
+                Debug.Log(layer);
                 return;
             }
         } 

@@ -295,7 +295,7 @@ public class BattleSystem : MonoBehaviour
         {
             enemy.PutCurrentCard(player);
             //出完一张牌后等待2秒
-            for (float timer = 0; timer <= 3; timer += Time.deltaTime)
+            for (float timer = 0; timer <= 5; timer += Time.deltaTime)
             {
                 yield return 0;
             }

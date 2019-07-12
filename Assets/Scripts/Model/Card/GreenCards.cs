@@ -202,13 +202,13 @@ public class OverHeated : Card
             switch (num)
             {
                 case 1:
-                    target.GetBuffManager.AddBuff(BuffName.FragileBuff,2);
+                    target.GetBuffManager.AddBuff(BuffName.FragileBuff,1);
                     break;
                 case 2:
-                    target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,2);
+                    target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,1);
                     break;
                 case 3:
-                    target.GetBuffManager.AddBuff(BuffName.WearyBuff,12);
+                    target.GetBuffManager.AddBuff(BuffName.WearyBuff,1);
                     break;
             }
         }

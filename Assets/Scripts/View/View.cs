@@ -375,8 +375,10 @@ public class View : MonoBehaviour
                         break;
                     }
                 }
-                GameObject itemGo = Instantiate(temp, startPosition + interval * i, Quaternion.identity);
+                GameObject itemGo = Instantiate(motherBuff, startPosition + interval * i, Quaternion.identity);
                 itemGo.transform.SetParent(enemyBuffs.transform);
+                itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
+                itemGo.name = buff.ToString();
                 i++;
             }
         }

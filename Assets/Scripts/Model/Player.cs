@@ -53,7 +53,7 @@ public class Player : Role
 
         for (int i = 0; i < 10; i++)
         {
-            cardLibrary.Add(Card.NewCard(CardName.ReasonVanish));
+            cardLibrary.Add(Card.NewCard(CardName.OverHeated));
         }
         // for (int i = 0; i < 5; i++)
         // {
