@@ -28,6 +28,7 @@ public class CardManager
 
     public Card leftCard;
     public Card rightCard;
+    public int selfControl;
 
 
     public int CardIndex
@@ -106,6 +107,7 @@ public class CardManager
 
         leftCard =new Card();
         rightCard = new Card();
+        selfControl = 0 ;
 
         //IEnumerator<Card> iter = cards.GetEnumerator();
     }
@@ -183,9 +185,10 @@ public class CardManager
     }
 
     //打出手牌中所有牌
-    public virtual void PutAllCard(CardName cardName, Role self, Role target)
+    public virtual int  PutAllCard(CardName cardName, Role self, Role target)
     {
 
+        int num  = 0;
         for (int i = cards.Count - 1; i >= 0; i--)
         {
             Card card = cards[i];
@@ -194,9 +197,11 @@ public class CardManager
                 cards.Remove(card);
                 currentCard.TakeEffect(self, target);
                 self.CardDiscard.Add(card);
-
+                num ++;
+                self.GetHeal(selfControl);
             }
         }
+        return num;
     }
 
 
@@ -216,22 +221,48 @@ public class CardManager
 
 
     //弃掉某种颜色的的牌
-    public void DicardCard(int num, CardColor cardColor)
+    public void DicardCard(int num, CardColor cardColor,Role self)
     {
-        while (cards.Count > 0 && num > 0)
+        bool flag = true;
+        while (cards.Count > 0 && num > 0 && flag)
         {
-
-            foreach (Card card in cards)
+            flag = false;
+            for (int i = cards.Count - 1; i >= 0; i--)
             {
+                Card card = cards[i];
                 if (card.Color == cardColor)
                 {
+                    flag = true; 
                     cards.Remove(card);
-
+                    self.CardDiscard.Add(card);
                 }
             }
             num--;
 
         }
+    }
+
+    public int  WashBackCard(int num, CardColor cardColor,Role self)
+    {
+        bool flag = true;
+        int count = 0; 
+        while (cards.Count > 0 && num > 0 && flag)
+        {
+            for (int i = cards.Count - 1; i >= 0; i--)
+            {
+                Card card = cards[i];
+                flag =false ;
+                if (card.Color == cardColor)
+                {
+                    cards.Remove(card);
+                    self.CardLibrary.Add(card);
+                    flag = true;
+                    count ++;
+                }
+            }
+            num--;
+        }
+        return count ;
     }
 
     //随机获得一张牌

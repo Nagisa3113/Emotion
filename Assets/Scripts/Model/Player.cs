@@ -51,10 +51,10 @@ public class Player : Role
     public override void InitLibrary()
     {
 
-        // for (int i = 0; i < 10; i++)
-        // {
-        //     cardLibrary.Add(Card.NewCard(CardName.Encumber));
-        // }
+        for (int i = 0; i < 10; i++)
+        {
+            cardLibrary.Add(Card.NewCard(CardName.ReasonVanish));
+        }
         // for (int i = 0; i < 5; i++)
         // {
         //     cardLibrary.Add(Card.NewCard(CardName.Comfort));
@@ -78,7 +78,6 @@ public class Player : Role
 
         foreach (CardName item in Enum.GetValues(typeof(CardName)))
         {
-            Debug.Log(item);
             cardLibrary.Add(Card.NewCard(item));
             
         }

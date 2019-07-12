@@ -241,6 +241,7 @@ public class EnemyCardManager : CardManager
         {
             view.ShowEnemyPutCard(currentCard.Name);
         }
+        self.GetHeal(selfControl);
 
         view.ShowEnemyCards();
 

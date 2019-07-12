@@ -53,20 +53,8 @@ public class Transfer : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        //使自己获得2回合活力效果
-        self.GetBuffManager.AddBuff(BuffName.VigourBuff,2);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
-        {
-            //持续加一
-             target.GetBuffManager.BuffAddLayer(BuffName.VigourBuff);
-        }
-
-
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
-        {
-            //持续加一
-            target.GetBuffManager.BuffAddLayer(BuffName.VigourBuff);
-        }
+        //选择一种颜色，将手牌中所有这种颜色的牌洗回牌库，抽取相同数量的牌
+        //ViewOfButton.GetInstance().StartSuppress();
     }
 
 }
@@ -80,20 +68,10 @@ public class Suppress : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        //使自己获得2回合活力效果
-        self.GetBuffManager.AddBuff(BuffName.VigourBuff,2);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
-        {
-            //持续加一
-             target.GetBuffManager.BuffAddLayer(BuffName.VigourBuff);
-        }
-
-
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
-        {
-            //持续加一
-            target.GetBuffManager.BuffAddLayer(BuffName.VigourBuff);
-        }
+        //选择一张卡牌，选择一种颜色，将这张牌转化为选择的颜色
+        //ViewOfButton.GetInstance().StartSuppress();
+        //int count = self.CardManager.WashBackCard(10,ViewOfButton.GetInstance().suppressColor,self);
+        //self.GetCardsFromLibrary(2);
     }
 
 }

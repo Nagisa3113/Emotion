@@ -32,6 +32,7 @@ public class PlayerCardManager : CardManager
 
             currentCard = Card.EmptyCard;
             currentCardIndex = -1;
+            self.GetHeal(selfControl);
         }
     }
 
@@ -51,16 +52,6 @@ public class PlayerCardManager : CardManager
         if (expenseCurrent >= currentCard.Cost)
         {
             Debug.Log("player打出一张" + currentCard.cardname);
-
-            expenseCurrent -= currentCard.Cost;
-
-            cards.Remove(currentCard);
-
-            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
-            {
-                self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
-            }
-            
             if(index == 0 && cards.Count == 0)
             {
                 leftCard = Card.EmptyCard;
@@ -71,16 +62,28 @@ public class PlayerCardManager : CardManager
                 leftCard = Card.EmptyCard;
                 rightCard = cards[index+1];
             }
-            else if(index == cards.Count -1)
+            else if(index == (cards.Count -1))
             {
                 leftCard =cards[index -1];
                 rightCard = Card.EmptyCard;
+    
             }
             else
             {
                 leftCard =cards[index -1];
                 rightCard = cards [index+1];
             }
+
+            expenseCurrent -= currentCard.Cost;
+
+            cards.Remove(currentCard);
+
+            if (self.GetBuffManager.CheckBuff(BuffType.AfterPutCard))
+            {
+                self.GetBuffManager.BuffProcess(BuffType.AfterPutCard, self);
+            }
+            
+
             
 
             currentCard.TakeEffect(self, target);

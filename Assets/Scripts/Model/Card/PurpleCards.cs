@@ -106,9 +106,114 @@ public class OuDuanSiLian : Card
         }
 
     }
-
-
 }
+
+public class Depress : Card
+{
+    public Depress() : base(CardName.Depress, CardColor.Purple, 1, 8)
+    {
+
+    }
+
+    public override void TakeEffect(Role self, Role target)
+    {
+        //减少敌人血量的20%/+2%
+        self.TakeDamage(target,(int)( (20 + 2 * self.CardManager.GetBonus(this.name)) / 100 *target.HP));
+
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //再减少敌人血量的20%
+            self.TakeDamage(target,(int) ((20 ) / 100 * target.HP));
+        }
+
+    }
+}
+
+public class Blues : Card
+{
+    public Blues() : base(CardName.Blues, CardColor.Purple, 1, 4)
+    {
+
+    }
+
+    public override void TakeEffect(Role self, Role target)
+    {
+        //减少敌人血量25点/+2点
+        self.TakeDamage(target, 25 + 2 * self.CardManager.GetBonus(this.name));
+
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //BONUS再+2点
+            self.TakeDamage(target, 2 * self.CardManager.GetBonus(this.name));
+        }
+
+    }
+}
+
+
+public class Pacify : Card
+{
+    public Pacify() : base(CardName.Pacify, CardColor.Purple, 2, 4)
+    {
+
+    }
+
+    public override void TakeEffect(Role self, Role target)
+    {
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //先回复自己40点血量
+            self.GetHeal(40);
+        }
+        //减少敌人血量10%并回复相同百分比的自己血量/+1%
+        self.TakeDamage(target, (int)((10 + 1 * self.CardManager.GetBonus(this.name)) / 100.0 *target.HP));
+        self.GetHeal( (int) ( (10 + 1 * self.CardManager.GetBonus(this.name) ) / 100.0 *self.HP));
+         
+  
+
+    }
+}
+
+public class Compare : Card
+{
+    public Compare() : base(CardName.Compare, CardColor.Purple, 2, 4)
+    {
+
+    }
+
+    public override void TakeEffect(Role self, Role target)
+    {
+       
+        //如果敌人血量大于血量上限的50%，减少敌人血量80点，如果自己血量小于自己血量上限的50%回复自己血量40点/+3点
+    
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //bonus +2
+            if (target.HP * 2 >target.HPMax)
+            {
+                self.TakeDamage(target, 80+ 5 * self.CardManager.GetBonus(this.name));
+            }
+            if(self.HP *2<self.HPMax)
+            {
+                self.GetHeal(40 + 5 * self.CardManager.GetBonus(this.name));
+            }
+        } 
+        else
+        {
+            if (target.HP * 2 >target.HPMax)
+            {
+                self.TakeDamage(target, 80+ 3 * self.CardManager.GetBonus(this.name));
+            }
+            if(self.HP *2<self.HPMax)
+            {
+                self.GetHeal(40 + 3 * self.CardManager.GetBonus(this.name));
+            }
+        }
+  
+
+    }
+}
+
 
 
 

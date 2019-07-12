@@ -125,9 +125,9 @@ public class Role
     }
 
 
-    public void PutAllCardInLibrary(CardName cardName, Role self, Role target)
+    public int PutAllCardInLibrary(CardName cardName, Role self, Role target)
     {
-
+        int num = 0;
         for (int i = cardLibrary.Count - 1; i >= 0; i--)
         {
             Card card = cardLibrary[i];
@@ -136,8 +136,10 @@ public class Role
                 card.TakeEffect(self, target);
                 cardDiscard.Add(card);
                 cardLibrary.Remove(card);
+                num ++;
             }
         }
+        return num;
 
     }
 
@@ -218,6 +220,7 @@ public class Role
             {
                 damageBase += 0.2f;
             }
+
             if (buff.name.Equals("挑衅"))
             {
                 damageBase *= 2f;

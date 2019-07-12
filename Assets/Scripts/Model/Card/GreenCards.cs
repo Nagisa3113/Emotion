@@ -77,6 +77,12 @@ public class SelfControl : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使自己所有手牌获得打出时回复自己10点血量效果 / +1回复
+        self.CardManager.selfControl = 10 + self.CardManager.GetBonus(this.name) ;
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            //bonus加一
+            self.CardManager.selfControl += self.CardManager.GetBonus(this.name) ;
+        }
     }
 
 

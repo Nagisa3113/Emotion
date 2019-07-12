@@ -16,6 +16,22 @@ public class ViewOfButton : MonoBehaviour
     public GameObject cardLibrary;
     float scollIndex;
 
+    public GameObject[] colors;
+    public CardColor suppressColor;
+
+    private static ViewOfButton viewOfButton;
+
+    private ViewOfButton()
+    {
+        viewOfButton = this;
+    }
+
+
+    public static ViewOfButton GetInstance()
+    {
+        return viewOfButton;
+    }
+
 
 
     void Start()
@@ -23,6 +39,7 @@ public class ViewOfButton : MonoBehaviour
         isPause = false;
         view = View.GetInstance();
         scollIndex = 0;
+        suppressColor = new CardColor();
 
     }
     void Update()
@@ -56,6 +73,42 @@ public class ViewOfButton : MonoBehaviour
         }
     }
 
+    public void ClickColor()
+    {
+       var buttonSelf = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+       
+        if(buttonSelf.name == "ButtonRed")
+        {
+            suppressColor = CardColor.Red;
+        }
+         if(buttonSelf.name == "ButtonGreen")
+        {
+            suppressColor = CardColor.Green;
+        }
+         if(buttonSelf.name == "ButtonGray")
+        {
+            suppressColor = CardColor.Gray;
+        }
+         if(buttonSelf.name == "ButtonPurple")
+        {
+            suppressColor = CardColor.Purple;
+        }
+
+         foreach (var button in colors)
+        {
+            button.SetActive(false);
+        }
+        SetCondition(true);
+    }
+    public void StartSuppress()
+    {
+        foreach (var button in colors)
+        {
+            button.SetActive(true);
+        }
+        SetCondition(false);
+
+    }
     // Update is called once per frame
     public void ClickPause()
     {
@@ -92,7 +145,6 @@ public class ViewOfButton : MonoBehaviour
                 }
             }
             SetCondition(false);
-
         }
         else
         {

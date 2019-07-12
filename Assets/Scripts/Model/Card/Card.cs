@@ -32,12 +32,14 @@ public enum CardName
 
 
     Complain,//抱怨
-
-
     DullAtmosphere,//沉闷氛围
     Confess,//倾诉
     WeiYuChouMou,//未雨绸缪
     OuDuanSiLian,//藕断丝连
+    Depress,//忧郁
+    Blues,//蓝调
+    Pacify,//安抚
+    Compare,//攀比
 
 
     Heal,//治疗

@@ -21,12 +21,14 @@ public class View : MonoBehaviour
     public GameObject[] handCards;
     public GameObject[] deskCards;
 
+
     public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
     public GameObject motherPutCard;
     public GameObject motherBuff;
 
     public bool canPutCard;         //供使用这个类的用
+
 
     public Player player;
     public Enemy enemy;
@@ -90,6 +92,8 @@ public class View : MonoBehaviour
         handcardsOfPlayer.text = player.CardManager.CardsNum.ToString();
         handcardsOfEnemy.text = enemy.CardManager.CardsNum.ToString();
     }
+
+
 
     //显示手牌里的牌
     public void ShowPlayerCards()

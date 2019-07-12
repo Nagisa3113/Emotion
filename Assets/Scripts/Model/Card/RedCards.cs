@@ -109,14 +109,17 @@ public class Furious : Card
         //随机弃掉2~5张红色卡牌，每张被弃掉的卡牌都将造成40伤害 / +2
         int num = UnityEngine.Random.Range(2, 6);
 
-        self.CardManager.DicardCard(num, CardColor.Red);
+        self.CardManager.DicardCard(num, CardColor.Red,self);
         self.TakeDamage(target, num * (40 + 2 * self.CardManager.GetBonus(this.name)));
 
 
         //将和弃牌数量相同数量的怒火加入你的牌库
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
-            self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+            for (int i = 0; i<num ;i++)
+            {
+                self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+            }
         }
 
     }
@@ -136,6 +139,27 @@ public class ReasonVanish : Card
     {
 
         //将手牌中的两张非红色卡牌转换为怒火
+        CardColor temp =(CardColor) UnityEngine.Random.Range(0, 5);
+        while (temp == CardColor.Red)
+        {
+            temp =(CardColor) UnityEngine.Random.Range(0, 5);
+        }
+        self.CardManager.DicardCard(1,temp,self);
+        temp =(CardColor) UnityEngine.Random.Range(0, 5);
+        while (temp == CardColor.Red)
+        {
+            temp =(CardColor) UnityEngine.Random.Range(0, 5);
+        }
+        self.CardManager.DicardCard(1,temp,self);
+        self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+        self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        {
+            self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+            self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+        }
+
+
 
         //转换为两张怒火
 
@@ -154,12 +178,16 @@ public class Vent : Card
     public override void TakeEffect(Role self, Role target)
     {
         //打出牌库和手牌中所有怒火 
-        self.CardManager.PutAllCard(CardName.AngerFire, self, target);
-        self.PutAllCardInLibrary(CardName.AngerFire, self, target);
+        int num = self.CardManager.PutAllCard(CardName.AngerFire, self, target);
+        num +=self.PutAllCardInLibrary(CardName.AngerFire, self, target);
 
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //将和弃牌数量相同数量的怒火加入你的牌库
+            for (int i = 0 ; i<num ;i++)
+            {
+                self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+            }
 
         }
 
@@ -206,10 +234,14 @@ public class RadicalAction : Card
 
         //你每损失5点血量，便对敌人造成10点伤害/+2伤害
 
-
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //每损失3点血量
+            self.TakeDamage(target,(self.HPMax -self.HP) / 3 *(10 +2 *self.CardManager.GetBonus(this.name)));
+        }
+        else
+        {
+            self.TakeDamage(target,(self.HPMax -self.HP) / 5 *(10 +2 *self.CardManager.GetBonus(this.name)));
         }
 
     }
