@@ -10,6 +10,8 @@ public class View : MonoBehaviour
  
     public Image healthOfPlayer;
     public Image healthOfEnemy;
+    public Image healthOfPlayer1;
+    public Image healthOfEnemy1;
     public Text expenseOfPlayer;
     public Text expenseOfEnemy;
 
@@ -45,6 +47,8 @@ public class View : MonoBehaviour
 
     private static View view;
 
+    bool hpStart;
+
     private View()
     {
         view = this;
@@ -74,6 +78,8 @@ public class View : MonoBehaviour
         buffs = Resources.LoadAll<GameObject>("Prefabs/buff");
 
         maxShowCount = 5;
+        hpStart = false ;
+
         
 
         //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);   //键盘时使用
@@ -83,8 +89,62 @@ public class View : MonoBehaviour
     public void Update()
     {
         /*显示各种参数 */
-        healthOfPlayer.fillAmount = player.HP / (float)player.HPMax  - 0.1f;
-        healthOfEnemy.fillAmount = enemy.HP / (float)enemy.HPMax - 0.1f;
+        if (healthOfPlayer.fillAmount != player.HP / (float)player.HPMax )
+        {
+ 
+            healthOfPlayer.fillAmount  -= 0.05f * Time.deltaTime;
+ 
+            if (healthOfPlayer.fillAmount <= player.HP / (float)player.HPMax) //当前血量值 小于等于 目标血量值
+            {
+                Debug.Log("ting");
+                
+                healthOfPlayer.fillAmount = player.HP / (float)player.HPMax;//总血量值 被赋值 当前血量值
+            }
+ 
+        }
+
+         if (healthOfPlayer1.fillAmount != player.HP / (float)player.HPMax )
+        {
+ 
+            healthOfPlayer1.fillAmount  -= 0.02f * Time.deltaTime;
+ 
+            if (healthOfPlayer1.fillAmount <= player.HP / (float)player.HPMax) //当前血量值 小于等于 目标血量值
+            {
+                Debug.Log("ting");
+                
+                healthOfPlayer1.fillAmount = player.HP / (float)player.HPMax;//总血量值 被赋值 当前血量值
+            }
+ 
+        }
+
+        if (healthOfEnemy.fillAmount != enemy.HP / (float)enemy.HPMax )
+        {
+ 
+            healthOfEnemy.fillAmount  -= 0.05f * Time.deltaTime;
+ 
+            if (healthOfEnemy.fillAmount <= enemy.HP / (float)enemy.HPMax) //当前血量值 小于等于 目标血量值
+            {
+                Debug.Log("ting");
+                
+                healthOfEnemy.fillAmount = enemy.HP / (float)enemy.HPMax;//总血量值 被赋值 当前血量值
+            }
+ 
+        }
+
+        if (healthOfEnemy1.fillAmount != enemy.HP / (float)enemy.HPMax )
+        {
+ 
+            healthOfEnemy1.fillAmount  -= 0.02f * Time.deltaTime;
+ 
+            if (healthOfEnemy1.fillAmount <= enemy.HP / (float)enemy.HPMax) //当前血量值 小于等于 目标血量值
+            {
+                Debug.Log("ting");
+                
+                healthOfEnemy1.fillAmount = enemy.HP / (float)enemy.HPMax;//总血量值 被赋值 当前血量值
+            }
+ 
+        }
+
 
         expenseOfPlayer.text = player.CardManager.ExpenseCurrent.ToString();
         expenseOfEnemy.text = enemy.CardManager.ExpenseCurrent.ToString();
@@ -95,11 +155,11 @@ public class View : MonoBehaviour
         {
             if (card.Name ==CardName.Provoke )
             {
-                if(player.CardManager.GetBonus(card.Name) > card.GetUpgradeTwice)
+                if(player.CardManager.GetBonus(card.Color) > card.GetUpgradeTwice)
                 {
                     card.Cost =card.CostMax - 2;
                 }
-                else if(player.CardManager.GetBonus(card.Name) > card.GetUpgrade)
+                else if(player.CardManager.GetBonus(card.Color) > card.GetUpgrade)
                 {
                     card.Cost =card.CostMax - 1;
                 }
@@ -110,7 +170,7 @@ public class View : MonoBehaviour
             }
             if( card.Name ==CardName.Obstruct)
             {
-                if(player.CardManager.GetBonus(card.Name) > card.GetUpgrade)
+                if(player.CardManager.GetBonus(card.Color) > card.GetUpgrade)
                 {
                     card.Cost = card.CostMax - 1;
                 }
@@ -172,7 +232,7 @@ public class View : MonoBehaviour
             text = itemGo.transform.GetChild(0).gameObject.GetComponent<TextMesh>();
             mesh = itemGo. transform.GetChild(1).gameObject;
             bonus = itemGo.transform.GetChild(2).gameObject.GetComponent<TextMesh>();
-            bonus.text = player.CardManager.GetBonus(card.Name).ToString();
+            bonus.text = player.CardManager.GetBonus(card.Color).ToString();
             
             itemGo.transform.SetParent(playerCards.transform);
         }

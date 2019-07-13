@@ -135,7 +135,7 @@ public class Card
 
 
 
-    CardColor color;
+    protected CardColor color;
     public CardColor Color
     {
         get

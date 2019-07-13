@@ -21,11 +21,11 @@ public class Iron : Card
     public override void TakeEffect(Role self, Role target)
     {
         //获得30点护甲/+2护甲
-        self.GetArmor(30 + 2 * self.CardManager.GetBonus(this.name));
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        self.GetArmor(30 + 2 * self.CardManager.GetBonus(this.color));
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //BONUS再+2护甲
-            self.GetArmor( 2 * self.CardManager.GetBonus(this.name));
+            self.GetArmor( 2 * self.CardManager.GetBonus(this.color));
         }
 
     }
@@ -43,7 +43,7 @@ public class HoldOn : Card
     {
         //获得等同于自己损失血量的护甲
         self.GetArmor(self.HPMax - self.HP);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //再获得等同于自己损失血量1/3的护甲
             self.GetArmor((self.HPMax - self.HP)*1/3);
@@ -62,7 +62,7 @@ public class FightBack : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //先获得50护甲
             self.GetArmor(50);
@@ -98,14 +98,14 @@ public class Lesson : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //先获得50护甲
             self.GetArmor(50);
         }
 
          //获得现有护甲20%的护甲，将一张教训加入你的牌组/+5%
-        self.GetArmor((int)((0.20f+0.05f * self.CardManager.GetBonus(this.name)) * self.Armor));
+        self.GetArmor((int)((0.20f+0.05f * self.CardManager.GetBonus(this.color)) * self.Armor));
         self.CardLibrary.Add(Card.NewCard((CardName.Lesson)));
     }
 
@@ -122,14 +122,14 @@ public class Reinforce : Card
     {
         //使自己获得2回合活力效果
         self.GetBuffManager.AddBuff(BuffName.VigourBuff,2);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //持续加一
              target.GetBuffManager.BuffAddLayer(BuffName.VigourBuff);
         }
 
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //持续加一
             target.GetBuffManager.BuffAddLayer(BuffName.VigourBuff);
@@ -149,14 +149,14 @@ public class Accelerate : Card
     {
         //使自己获得2回合强力效果
         self.GetBuffManager.AddBuff(BuffName.PowerfulBuff,2);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //持续加一
              target.GetBuffManager.BuffAddLayer(BuffName.PowerfulBuff);
         }
 
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //持续加一
             target.GetBuffManager.BuffAddLayer(BuffName.PowerfulBuff);

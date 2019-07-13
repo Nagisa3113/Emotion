@@ -82,7 +82,7 @@ public class ViewHandCard : MonoBehaviour
                     {
                         View.GetInstance().playerCards.transform.GetChild(i).position += new Vector3(0.7f,0,0);
                     }
-                    for( int i =transform.GetSiblingIndex()+1;i <View.GetInstance().playerCards.transform.childCount;i++)
+                    for( int i = transform.GetSiblingIndex()+1;i <View.GetInstance().playerCards.transform.childCount;i++)
                     {
                     View.GetInstance().playerCards.transform.GetChild(i).position -= new Vector3(0.8f,0,0);
                     }
@@ -105,7 +105,7 @@ public class ViewHandCard : MonoBehaviour
             }
         }
         showCard.transform.GetChild(0).gameObject.GetComponent<TextMesh>().text =
-            Player.GetInstance().CardManager.GetBonus((CardName)Enum.Parse(typeof(CardName), transform.name)).ToString();
+            Player.GetInstance().CardManager.GetBonus(Player.GetInstance().CardManager.GetCards[transform.GetSiblingIndex()].Color).ToString();
         showCard.SetActive(true);
 
         //当第二次点击鼠标，且时间间隔满足要求时双击鼠标

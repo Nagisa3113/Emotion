@@ -281,12 +281,12 @@ public class CardManager
 
 
     //获得某张牌的Bonus
-    public int GetBonus(CardName cardName)
+    public int GetBonus(CardColor cardColor)
     {
         int num = 0;
         foreach (Card c in cards)
         {
-            if (c.Name == cardName)
+            if (c.Color == cardColor)
             {
                 num++;
             }

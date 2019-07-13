@@ -10,11 +10,11 @@ public class Heal : Card
     public override void TakeEffect(Role self, Role target)
     {
         //回复自己40点血量/+2回复
-        self.GetHeal(40 + 2 * self.CardManager.GetBonus(this.name));
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        self.GetHeal(40 + 2 * self.CardManager.GetBonus(this.color));
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //BONUS再+2回复
-            self.GetHeal(2 * self.CardManager.GetBonus(this.name));
+            self.GetHeal(2 * self.CardManager.GetBonus(this.color));
         }
     }
 }
@@ -30,14 +30,14 @@ public class Comfort : Card
     {
         //2回合内，每使用一张卡牌回复15血量
         self.GetBuffManager.AddBuff(BuffName.ComfortBuff,2);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //持续加一
              target.GetBuffManager.BuffAddLayer(BuffName.ComfortBuff);
         }
 
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //持续加一
             target.GetBuffManager.BuffAddLayer(BuffName.ComfortBuff);
@@ -58,13 +58,13 @@ public class XingZaiLeHuo : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //先给予对方1回合腐蚀效果
             target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,1);
         }
         //敌人每有一种异常状态，回复自己30血量/+5回复
-        self.GetHeal(30 *target.GetBuffManager.CheckCount() + 5 * self.CardManager.GetBonus(this.name));
+        self.GetHeal(30 *target.GetBuffManager.CheckCount() + 5 * self.CardManager.GetBonus(this.color));
       
     }
 
@@ -82,11 +82,11 @@ public class SelfControl : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使自己所有手牌获得打出时回复自己10点血量效果 / +1回复
-        self.CardManager.selfControl = 10 + self.CardManager.GetBonus(this.name) ;
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        self.CardManager.selfControl = 10 + self.CardManager.GetBonus(this.color) ;
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //bonus加一
-            self.CardManager.selfControl += self.CardManager.GetBonus(this.name) ;
+            self.CardManager.selfControl += self.CardManager.GetBonus(this.color) ;
         }
     }
 
@@ -105,14 +105,14 @@ public class Plot : Card
     {
         //使敌人获得3回合腐蚀效果
         target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,3);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //持续加一
              target.GetBuffManager.BuffAddLayer(BuffName.CorrodeBuff);
         }
 
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //持续加一
             target.GetBuffManager.BuffAddLayer(BuffName.CorrodeBuff);
@@ -134,14 +134,14 @@ public class Encumber : Card
     {
         //使敌人获得2回合疲惫效果
         target.GetBuffManager.AddBuff(BuffName.WearyBuff,2);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //持续加一
              target.GetBuffManager.BuffAddLayer(BuffName.WearyBuff);
         }
 
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //持续加一
             target.GetBuffManager.BuffAddLayer(BuffName.WearyBuff);
@@ -162,14 +162,14 @@ public class Sneer : Card
     {
         //使敌人获得3回合脆弱效果
         target.GetBuffManager.AddBuff(BuffName.FragileBuff,3);
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //持续加一
              target.GetBuffManager.BuffAddLayer(BuffName.FragileBuff);
         }
 
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //持续加一
             target.GetBuffManager.BuffAddLayer(BuffName.FragileBuff);
@@ -202,7 +202,7 @@ public class OverHeated : Card
                 break;
         }
 
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             switch (num)
             {
@@ -257,7 +257,7 @@ public class Obstruct : Card
         target.GetBuffManager.ResetBuff();
         target.GetBuffManager.AddBuff(BuffName.DizzyBuff,temp);
         
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //费用减一
              

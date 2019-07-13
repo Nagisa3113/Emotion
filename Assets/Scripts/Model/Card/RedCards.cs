@@ -12,11 +12,11 @@ public class NoNameFire : Card
     public override void TakeEffect(Role self, Role target)
     {
         //造成10点伤害，将一张怒火加入你的牌库 / +2伤害
-        self.TakeDamage(target, 10 + 2 * self.CardManager.GetBonus(this.name));
+        self.TakeDamage(target, 10 + 2 * self.CardManager.GetBonus(this.color));
         self.CardLibrary.Add(Card.NewCard(CardName.AngerFire));
 
         //再将两张怒火加入你的牌库
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             self.CardLibrary.Add(Card.NewCard(CardName.AngerFire));
             self.CardLibrary.Add(Card.NewCard(CardName.AngerFire));
@@ -37,13 +37,13 @@ public class Enrange : Card
     public override void TakeEffect(Role self, Role target)
     {
         //造成15点伤害，重复两次 / +2伤害
-        self.TakeDamage(target, 15 + 2 * self.CardManager.GetBonus(this.name));
-        self.TakeDamage(target, 15 + 2 * self.CardManager.GetBonus(this.name));
+        self.TakeDamage(target, 15 + 2 * self.CardManager.GetBonus(this.color));
+        self.TakeDamage(target, 15 + 2 * self.CardManager.GetBonus(this.color));
 
         //再重复一次
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
-            self.TakeDamage(target, 15 + 2 * self.CardManager.GetBonus(this.name));
+            self.TakeDamage(target, 15 + 2 * self.CardManager.GetBonus(this.color));
         }
 
     }
@@ -62,7 +62,7 @@ public class Execute : Card
     {
         //造成50点伤害，如果这张牌杀死了一名敌人，将这张牌加入你的牌库 / +8伤害
         //如果该牌杀死一名敌人，这张牌加入你的牌库，待实现
-        self.TakeDamage(target, 50 + 8 * self.CardManager.GetBonus(this.name));
+        self.TakeDamage(target, 50 + 8 * self.CardManager.GetBonus(this.color));
 
         if(target.HP <= 0)
         {
@@ -71,9 +71,9 @@ public class Execute : Card
 
 
         //BONUS再 + 2伤害
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
-            self.TakeDamage(target, 2 * self.CardManager.GetBonus(this.name));
+            self.TakeDamage(target, 2 * self.CardManager.GetBonus(this.color));
         }
 
     }
@@ -111,11 +111,11 @@ public class Furious : Card
         int num = UnityEngine.Random.Range(2, 6);
 
         self.CardManager.DicardCard(num, CardColor.Red,self);
-        self.TakeDamage(target, num * (40 + 2 * self.CardManager.GetBonus(this.name)));
+        self.TakeDamage(target, num * (40 + 2 * self.CardManager.GetBonus(this.color)));
 
 
         //将和弃牌数量相同数量的怒火加入你的牌库
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             for (int i = 0; i<num ;i++)
             {
@@ -156,7 +156,7 @@ public class ReasonVanish : Card
         //self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
         self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
         self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
             self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
@@ -184,7 +184,7 @@ public class Vent : Card
         int num = self.CardManager.PutAllCard(CardName.AngerFire, self, target);
         num +=self.PutAllCardInLibrary(CardName.AngerFire, self, target);
 
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //将和弃牌数量相同数量的怒火加入你的牌库
             for (int i = 0 ; i<num ;i++)
@@ -214,7 +214,7 @@ public class Incite : Card
         //2回合内。你每打出一张非红色卡牌。将一张怒火加入你的手牌
         self.GetBuffManager.AddBuff(BuffName.InciteBuff,2);
 
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //+1 持续回合
             self.GetBuffManager.BuffAddLayer(BuffName.InciteBuff);
@@ -238,14 +238,14 @@ public class RadicalAction : Card
 
         //你每损失5点血量，便对敌人造成10点伤害/+2伤害
 
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //每损失3点血量
-            self.TakeDamage(target,(self.HPMax -self.HP) / 3 *(10 +2 *self.CardManager.GetBonus(this.name)));
+            self.TakeDamage(target,(self.HPMax -self.HP) / 3 *(10 +2 *self.CardManager.GetBonus(this.color)));
         }
         else
         {
-            self.TakeDamage(target,(self.HPMax -self.HP) / 5 *(10 +2 *self.CardManager.GetBonus(this.name)));
+            self.TakeDamage(target,(self.HPMax -self.HP) / 5 *(10 +2 *self.CardManager.GetBonus(this.color)));
         }
 
     }
@@ -268,13 +268,13 @@ public class Revenge : Card
         //1回合内，你每受到一次伤害就将一张怒火加入你的手牌
         self.GetBuffManager.AddBuff(BuffName.RevengeBuff,1);
 
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             //+1 持续回合
              self.GetBuffManager.BuffAddLayer(BuffName.RevengeBuff);
         }
 
-        if (self.CardManager.GetBonus(this.name) > this.upgradeTwice)
+        if (self.CardManager.GetBonus(this.color) > this.upgradeTwice)
         {
             //再将一张怒火加入到你的牌库
             self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
@@ -295,10 +295,10 @@ public class AngerFire : Card
     {
 
         //造成10点伤害 / +2伤害 
-        self.TakeDamage(target, 10 + 2 * self.CardManager.GetBonus(this.name));
+        self.TakeDamage(target, 10 + 2 * self.CardManager.GetBonus(this.color));
 
         //将一张怒火加入你的牌库           
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             self.CardLibrary.Add(Card.NewCard(CardName.AngerFire));
         }
@@ -320,7 +320,7 @@ public class Anger : Card
         //无
 
         //造成10点伤害
-        if (self.CardManager.GetBonus(this.name) > this.upgrade)
+        if (self.CardManager.GetBonus(this.color) > this.upgrade)
         {
             self.TakeDamage(target, 10);
         }

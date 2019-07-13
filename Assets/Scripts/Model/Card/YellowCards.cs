@@ -46,7 +46,7 @@ public class Feed : Card
 
 public class Transfer : Card
 {
-    public Transfer() : base(CardName.Transfer, CardColor.Gray, 2, 3, 6)
+    public Transfer() : base(CardName.Transfer, CardColor.Yellow, 2, 3, 6)
     {
 
     }
@@ -61,7 +61,7 @@ public class Transfer : Card
 
 public class Suppress : Card
 {
-    public Suppress() : base(CardName.Suppress, CardColor.Gray, 2, 3, 6)
+    public Suppress() : base(CardName.Suppress, CardColor.Yellow, 2, 3, 6)
     {
 
     }
@@ -78,7 +78,7 @@ public class Suppress : Card
 
 public class Trick : Card
 {
-    public Trick() : base(CardName.Trick, CardColor.Gray, 2, 3, 6)
+    public Trick() : base(CardName.Trick, CardColor.Yellow, 2, 3, 6)
     {
 
     }
