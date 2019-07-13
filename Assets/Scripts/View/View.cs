@@ -23,6 +23,10 @@ public class View : MonoBehaviour
     public GameObject[] handCards;
     public GameObject[] deskCards;
 
+    GameObject[] expenseColor;
+    GameObject[] upgradeColor;
+    GameObject[] upgradeTwiceColor;
+
 
     public GameObject backCard;   //牌背   
     public GameObject motherHandCard;
@@ -73,15 +77,18 @@ public class View : MonoBehaviour
         enemyCards = GameObject.Find("EnemyCards");
         cardTombs = GameObject.Find("CardTombs"); 
         int i =0 ;
+
         handCards = Resources.LoadAll<GameObject>("Prefabs/handCard");
         deskCards = Resources.LoadAll<GameObject>("Prefabs/deskCard");
         buffs = Resources.LoadAll<GameObject>("Prefabs/buff");
+        expenseColor = Resources.LoadAll<GameObject>("Prefabs/expenseColor");
+        upgradeColor = Resources.LoadAll<GameObject>("Prefabs/upgradeColor");
+        upgradeTwiceColor = Resources.LoadAll<GameObject>("Prefabs/upgradeTwiceColor");
 
         maxShowCount = 5;
         hpStart = false ;
 
-        
-
+    
         //SelectedPlayerCard(0,player.GetCardManager.GetCards()[0]);   //键盘时使用
 
     }
@@ -185,6 +192,41 @@ public class View : MonoBehaviour
 		{
 			playerCards.transform.GetChild(i).GetChild(4).gameObject.GetComponent<TextMesh>().text
                     = player.CardManager.GetCards[i].Cost.ToString();
+            Card card = player.CardManager.GetCards[i];
+            if (player.CardManager.GetBonus(card.Color) >= card.GetUpgradeTwice)
+            {
+                playerCards.transform.GetChild(i).GetChild(5).gameObject.SetActive(true);
+                playerCards.transform.GetChild(i).GetChild(6).gameObject.SetActive(true);
+                foreach (var color in upgradeTwiceColor)
+                {
+                    if (color.transform.name == card.Color.ToString())
+                    {
+                      playerCards.transform.GetChild(i).GetChild(5).gameObject.GetComponent<SpriteRenderer>().sprite
+                            = color.GetComponent<SpriteRenderer>().sprite;
+                    }
+                }
+                playerCards.transform.GetChild(i).GetChild(6).gameObject.GetComponent<TextMesh>().text = card.GetUpgradeTwice.ToString();
+               
+            }
+            else  if (player.CardManager.GetBonus(card.Color) >= card.GetUpgrade)
+            {
+                playerCards.transform.GetChild(i).GetChild(5).gameObject.SetActive(true);
+                playerCards.transform.GetChild(i).GetChild(6).gameObject.SetActive(true);
+                foreach (var color in upgradeColor)
+                {
+                    if (color.transform.name == card.Color.ToString())
+                    {
+                      playerCards.transform.GetChild(i).GetChild(5).gameObject.GetComponent<SpriteRenderer>().sprite
+                            = color.GetComponent<SpriteRenderer>().sprite;
+                    }
+                }
+                playerCards.transform.GetChild(i).GetChild(6).gameObject.GetComponent<TextMesh>().text = card.GetUpgrade.ToString();
+            }
+            else
+            {
+                playerCards.transform.GetChild(i).GetChild(5).gameObject.SetActive(false);
+                playerCards.transform.GetChild(i).GetChild(6).gameObject.SetActive(false);
+            }
 		}
     }
 
@@ -227,6 +269,13 @@ public class View : MonoBehaviour
 
 			GameObject itemGo = ObjectPool.GetInstance().GetObj("motherHandCard",startPosition + interval*i, Quaternion.identity);
             itemGo.GetComponent<SpriteRenderer>().sprite = temp.GetComponent<SpriteRenderer>().sprite;
+            foreach (var color in expenseColor)
+            {
+                if (color.transform.name == card.Color.ToString())
+                {
+                    itemGo.transform.GetChild(3).GetComponent<SpriteRenderer>().sprite = color.GetComponent<SpriteRenderer>().sprite;
+                }
+            }
             itemGo.name = temp.name;
             i++;
             text = itemGo.transform.GetChild(0).gameObject.GetComponent<TextMesh>();

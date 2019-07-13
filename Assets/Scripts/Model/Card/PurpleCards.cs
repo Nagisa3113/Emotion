@@ -60,7 +60,11 @@ public class WeiYuChouMou : Card
     public override void TakeEffect(Role self, Role target)
     {
         //随机减少一张手牌的费用1点
-        self.CardManager.GetRandomCard().Cost--;
+        Card card = self.CardManager.GetRandomCard();
+        if (card != null)
+        {
+            self.CardManager.GetRandomCard().Cost--;
+        }
 
 
         if (self.CardManager.GetBonus(this.color) > this.upgrade)

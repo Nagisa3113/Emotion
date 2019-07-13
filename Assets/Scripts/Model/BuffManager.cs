@@ -104,7 +104,7 @@ public class BuffManager
         foreach (Buff buff in buffs)
         {
             buff.Layer = 0;
-            buffs.Remove(buff);
+            //buffs.Remove(buff);
         }
         view.ShowBuff(self);
     }

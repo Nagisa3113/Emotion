@@ -96,7 +96,7 @@ public class SelfControl : Card
 
 public class Plot : Card
 {
-    public Plot() : base(CardName.Plot, CardColor.Green, 1, 2, 4)
+    public Plot() : base(CardName.Plot, CardColor.Green, 4, 10)
     {
 
     }

@@ -100,8 +100,8 @@ public class CardManager
         view = View.GetInstance();
 
         cards = new List<Card>();
-        numMax = 10;
-        expenseMax = 3;
+        numMax = 100;
+        expenseMax = 99;
         expenseCurrent = expenseMax;
         canAddCard = true;
 
@@ -194,8 +194,8 @@ public class CardManager
             Card card = cards[i];
             if (card.Name == cardName)
             {
+                card.TakeEffect(self, target);
                 cards.Remove(card);
-                currentCard.TakeEffect(self, target);
                 self.CardDiscard.Add(card);
                 num ++;
                 self.GetHeal(selfControl);

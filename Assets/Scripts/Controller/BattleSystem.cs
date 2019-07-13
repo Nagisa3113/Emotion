@@ -173,7 +173,7 @@ public class BattleSystem : MonoBehaviour
 
                 if (enemy.isRound == false)
                 {
-                    StartCoroutine("EnemyPutCard");
+                    //StartCoroutine("EnemyPutCard");
                     enemy.isRound = true;
                 }
                 break;

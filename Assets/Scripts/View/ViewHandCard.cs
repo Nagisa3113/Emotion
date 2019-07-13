@@ -14,6 +14,8 @@ public class ViewHandCard : MonoBehaviour
     Vector3 bonusPosition;
     Vector3 costPosition;
     Vector3 picPosition;
+    Vector3 gradePosition;
+    Vector3 gradePicPosition;
     int condition ; 
     
 
@@ -23,6 +25,8 @@ public class ViewHandCard : MonoBehaviour
         bonusPosition = transform.GetChild(2).position - transform.position;
         picPosition = transform.GetChild(3).position - transform.position;
         costPosition = transform.GetChild(4).position - transform.position;
+        gradePosition = transform.GetChild(5).position - transform.position;
+        gradePicPosition = transform.GetChild(6).position - transform.position;
         time = Time.time;
         condition = 0;
     }
@@ -33,6 +37,10 @@ public class ViewHandCard : MonoBehaviour
         transform.GetChild(2).position = bonusPosition + transform .position;
         transform.GetChild(3).position = picPosition + transform .position;
         transform.GetChild(4).position = costPosition + transform .position;
+        transform.GetChild(5).position = gradePosition + transform .position;
+        transform.GetChild(6).position = gradePicPosition + transform .position;
+        transform.GetChild(3).localScale = new Vector3(0.27f,0.27f,0);
+        transform.GetChild(5).localScale = new Vector3(0.3f,0.3f,0);
     }
 
     void OnMouseEnter()
@@ -44,9 +52,15 @@ public class ViewHandCard : MonoBehaviour
             if (transform.name == prefab.name)
             {
                 transform.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
-                transform.GetChild(2).position -=new Vector3(0,0.3f,0);
-                transform.GetChild(3).position +=new Vector3(0,0.4f,0);
-                transform.GetChild(4).position +=new Vector3(0,0.4f,0);
+                transform.GetChild(2).position -= new Vector3(0,0.3f,0);
+                transform.GetChild(3).position += new Vector3(-0.15f,0.4f,0);
+                transform.GetChild(3).localScale = new Vector3(0.37f,0.37f,0);
+                transform.GetChild(4).position += new Vector3(-0.153f,0.42f,0);
+                transform.GetChild(5).position += new Vector3(0.3f,0.4f,0);
+                transform.GetChild(5).localScale = new Vector3(0.36f,0.36f,0);
+                transform.GetChild(6).position += new Vector3(0.3f,0.4f,0);
+                
+                
                 
                 for (int i=0;i < transform.GetSiblingIndex();i++)
                 {
@@ -75,9 +89,13 @@ public class ViewHandCard : MonoBehaviour
                 if (transform.name == prefab.name)
                 {
                     transform.GetComponent<SpriteRenderer>().sprite = prefab.GetComponent<SpriteRenderer>().sprite;
-                    transform.GetChild(2).position +=new Vector3(0,0.3f,0);
-                    transform.GetChild(3).position -=new Vector3(0,0.4f,0);
-                    transform.GetChild(4).position -=new Vector3(0,0.4f,0);  
+                    transform.GetChild(2).position += new Vector3(0,0.3f,0);
+                    transform.GetChild(3).position -= new Vector3(-0.15f,0.4f,0);
+                    transform.GetChild(3).localScale = new Vector3(0.27f,0.27f,0);
+                    transform.GetChild(4).position -= new Vector3(-0.153f,0.42f,0);
+                    transform.GetChild(5).position -= new Vector3(0.3f,0.4f,0);
+                    transform.GetChild(5).localScale = new Vector3(0.3f,0.3f,0);
+                    transform.GetChild(6).position -= new Vector3(0.3f,0.4f,0); 
                     for (int i=0;i < transform.GetSiblingIndex();i++)
                     {
                         View.GetInstance().playerCards.transform.GetChild(i).position += new Vector3(0.7f,0,0);

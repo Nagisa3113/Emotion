@@ -52,7 +52,7 @@ public class PlayerCardManager : CardManager
         if (expenseCurrent >= currentCard.Cost)
         {
             Debug.Log("player打出一张" + currentCard.cardname);
-            if(index == 0 && cards.Count == 0)
+            if(index == 0 && cards.Count == 1)
             {
                 leftCard = Card.EmptyCard;
                 rightCard = Card.EmptyCard;
