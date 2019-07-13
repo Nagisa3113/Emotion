@@ -9,9 +9,11 @@ public class Heal : Card
 
     public override void TakeEffect(Role self, Role target)
     {
+        //回复自己40点血量/+2回复
         self.GetHeal(40 + 2 * self.CardManager.GetBonus(this.name));
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
+            //BONUS再+2回复
             self.GetHeal(2 * self.CardManager.GetBonus(this.name));
         }
     }
@@ -26,6 +28,7 @@ public class Comfort : Card
 
     public override void TakeEffect(Role self, Role target)
     {
+        //2回合内，每使用一张卡牌回复15血量
         self.GetBuffManager.AddBuff(BuffName.ComfortBuff,2);
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
@@ -55,12 +58,14 @@ public class XingZaiLeHuo : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        //敌人每有一种异常状态，回复自己30血量/+5回复
-        self.GetHeal(30 *target.GetBuffManager.CheckCount() + 5 * self.CardManager.GetBonus(this.name));
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
+            //先给予对方1回合腐蚀效果
             target.GetBuffManager.AddBuff(BuffName.CorrodeBuff,1);
         }
+        //敌人每有一种异常状态，回复自己30血量/+5回复
+        self.GetHeal(30 *target.GetBuffManager.CheckCount() + 5 * self.CardManager.GetBonus(this.name));
+      
     }
 
 
@@ -155,8 +160,8 @@ public class Sneer : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        //使敌人获得2回合脆弱效果
-        target.GetBuffManager.AddBuff(BuffName.FragileBuff,2);
+        //使敌人获得3回合脆弱效果
+        target.GetBuffManager.AddBuff(BuffName.FragileBuff,3);
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //持续加一
@@ -251,6 +256,7 @@ public class Obstruct : Card
         int temp = target.GetBuffManager.CheckCount();
         target.GetBuffManager.ResetBuff();
         target.GetBuffManager.AddBuff(BuffName.DizzyBuff,temp);
+        
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
             //费用减一

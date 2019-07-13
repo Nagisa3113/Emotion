@@ -64,6 +64,10 @@ public class Execute : Card
         //如果该牌杀死一名敌人，这张牌加入你的牌库，待实现
         self.TakeDamage(target, 50 + 8 * self.CardManager.GetBonus(this.name));
 
+        if(target.HP <= 0)
+        {
+            self.CardLibrary.Add(Card.NewCard(CardName.Execute));
+        }
 
 
         //BONUS再 + 2伤害
@@ -87,10 +91,7 @@ public class Provoke : Card
 
     public override void TakeEffect(Role self, Role target)
     {
-        base.TakeEffect(self, target);
-        //本回合中你的牌伤害翻倍。            
-
-        //-1费用/-1费用         
+        self.GetBuffManager.AddBuff(BuffName.ProvokeBuff,2);         
 
     }
 
@@ -151,12 +152,14 @@ public class ReasonVanish : Card
             temp =(CardColor) UnityEngine.Random.Range(0, 5);
         }
         self.CardManager.DicardCard(1,temp,self);
-        self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
-        self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+        //self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+        //self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+        self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
+        self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
         if (self.CardManager.GetBonus(this.name) > this.upgrade)
         {
-            self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
-            self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+            self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
+            self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
         }
 
 
@@ -186,7 +189,8 @@ public class Vent : Card
             //将和弃牌数量相同数量的怒火加入你的牌库
             for (int i = 0 ; i<num ;i++)
             {
-                self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+                //self.CardLibrary.Add(Card.NewCard((CardName.AngerFire)));
+                self.CardManager.GetCards.Add(Card.NewCard((CardName.AngerFire)));
             }
 
         }

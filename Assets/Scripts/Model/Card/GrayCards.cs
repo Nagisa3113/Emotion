@@ -104,7 +104,7 @@ public class Lesson : Card
             self.GetArmor(50);
         }
 
-         //自己每有5点护甲便对敌人造成3点伤害
+         //获得现有护甲20%的护甲，将一张教训加入你的牌组/+5%
         self.GetArmor((int)((0.20f+0.05f * self.CardManager.GetBonus(this.name)) * self.Armor));
         self.CardLibrary.Add(Card.NewCard((CardName.Lesson)));
     }
@@ -175,7 +175,7 @@ public class Increase : Card
     public override void TakeEffect(Role self, Role target)
     {
         //使自己获得2回合改进效果
-        self.GetBuffManager.AddBuff(BuffName.IncreaseBuff,1);
+        self.GetBuffManager.AddBuff(BuffName.IncreaseBuff,9999);
     
     }
 
