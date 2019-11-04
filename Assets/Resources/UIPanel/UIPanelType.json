@@ -1,0 +1,30 @@
+{
+  "infoList": [
+    {
+      "panelTypeString": "Map",
+      "path": "UIPanel/MapPanel"
+    },
+
+    {
+      "panelTypeString": "Shop",
+      "path": "UIPanel/ShopPanel"
+    },
+
+    {
+      "panelTypeString": "Treasure",
+      "path": "UIPanel/TreasurePanel"
+    },
+
+    {
+      "panelTypeString": "Reward",
+      "path": "UIPanel/RewardPanel"
+    },
+    
+    {
+      "panelTypeString": "CardSet",
+      "path": "UIPanel/CardSetPanel"
+    }
+    
+
+  ]
+}
